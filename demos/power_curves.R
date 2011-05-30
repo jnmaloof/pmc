@@ -1,0 +1,74 @@
+#power_curves.R
+require(pmc)
+nboot <- 2000
+cpu <- 16
+
+alpha <- c(seq(.1, 1, length=10), 2:10, seq(20,50, by=10))
+n <- c(10, 20, 40, 60, 80, 100, 150, 200)
+lambda <- c(.01, .05, .1, .2, .4, .6, .8, 1)
+data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
+
+
+#sfInit(parallel=TRUE, cpu=16)
+#sfLibrary(pmc)
+#sfExportAll()
+
+## Do the Anoles tree for comparison
+tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
+anoles <- treepower(tree, nboot=nboot, cpu=cpu, alpha=alpha )
+
+size <- lapply(1:length(n), function(i){
+	simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
+	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
+})
+
+## number of taxa
+N <- 50
+shape <- lapply(1:length(lambda), function(i){
+	simtree <- sim.bd.taxa(n=N, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
+	simtree <- lambdaTree(simtree, lambda[i])
+	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
+})
+
+
+save(file="power_curves.Rdat", list=ls() )
+
+
+############## Figure 6 #################
+
+# n is a vec of number of taxa used in each sim: 
+plot_size <- function(){
+    k <- length(n)-2
+  plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1), main="Power by tree size", log="x", xlab="alpha", ylab="power")
+  for(i in 1:k ){ ## skip the last 2, which haven't converged
+    points(alpha, size[[i]]$power, pch=16, col=i)
+    lines(alpha, size[[i]]$power, col=i)
+  }
+  points(alpha, anoles$power, pch=16, col="purple")
+  lines(alpha, anoles$power, col="purple", lwd=4)
+  legend("topleft", c(paste(n[1:3], "taxa"), "23 (anoles)"), col=c(1:k,"purple"), pch=16  ) 
+
+}
+
+
+plot_shape <- function(){
+  plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1), main="Power by tree topology", log="x", xlab="alpha", ylab="power")
+    k <- length(lambda)
+  for(i in 1:length(n)){
+    points(alpha, shape[[i]]$power, pch=16, col=i)
+    lines(alpha, shape[[i]]$power,  col=i)
+  }
+  points(alpha, anoles$power, pch=16, col="purple")
+  lines(alpha, anoles$power, col="purple", lwd=4)
+  legend("topleft", c(paste(lambda, "lambda"), "anoles"), col=c(1:k, "purple"), pch=16  ) 
+}
+
+cairo_pdf("powercurve_size.pdf", width=5, height=5)
+plot_size()
+dev.off()
+
+cairo_pdf("powercurve_shape.pdf", width=5, height=5)
+plot_shape()
+dev.off()
+
+
