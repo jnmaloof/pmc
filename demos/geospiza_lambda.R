@@ -12,7 +12,7 @@ names(data$data) <- rownames(data$data)
 bm <-  fitContinuous_object(data$phy, data$data)
 lambda <- fitContinuous_object(data$phy, data$data, model="lambda")
 lambda[[1]]$lambda <- 0.6
-bm_v_lambda <- montecarlotest(bm, lambda, nboot = 1000, cpu=16)
+bm_v_lambda <- montecarlotest(bm, lambda, nboot = 4000, cpu=16)
 save(list=ls(), file="geospiza_lambda.Rdat")
 
 
@@ -23,12 +23,12 @@ save(list=ls(), file="geospiza_lambda.Rdat")
 require(socialR)
 
 social_plot({
-par(mfrow=c(1,2))
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5), border="white", breaks=15, main="", xlab="Estimated lambda")
 abline(v=lambda[[1]][3], lwd=3, lty=2, col="darkred") #True value
 text(lambda[[1]][3], 300, "True lambda", pos=2)
 abline(v=mean(bm_v_lambda$test_par_dist[3,]), col="darkgray") # mean of dist
 #dev.off()
+}, tag="phylogenetics")
 
 ## Figure 1c
 #cairo_pdf("geospiza_sigma.pdf", width=4, height=4)
@@ -36,6 +36,5 @@ hist(bm_v_lambda$test_par_dist[2,], col=rgb(0,0,1,.5), border="white", breaks=15
 abline(v=lambda[[1]][2], lwd=3, lty=2, col="darkred") #True value
 text(lambda[[1]][2], 300, "True sigma", pos=4)
 #dev.off()
-}, tag="phylogenetics")
 
 
