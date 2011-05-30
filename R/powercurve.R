@@ -1,0 +1,48 @@
+## powertest.R
+# power curve
+treepower <- function(tree, nboot = 100, cpu = 2, threshold = .95, alpha = seq(0.00001, 100, length=1000), method="hansen"){
+
+	## Gotta get templates for the models, do so by fitting some dummy data
+	data <- c(rep(NA, tree@nnodes-tree@nterm), rnorm(tree@nterm))
+	names(data) <- tree@nodes
+	null <- brown(data,tree)
+	regimes <- as.factor(rep("ns", tree@nnodes))
+	names(regimes) <- tree@nodes
+	test <- hansen(data,tree,regimes,1,1)
+
+	## are we in parallel?
+	if(cpu>1){ 	
+		sfInit(parallel=TRUE, cpu=cpu) 
+		sfLibrary(pmc)
+		sfExportAll()
+	} else sfInit()
+
+	null_dist <- sfSapply(1:nboot, function(i){
+		data <- simulate(null)$rep.1
+		null <- update(null, data)
+		test <- update(test, data)
+		-2*(null@loglik - test@loglik) 
+	})
+
+	## Actually do the bootstraps for each alpha
+	test_dist <- sfLapply(1:length(alpha), function(i){
+		test@sqrt.alpha <- sqrt(alpha[i])
+		sfSapply(1:nboot, function(i){
+				data <- simulate(test)$rep.1
+				null <- update(null, data)
+				test <- update(test, data)
+				-2*(null@loglik - test@loglik) 
+		})
+	})
+
+	## Power calculation
+	power <- sapply(1:length(alpha), function(i){
+		threshold_tail <- sort(null_dist)[ round(threshold*nboot) ]
+		sum(test_dist[[i]] > threshold_tail)/nboot
+	})
+
+	## format the output
+	list(null_dist=null_dist, test_dist=test_dist, power=power, alpha=alpha, nboot=nboot, threshold=threshold, tree=tree)
+}
+
+

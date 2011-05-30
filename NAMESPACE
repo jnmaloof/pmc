@@ -1,0 +1,14 @@
+## montecarlotest.R fns
+export(plot.pow, montecarlotest, loglik, getParameters, KL_divergence)
+## object_oriented_geiger.R fns
+export(fitContinuous_object, simulate.fitContinuous, update.fitContinuous, loglik.fitContinuous, getParameters.fitContinuous, fitcts)
+## object_oriented_laser.R fns
+export(fit_speciation, simulate.speciation, update.speciation, loglik.speciation, getParameters.speciation)
+## object_oriented_ouch.R fns
+export(loglik.browntree, loglik.hansentree, getParameters.browntree, getParameters.hansentree)
+## treeformats.R
+export(convert, treepalette)
+##powercurves.R
+export(treepower)
+## blomberg_power.R
+export(blomberg_power)
