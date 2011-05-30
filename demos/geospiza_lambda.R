@@ -27,6 +27,7 @@ par(mfrow=c(1,2))
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5), border="white", breaks=15, main="", xlab="Estimated lambda")
 abline(v=lambda[[1]][3], lwd=3, lty=2, col="darkred") #True value
 text(lambda[[1]][3], 300, "True lambda", pos=2)
+abline(v=mean(bm_v_lambda$test_par_dist[3,]), col="darkgray") # mean of dist
 #dev.off()
 
 ## Figure 1c
