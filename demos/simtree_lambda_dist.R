@@ -14,6 +14,13 @@ lambda[[1]]$lambda <- 0.6
 bm_v_lambda <- montecarlotest(bm, lambda, nboot = 1000, cpu=16)
 save(list=ls(), file="simtree_lambda_dist.Rdat")
 
+o <- confidenceIntervals.pow(bm_v_lambda)
+# display the confidence intervals for lambda (the test model)
+o[["test"]][,"lambda"]
+o[["test"]][,"beta"] # beta = sigma^2 is name used by geiger
+
+
+
 ## Figure 1b
 cairo_pdf("simtree_lambda.pdf", width=4, height=4)
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5), border="white", breaks=15, main="", xlab="Estimated lambda")

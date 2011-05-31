@@ -1,5 +1,7 @@
 ## montecarlotest.R fns
 export(plot.pow, montecarlotest, loglik, getParameters, KL_divergence)
+## confidenceIntervals.R fns
+export(confidenceIntervals.pow)
 ## object_oriented_geiger.R fns
 export(fitContinuous_object, simulate.fitContinuous, update.fitContinuous, loglik.fitContinuous, getParameters.fitContinuous, fitcts)
 ## object_oriented_laser.R fns
@@ -12,3 +14,6 @@ export(convert, treepalette)
 export(treepower)
 ## blomberg_power.R
 export(blomberg_power)
+
+
+
