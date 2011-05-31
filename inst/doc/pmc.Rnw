@@ -1,20 +1,23 @@
 \documentclass[a4paper]{article}
 \usepackage{graphicx}
 \usepackage{subfigure}
+%\usepackage{minted}
+%\renewenvironment{Sinput}{\minted[frame=single]{r}}{\endminted}
+%\DefineVerbatimEnvironment{Soutput}{Verbatim}{frame=leftline}
+%\DefineVerbatimEnvironment{Scode}{Verbatim}{}
+
 \begin{document}
-\setkeys{Gin}{width=0.35\textwidth}
 
 
 <<label=code1a, echo=FALSE>>=
 require(pmc)
-data(geospiza_lambda)
+data(geospiza_lambda) # option to use saved data from the manuscript
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5), border="white", breaks=15, main="", xlab="Estimated lambda")
 abline(v=lambda[[1]][3], lwd=3, lty=2, col="darkred") #True value
 text(lambda[[1]][3], 300, "True lambda", pos=2)
 @
 
 <<label=code1b, echo=FALSE>>=
-require(pmc)
 data(simtree_lambda_dist)
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5), border="white", breaks=15, main="", xlab="Estimated lambda")
 abline(v=lambda[[1]][3], lwd=3, lty=2, col="darkred") #True value
@@ -22,15 +25,13 @@ text(lambda[[1]][3], 300, "True lambda", pos=2)
 @
 
 <<label=code1c, echo=FALSE>>=
-require(pmc)
-data(geospiza_lambda)
 hist(bm_v_lambda$test_par_dist[2,], col=rgb(0,0,1,.5), border="white", breaks=15, main="", xlab="Estimated sigma")
 abline(v=lambda[[1]][2], lwd=3, lty=2, col="darkred") #True value
 text(lambda[[1]][2], 300, "True sigma", pos=4)
 @
 
 
-%\setkeys{Gin}{width=0.35\textwidth}
+\setkeys{Gin}{width=0.35\textwidth}
 \section{Figure 1}
 \begin{figure}
 \begin{center}
@@ -58,6 +59,7 @@ text(lambda[[1]][2], 300, "True sigma", pos=4)
 \begin{figure}
 \begin{center}
 \subfigure[]{
+  %% echo=TRUE won't work inside a subfigure environment
 <<label=Fig2a, fig=TRUE, echo=FALSE>>=
 data(anoles_model_choice)
 plot(ouLP_v_ouLP4, show_text=FALSE, test=FALSE, shade_p=TRUE, shade=FALSE)
@@ -84,7 +86,7 @@ text(par()$xaxp[2]/2, 1, "(c) OU.15", cex=2)
 plot(blank, edge.color = "white", edge.width=5, cex=1.8, show.tip.label=TRUE, label.offset = -.9)
 @
 
-
+% setting figure widths has to be done like this
 \setkeys{Gin}{width=0.9\textwidth}
 \begin{figure}
 \begin{center}
