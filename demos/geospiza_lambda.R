@@ -14,10 +14,10 @@ lambda <- fitContinuous_object(data$phy, data$data, model="lambda")
 lambda[[1]]$lambda <- 0.6
 bm_v_lambda <- montecarlotest(bm, lambda, nboot = 1000, cpu=16)
 
-data(geospiza_lambda)
 o <- confidenceIntervals.pow(bm_v_lambda)
 # display the confidence intervals for lambda (the test model)
 o[["test"]][,"lambda"]
+o[["test"]][,"beta"] # beta = sigma^2 is name used by geiger
 
 save(list=ls(), file="geospiza_lambda.Rdat")
 
