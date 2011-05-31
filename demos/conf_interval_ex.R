@@ -5,6 +5,8 @@ out <- lambda[[1]]
 ci <- sqrt(diag(solve(out$hessian)))
 
 ci
+
+o <- confidenceIntervals.pow(bm_v_lambda)
 o[["test"]][,"lambda"]
 o[["test"]][,"beta"] 
 
