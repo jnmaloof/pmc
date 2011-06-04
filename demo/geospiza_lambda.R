@@ -12,7 +12,7 @@ names(data$data) <- rownames(data$data)
 # theoretical maximum lambda
 C<-vcv.phylo(data$phy)
 maxLambda<-max(C)/max(C[upper.tri(C)])
-bounds = list(lambda=c(0,3))
+bounds = list(lambda=c(0,maxLambda))
 print(bounds)
 
 # Okay, fit the models
