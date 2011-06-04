@@ -1,5 +1,9 @@
-require(pmc)
+# Compares confidence interval estimates from the Hessian approach, 
+# (removed from more recent versions of fitContinuous) with the bootstrap
+# apporoach.  Shows that the Hessian approximation can perform very poorly
+# Won't run without custom compile of geiger with hessian option added back in  
 
+require(pmc)
 data(geospiza_lambda)
 lambda <- fitContinuous(data$phy, data$data, model="lambda", hessian=TRUE)
 out <- lambda[[1]]
