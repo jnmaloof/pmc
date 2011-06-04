@@ -16,25 +16,25 @@ phylogMean<-function(phyvcv, data){
 ## should take "fit" output option as post wrapper to a fit continuous,
 ## along with tree, data, and model.  If that fit is null, it can
 ## make the call to fitContinuous
-fitContinuous_object <- function(tree, data, model="BM", fit=NULL, ...){
+fitContinuous_object <- function(tree, data, model="BM", bounds=NULL, meserr=NULL, fit=NULL){
 # Args
 #   fit: output from fitContinuous.  Will rerun if not provided
   if(is.null(fit))
-  	fit <- fitContinuous(tree, data, model=model, ...)
+  	fit <- fitContinuous(tree, data, model=model, bounds=bounds, meserr=meserr)
 	class(fit) <- "fitContinuous"
 	fit$model <- model
 	fit$tree <- tree
 	fit$data <- data
 	trans_tree <- transformTree(fit) 
 	fit$root <- phylogMean( (fit[[1]]$beta)*vcv.phylo(trans_tree), data)
-  fit$options <- list(opts=...)
+  fit$bounds=bounds
+  fit$meserr=meserr
 	fit
 }
 
 update.fitContinuous <- function(fit, data){
-  
 	fitContinuous_object(tree=fit$tree, data=data, model=fit$model,
-                       fit=NULL, bounds=fit$options$opts)
+                       bounds=fit$bounds, meserr=fit$meserr, fit=NULL)
 ## This is not the best way to pass bounds
 }
 
