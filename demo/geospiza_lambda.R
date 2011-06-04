@@ -12,12 +12,18 @@ names(data$data) <- rownames(data$data)
 # theoretical maximum lambda
 C<-vcv.phylo(data$phy)
 maxLambda<-max(C)/max(C[upper.tri(C)])
-bounds = list(lambda=c(0,maxLambda))
+bounds = list(lambda=c(0,.5))
 print(bounds)
 
 # Okay, fit the models
 bm <-  fitContinuous_object(data$phy, data$data, bounds=bounds)
 lambda <- fitContinuous_object(data$phy, data$data, model="lambda", bounds=bounds)
+
+## <<<<<<<<<< TESTING 
+x <- simulate(lambda)
+update(lambda, x)
+## >>>>>>>>>> TESTING
+
 lambda[[1]]$lambda <- 0.6
 bm_v_lambda <- montecarlotest(bm, lambda, nboot = 1000, cpu=16)
 
