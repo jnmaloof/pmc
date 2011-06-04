@@ -12,12 +12,12 @@ names(data$data) <- rownames(data$data)
 # theoretical maximum lambda
 C<-vcv.phylo(data$phy)
 maxLambda<-max(C)/max(C[upper.tri(C)])
-bounds = list(lambda=c(0,maxLambda))
+bounds = list(alpha=c(0,maxLambda))
 print(bounds)
 
 # Okay, fit the models
-bm <-  fitContinuous_object(data$phy, data$data, bounds)
-lambda <- fitContinuous_object(data$phy, data$data, model="lambda", bounds)
+bm <-  fitContinuous_object(data$phy, data$data, bounds=bounds)
+lambda <- fitContinuous_object(data$phy, data$data, model="lambda", bounds=bounds)
 lambda[[1]]$lambda <- 0.6
 bm_v_lambda <- montecarlotest(bm, lambda, nboot = 1000, cpu=16)
 
@@ -31,7 +31,7 @@ require(socialR)
 social_plot({
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5), border="white", breaks=15, main="", xlab="Estimated lambda")
 abline(v=lambda[[1]][3], lwd=3, lty=2, col="darkred") #True value
-text(lambda[[1]][3], 300, "True lambda", pos=2)}, tags="phylogenetics", description="Fig1a with different lambda bounds")
+text(lambda[[1]][3], 300, "True lambda", pos=2)}, tags="phylogenetics", comment=paste("Fig1a with lambda bounds = ", bounds))
 
 
 
