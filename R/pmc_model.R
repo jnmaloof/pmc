@@ -13,7 +13,7 @@ TreeSim2laser <- function(x){
 
 pmc_model <- function(fit_method, simulate_method, fit_input, 
                       data_name = NULL, get_sim_input, get_sim_output,
-                      get_loglik){
+                      get_loglik)
 # create an object that we can use for pmc methods
 # Args
 #   fit_method: a function (or character string with the function name)
@@ -29,26 +29,32 @@ pmc_model <- function(fit_method, simulate_method, fit_input,
 #                   to match that taken in fit_input
 #   get_loglik: a function to get the loglikelihood back from the output of 
 #               the fit_method function
+#
 # Examples:
-# m <- pmc_model(pureBirth, sim.bd.taxa, 
-#               fit_input = list(x=branching.times(tree)), 
-#               data_name = "x",
-#               function(m) list(n = m$fit_input$phy$Nnode+1, numbsim=1,
-#                                  lambda=m$output$b, mu=0, frac = 1, 
-#                                  complete = FALSE, stochsampling = FALSE)
-#               function(x) branching.times(x[[1]])
-#                function(fit_results) fit_results$LH )
-
-
-  # while the user could specify this if they have already calculated it
-  method_returns <- do.call(fit_method, fit_input)
+#      pb <- function(fit_input){
+#            pmc_model(pureBirth, sim.bd.taxa, 
+#                     fit_input = fit_input, 
+#                     data_name = "x",
+#                     get sim input = function(m) list(n = length(m$fit_input$x), 
+#                         numbsim=1, lambda=m$fit_results$r1, mu=0, frac = 1, 
+#                         complete = FALSE, stochsampling = FALSE),
+#                     get_sim_output = function(x) branching.times(x[[1]][[1]]),
+#                     get_loglik = function(fit_results) fit_results$LH ) 
+#      }
+#       require(pmc); data(geospiza) fit_input = list(x=branching.times(geospiza$geospiza.tree))
+#       m <- pb(fit_input)
+#       x <- simulate(m)
+#       m2<-update(m,x)
+#       print(loglik(m2))
+{
+  fit_results <- do.call(fit_method, fit_input)
 
   if(is.null(data_name))
     data_name <- 1
 
-  out <- list(output=method_returns, input=fit_input, fit_method=fit_method, 
+  out <- list(fit_results=fit_results, fit_input=fit_input, fit_method=fit_method, 
               simulate_method=simulate_method, get_sim_input=get_sim_input,
-              get_loglik=get_loglik)
+              get_sim_output=get_sim_output, get_loglik=get_loglik)
   class(out) <- "pmc_model"
   out
 }
