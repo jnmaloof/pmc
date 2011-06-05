@@ -10,14 +10,17 @@ names(data$data) <- rownames(data$data)
 
 
 # theoretical maximum lambda
-C<-vcv.phylo(data$phy)
-maxLambda<-max(C)/max(C[upper.tri(C)])
-bounds = list(lambda=c(0,maxLambda))
+C <- vcv.phylo(data$phy)
+maxLambda <- max(C)/max(C[upper.tri(C)])
+# replicates of maxLambda > 1 won't bootstrap, result in singular matrices
+bounds <- list(lambda=c(0,1))
 print(bounds)
 
 # Okay, fit the models
 bm <-  fitContinuous_object(data$phy, data$data, bounds=bounds)
 lambda <- fitContinuous_object(data$phy, data$data, model="lambda", bounds=bounds)
+
+
 lambda[[1]]$lambda <- 0.6
 bm_v_lambda <- montecarlotest(bm, lambda, nboot = 1000, cpu=16)
 
