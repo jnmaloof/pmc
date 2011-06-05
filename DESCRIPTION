@@ -6,8 +6,7 @@ Date: 2010-11-19
 Author: Carl Boettiger <cboettig@gmail.com>
 Maintainer: Carl Boettiger <cboettig@gmail.com>
 Description: Monte Carlo based model choice for applied phylogenetics of continuous traits 
-Depends: R(>= 2.6.1), geiger, ouch, laser, snowfall, odesolve, TreeSim, picante
+Imports: geiger, ape, ouch, snowfall, odesolve, laser, TreeSim 
 SystemRequirements: gsl (>= 1.13)
-Suggests: ape
 URL: http://www.carlboettiger.info
-License: GPL (>= 2)
+License: BSD

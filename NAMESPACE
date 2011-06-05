@@ -1,12 +1,24 @@
-## pmc_model.R
+import(geiger)
+import(ape)
+import(ouch)
+import(snowfall)
+import(TreeSim)
+import(odesolve)
+import(laser)
+
+
+## pmc_model.R: a generic wrapper to help any packae with a fit 
+## and simulate method use the pmc package functions
 export(pmc_model, simulate.pmc_model, update.pmc_model, getParameters.pmc_model, loglik.pmc_model, pmc) 
-## montecarlotest.R fns
+
+
+## montecarlotest.R fns 
 export(plot.pow, montecarlotest, loglik, getParameters, KL_divergence)
-## confidenceIntervals.R fns
+## confidenceIntervals.R fns 
 export(confidenceIntervals.pow)
-## treeformats.R
+## treeformats.R 
 export(convert, treepalette)
-##powercurves.R
+##powercurves.R 
 export(treepower)
 
 ## object_oriented_geiger.R fns
