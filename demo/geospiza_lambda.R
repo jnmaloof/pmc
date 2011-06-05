@@ -12,7 +12,8 @@ names(data$data) <- rownames(data$data)
 # theoretical maximum lambda
 C <- vcv.phylo(data$phy)
 maxLambda <- max(C)/max(C[upper.tri(C)])
-bounds <- list(lambda=c(0,maxLambda))
+# replicates of maxLambda > 1 won't bootstrap, result in singular matrices
+bounds <- list(lambda=c(0,1))
 print(bounds)
 
 # Okay, fit the models
