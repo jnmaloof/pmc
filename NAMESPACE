@@ -13,7 +13,9 @@ export(pmc_model, simulate.pmc_model, update.pmc_model, getParameters.pmc_model,
 
 
 ## montecarlotest.R fns 
-export(plot.pow, montecarlotest, loglik, getParameters, KL_divergence)
+export(plot.pow, montecarlotest, loglik, getParameters, KL_divergence, plot_par_dists)
+
+
 ## confidenceIntervals.R fns 
 export(confidenceIntervals.pow)
 ## treeformats.R 

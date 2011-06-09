@@ -4,3 +4,4 @@ power_curves            Calculates the minimum strength of selection detectable 
 simtree_lambda_dist     Analysis of lambda on a large, simulated birth-death tree (fig 1b)
 conf_intervals_ex       Compares the confidence intervals created by pmc to those approximated from the Hessian
 pmc_ex                  An example of how to combine any fit method and simulate method into a pmc object
+parameters              example of how to display parameter distributions

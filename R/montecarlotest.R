@@ -89,7 +89,9 @@ montecarlotest <- function(null, test, nboot = 100, cpu = 2, threshold = .95,
 	output
 }
 
+
 KL_divergence <- function(null_dist, test_dist){
+# Determine the Kulbeck-Liebler Divergence between the distributions
 	nd <- density(null_dist)
 	td <- density(test_dist)
 	P <- nd$y[nd$y > 0 & td$y > 0]
@@ -99,6 +101,7 @@ KL_divergence <- function(null_dist, test_dist){
 }
 
 overlap <- function(pow, bw="nrd0"){
+# Determine the overlap between the two distributions
 	nd <- density(pow$null_dist, bw=bw)
 	td <- density(pow$test_dist, bw=bw)
 	td$y %*% nd$y
@@ -108,7 +111,6 @@ overlap <- function(pow, bw="nrd0"){
 ## can now specify the info criterion
 ## plotting function
 
-###### Works only for OUCH types! #####
 plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE, shade_power=FALSE, shade_p=FALSE, show_aic=FALSE, show_data=TRUE, shade=TRUE, shade_aic=FALSE, print_text=TRUE, show_text = c("p", "power", "reverse_p", "aic"), xlim=NULL, null_dist=TRUE, bw = "nrd0", info_criterion=c("aic", "bic", "aicc", "threshold"), ...){
 
 
@@ -237,4 +239,39 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
     }
 
 }
+
+
+
+
+
+squareme <- function(n){
+  cols <- ceiling(sqrt(n))
+  rows <- ceiling(n/cols)
+  c(rows, cols)
+}
+
+plot_par_dists <- function(outdist, par_id=NULL){
+  n_pars <- length(outdist[,1])
+  par_names <- rownames(outdist)
+## Plot all
+  if(is.null(par_id)){
+    par(mfrow=squareme(n_pars))
+    for(i in 1:n_pars){
+      post <- density(outdist[i,])
+      plot(post$x, post$y, xlab = par_names[i], main="", col=rgb(0,1,0,.5), lwd=0, ylab="")
+      polygon(post$x, post$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5))
+    }
+## Plot just those specified 
+  } else {
+    if(is.character(par_id)) i <- which(par_names, par_id)
+    if(is.numeric(par_id)) i <- par_id
+    post <- density(outdist[i,])
+    plot(post$x, post$y, xlab = par_names[i], main="", col=rgb(0,1,0,.5), lwd=0, ylab="")
+    polygon(post$x, post$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5))
+  }
+}
+
+
+
+
 
