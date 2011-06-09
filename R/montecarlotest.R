@@ -145,7 +145,7 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 	} else if(info_criterion=="threshold") {
 		threshold_tail <- sort(pow$null_dist)[ round(pow$threshold*pow$nboot) ]
 		aic_line <- threshold_tail #nd$x[tmp]
-		print(paste("threshold", aic_line))
+		#print(paste("threshold", aic_line))
 	}
 
 	## Density plots

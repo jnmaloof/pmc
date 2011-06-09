@@ -1,12 +1,36 @@
 \documentclass[a4paper]{article}
 \usepackage{graphicx}
 \usepackage{subfigure}
+\usepackage[colorlinks]{hyperref}
 %\usepackage{minted}
 %\renewenvironment{Sinput}{\minted[frame=single]{r}}{\endminted}
 %\DefineVerbatimEnvironment{Soutput}{Verbatim}{frame=leftline}
 %\DefineVerbatimEnvironment{Scode}{Verbatim}{}
 
+\author{Carl Boettiger}
+\title{An introduction to the \texttt{pmc} Package}
 \begin{document}
+\maketitle
+The Phylogentic Monte Carlo (\texttt{pmc}) package provides methods for estimating the power phylogenetic methods and providing a robust comparison of common phylogenetic models.  This package accompanies Boettiger \emph{et. al.} 2011, \emph{Is your phylogeny informative? Measuring the power of comparative methods.}  The following vingette is provided as the supplement to the paper, which introduces the package.  
+
+
+\section{Package availability}
+The development version of the package is available on Github: \href{https://github.com/cboettig/pmc}{https://github.com/cboettig/pmc}.  Release candidates can be found under Downloads.  The current source-code, issues tracking features, and version history are also available there.  A stable version will be submitted to the CRAN network along with publication.  
+
+
+\section{Basic Tutorial}
+The central function of the package is the \texttt{montecarlotest}.  
+
+\section{Replicating the analysis presented}
+This document uses Sweave to automatically regenerate the figures presented in the manuscript from the data provided. Each of the analyses presented in the paper is provided as a demo script in the package.  One can display all the demos, or call an individual demo, which displays and runs the code in the R console:
+
+<<label=demos>>=
+require(pmc)
+demo(package="pmc")
+demo(geospiza_lambda)
+@
+
+The different demos create all the figures from the four different datasets analyzed in the paper (\emph{Geospiza}, simulated large tree, \emph{Anoles}, collection of simulated trees of varying sizes and shapes).  Some demos are run on a reduced number of replicates relative to the paper, but all demos may take some time to run on common personal computers.  Two additional scripts demonstrate other functionality of the package.  For more details on the available functions, consult the package help functions and package manual.  
 
 
 <<label=code1a, echo=FALSE>>=
@@ -32,7 +56,6 @@ text(lambda[[1]][2], 300, "True sigma", pos=4)
 
 
 \setkeys{Gin}{width=0.35\textwidth}
-\section{Figure 1}
 \begin{figure}
 \begin{center}
 \subfigure[]{
@@ -49,7 +72,7 @@ text(lambda[[1]][2], 300, "True sigma", pos=4)
 @
 }
 \end{center}
-\caption{1(b), Simulated large tree has adequate power.}
+\caption{}
 \label{fig:one}
 \end{figure}
 
@@ -125,8 +148,132 @@ legend("topright", c("BM sims", "OU.1 sims", "obs"), pch=c(15,15,46), lty=c(0,0,
 \end{figure}
 
 
+\begin{figure}
+\begin{center}
+<<label=Fig5, fig=TRUE, echo=FALSE>>=
+### Plots of the error rates ########
+plot_error <- function(pow, null, test, info){
+  plot(pow, shade_aic=T, show_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=paste(null, "vs", test))
+}
+info <- "threshold"
+par(mfrow=c(2,2))
+plot_error(bm_v_ouLP, "BM", "OU.3", info)
+plot_error(bm_v_ou1, "BM", "OU.1", info)
+plot_error(ouLP_v_ouLP4, "OU.3", "OU.4", info)
+plot_error(ouLP_v_half, "OU.3", "OU.15", info)
+@
+\end{center}
+\caption{}
+\label{fig:five}
+\end{figure}
 
 
+\setkeys{Gin}{height=.8\textwidth}
+\begin{figure}
+\begin{center}
+<<label=Fig6a, fig=TRUE, echo=FALSE>>=
+data("power_curves")
+# n is a vec of number of taxa used in each sim: 
+plot_size <- function(){
+    k <- length(n)-2
+  plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1), main="Power by tree size", log="x", xlab="alpha", ylab="power")
+  for(i in 1:k ){ ## skip the last 2, which haven't converged
+    points(alpha, size[[i]]$power, pch=16, col=i)
+    lines(alpha, size[[i]]$power, col=i)
+  }
+  points(alpha, anoles$power, pch=16, col="purple")
+  lines(alpha, anoles$power, col="purple", lwd=4)
+  legend("topleft", c(paste(n[1:3], "taxa"), "23 (anoles)"), col=c(1:k,"purple"), pch=16  ) 
+
+}
+plot_size()
+@
+\end{center}
+\caption{}
+\label{fig:sixa}
+\end{figure}
+
+
+
+\setkeys{Gin}{height=.8\textwidth}
+\begin{figure}
+\begin{center}
+<<label=Fig6b, fig=TRUE, echo=FALSE>>=
+data("power_curves")
+plot_shape <- function(){
+  plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1), main="Power by tree topology", log="x", xlab="alpha", ylab="power")
+    k <- length(lambda)
+  for(i in 1:length(n)){
+    points(alpha, shape[[i]]$power, pch=16, col=i)
+    lines(alpha, shape[[i]]$power,  col=i)
+  }
+  points(alpha, anoles$power, pch=16, col="purple")
+  lines(alpha, anoles$power, col="purple", lwd=4)
+  legend("topleft", c(paste(lambda, "lambda"), "anoles"), col=c(1:k, "purple"), pch=16  ) 
+}
+plot_shape()
+@
+\end{center}
+\caption{}
+\label{fig:sixb}
+\end{figure}
+
+
+
+
+
+
+\section{Further examples}
+It is possible to generate 
+
+<<label=parameters, echo=FALSE>>=
+plot_par_dists <- function(out, par_id=NULL){
+  n_pars <- length(out$test_par_dist[,1])
+  par_names <- rownames(out$test_par_dist)
+  if(is.null(par_id)){
+    par(mfrow=c(1, n_pars))
+    for(i in 1:n_pars){
+      post <- density(out$test_par_dist[i,])
+      plot(post$x, post$y, xlab = par_names[i], main="", col=rgb(0,1,0,.5), lwd=0, ylab="")
+      polygon(post$x, post$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5))
+    }
+  } else {
+    if(is.character(par_id)) i <- which(par_names, par_id)
+    if(is.numeric(par_id)) i <- par_id
+    post <- density(out$test_par_dist[i,])
+    plot(post$x, post$y, xlab = par_names[i], main="", col=rgb(0,1,0,.5), lwd=0, ylab="")
+    polygon(post$x, post$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5))
+  }
+}
+large <- density(bm_v_ouLP$test_par_dist[2,])
+med <- density(bm_v_ouLP$test_par_dist[3,])
+small <- density(bm_v_ouLP$test_par_dist[4,])
+ylim <- c(min(large$y, med$y, small$y), max(large$y, med$y, small$y))
+xlim <- c(min(large$x, med$x, small$x), max(large$x, med$x, small$x))
+@
+
+\setkeys{Gin}{height=5in}
+\begin{figure}
+\begin{center}
+<<label=parplot, fig=TRUE, echo=FALSE>>=
+par(mfrow=c(1,3))
+plot(large, xlim = xlim, ylim=ylim, xlab="estimated optima", main="", lwd=0)
+polygon(large$x, large$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5)) 
+polygon(med$x, med$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5)) 
+polygon(small$x, small$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5)) 
+
+sigma_post <- density(bm_v_ouLP$test_par_dist[1,])
+plot(sigma_post$x, sigma_post$y,  xlab = "sigma", main="", lwd=0, ylab="")
+polygon(sigma_post$x, sigma_post$y,  col=rgb(0,1,0,.5), border=rgb(0,1,0,.5))
+
+alpha_post <- density((bm_v_ouLP$test_par_dist[5,]))
+plot(alpha_post$x, alpha_post$y, xlab = "sqrt.alpha", main="", col=rgb(0,1,0,.5), lwd=0, ylab="")
+polygon(alpha_post$x, alpha_post$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5))
+@
+\end{center}
+\caption{ }
+\label{fig:S1}
+\end{figure}
 \end{document}
 
 

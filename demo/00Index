@@ -2,4 +2,5 @@ anoles_model_choice     Analysis on the Anoles data is performed, (Figs 2-5)
 geospiza_lambda         Analysis of lambda (Fig 1a) and sigma (Fig 1c) for the geospiza data set
 power_curves            Calculates the minimum strength of selection detectable for different shapes/sizes of tree (Fig 6)
 simtree_lambda_dist     Analysis of lambda on a large, simulated birth-death tree (fig 1b)
-
+conf_intervals_ex       Compares the confidence intervals created by pmc to those approximated from the Hessian
+pmc_ex                  An example of how to combine any fit method and simulate method into a pmc object
