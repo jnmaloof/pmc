@@ -15,7 +15,7 @@ The Phylogentic Monte Carlo (\texttt{pmc}) package provides methods for estimati
 
 
 \section{Package availability}
-The development version of the package is available on Github: \href{https://github.com/cboettig/pmc}{https://github.com/cboettig/pmc}.  Release candidates can be found under Downloads.  The current source-code, issues tracking features, and version history are also available there.  A stable version will be submitted to the CRAN network along with publication.  
+The development version of the package is available on Github: \href{https://github.com/cboettig/pmc}{https://github.com/cboettig/pmc}, under Downloads.  The current source-code, issues tracking features, and version history are also available there.  A stable version will soon be submitted to the CRAN network.  
 
 
 \section{Replicating the examples using demos}
@@ -160,7 +160,7 @@ lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"))
 plot_error <- function(pow, null, test, info){
   plot(pow, shade_aic=T, show_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=paste(null, "vs", test))
 }
-info <- "threshold"
+info <- "aic"
 par(mfrow=c(2,2))
 plot_error(bm_v_ouLP, "BM", "OU.3", info)
 plot_error(bm_v_ou1, "BM", "OU.1", info)
@@ -229,7 +229,7 @@ plot_shape()
 
 
 \section{Further examples}
-From the output of the \texttt{montecarlotest} function, it is also possible to generate the distributions of the parameters.  For instance, this shows the distributions of the parameter outputs from the OU.3 model. It is further possible to create the distribution of parameter values observed under one model when simulating under the other, using \verb|out$test_sim_null_pars| or \verb|out$null_sim_test_pars|.  
+From the output of the \texttt{montecarlotest} function, it is also possible to generate the distributions of the parameters.  For instance, this shows the distributions of the parameter outputs from the OU.3 model.  We also provide a function to calculate confidence intervals from these distributions.  It is further possible to create the distribution of parameter values observed under one model when simulating under the other, using \verb|out$test_sim_null_pars| or \verb|out$null_sim_test_pars|.  
 \setkeys{Gin}{width=0.8\textwidth}
 
 \begin{figure}
@@ -237,6 +237,8 @@ From the output of the \texttt{montecarlotest} function, it is also possible to 
 <<label=parplot, fig=TRUE, echo=TRUE>>=
 require(pmc)
 data(anoles_model_choice)
+o <- confidenceIntervals.pow(bm_v_ouLP)
+o[["test"]][,"sigma"]
 plot_par_dists(bm_v_ouLP$test_par_dist)
 @
 \end{center}
