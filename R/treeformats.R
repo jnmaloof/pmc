@@ -1,7 +1,7 @@
 # treeformats.R
 # Convert toggles between ouch and ape format trees 
 
-convert <- function(ot){
+convert <- function(ot, regimes=NULL){
 	if(is(ot, "ouchtree")){
 
 		n <- ot@nnodes
@@ -39,6 +39,10 @@ convert <- function(ot){
 			tree$regimes <- regimes
 		}
 
+    if(!is.null(regimes)){
+      tree$regimes <- regimes[-1]
+    }
+
 	} else	if (is(ot, "phylo")){ 
 			tree <- ape2ouch(ot)
 		}
@@ -50,14 +54,23 @@ convert <- function(ot){
 
 
 # coloring for trees 
-treepalette <- function(apetree, colormap = c("rainbow", "heat.colors", "terrain.colors", "topo.colors", "cm.colors"), rev=FALSE ){ 
+treepalette <- function(apetree, colormap = c("rainbow", "heat.colors", "terrain.colors", "topo.colors", "cm.colors"), custom=NULL, rev=FALSE ){ 
 	colormap <- match.arg(colormap)
-	if(colormap=="rainbow") levels(apetree$regimes) <- rainbow(length(levels(apetree$regimes)))
-	if(colormap=="heat.colors") levels(apetree$regimes) <- heat.colors(length(levels(apetree$regimes)))
-	if(colormap=="terrain.colors") levels(apetree$regimes) <- terrain.colors(length(levels(apetree$regimes)))
-	if(colormap=="topo.colors") levels(apetree$regimes) <- topo.colors(length(levels(apetree$regimes)))
-	if(colormap=="cm.colors") levels(apetree$regimes) <- cm.colors(length(levels(apetree$regimes)))
-	if(rev==TRUE) levels(apetree$regimes) <- rev(levels(apetree$regimes))
+	if(colormap=="rainbow") 
+    levels(apetree$regimes) <- rainbow(length(levels(apetree$regimes)))
+	if(colormap=="heat.colors") 
+    levels(apetree$regimes) <- heat.colors(length(levels(apetree$regimes)))
+	if(colormap=="terrain.colors") 
+    levels(apetree$regimes) <- terrain.colors(length(levels(apetree$regimes)))
+	if(colormap=="topo.colors") 
+    levels(apetree$regimes) <- topo.colors(length(levels(apetree$regimes)))
+	if(colormap=="cm.colors") 
+    levels(apetree$regimes) <- cm.colors(length(levels(apetree$regimes)))
+
+  if(!is.null(custom))
+    levels(apetree$regimes) <- custom
+	if(rev==TRUE) 
+    levels(apetree$regimes) <- rev(levels(apetree$regimes))
 	as.character(apetree$regimes)
 } 
 
