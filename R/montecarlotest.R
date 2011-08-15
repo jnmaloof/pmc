@@ -141,6 +141,11 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 	info_criterion = match.arg(info_criterion)
 	if(info_criterion=="aic"){
 		aic_line <-  2*(dof(pow$test) - dof(pow$null)) 
+	else if(info_criterion=="aicc"){
+    k1 <- dof(pow$test)
+    k2 <- dof(pow$null)
+    n <- length(pow$null$dist)
+		aic_line <-  2*k1+2*k1*(k1+1)/(n-k1-1) -  2*k2+2*k2*(k2+1)/(n-k2-1) 
 	} else if(info_criterion=="bic"){
         k <- pow$null@nterm
 		aic_line <-  log(k)*(dof(pow$test) - dof(pow$null)) 
