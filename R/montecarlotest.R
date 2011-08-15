@@ -111,7 +111,12 @@ overlap <- function(pow, bw="nrd0"){
 ## can now specify the info criterion
 ## plotting function
 
-plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE, shade_power=FALSE, shade_p=FALSE, show_aic=FALSE, show_data=TRUE, shade=TRUE, shade_aic=FALSE, print_text=TRUE, show_text = FALSE, xlim=NULL, null_dist=TRUE, bw = "nrd0", info_criterion=c("aic", "bic", "aicc", "threshold"), ...){
+plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
+                     shade_power=FALSE, shade_p=FALSE, show_aic=FALSE, 
+                     show_data=TRUE, shade=TRUE, shade_aic=FALSE, 
+                     print_text=TRUE, show_text = FALSE, xlim=NULL, ylim=NULL, 
+                     null_dist=TRUE, bw = "nrd0", 
+                     info_criterion=c("aic", "bic", "aicc", "threshold"), ...){
 
 
 	## DOF calculation ##!! Should be made into a generic!!
@@ -123,10 +128,23 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 			dof <- length(object@sigma)+sum(sapply(object@theta,length))
 		} else {
 			dof <- object$k
-			if(is.null(object$k)) print(paste("cannot determine degrees of freedom, please input for model"))
+			if(is.null(object$k)) 
+        print(paste("cannot determine degrees of freedom, please input for model"))
 		}
 		dof
 	}
+
+  n_data_pts <- function(object){
+    if(is(object, "fitContinuous")){
+      warning("aicc not caculated, returning aic")
+      n_data <- Inf
+    } else if(is(object, "browntree")){
+      n_data <- object@nterm
+    } else if(is(object, "hansentree")){
+      n_data <- object@nterm
+    }
+  as.double(n_data)
+  }
 
 	## Calculate the densities
 	nd <- density(pow$null_dist, bw=bw)
@@ -134,18 +152,25 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 
 
 	## Calculate Axis Limits
-	if(is.null(xlim)) xlim <- c( min(pow$null_dist, pow$test_dist), max(pow$null_dist, pow$test_dist) )
+	if(is.null(xlim)) 
+    xlim <- c( min(pow$null_dist, pow$test_dist), max(pow$null_dist, pow$test_dist) )
+	if(is.null(ylim)) 
+    ylim <- c( min(nd$y, td$y), max(nd$y, td$y) )
+  if(legend==TRUE){
+    ylim <- 1.2*ylim
+    xlim <- 1.2*xlim
+  }
 
-
-	## Select the information criterion
+  ## Select the information criterion
 	info_criterion = match.arg(info_criterion)
 	if(info_criterion=="aic"){
 		aic_line <-  2*(dof(pow$test) - dof(pow$null)) 
-	else if(info_criterion=="aicc"){
+	} else if(info_criterion=="aicc"){
     k1 <- dof(pow$test)
     k2 <- dof(pow$null)
-    n <- length(pow$null$dist)
-		aic_line <-  2*k1+2*k1*(k1+1)/(n-k1-1) -  2*k2+2*k2*(k2+1)/(n-k2-1) 
+    n_data <- n_data_pts(pow$null)
+    print(paste("AICc correction for", n_data, "tips"))
+		aic_line <-  2*k1+2*k1*(k1+1)/(n_data-k1-1) -  2*k2+2*k2*(k2+1)/(n_data-k2-1) 
 	} else if(info_criterion=="bic"){
         k <- pow$null@nterm
 		aic_line <-  log(k)*(dof(pow$test) - dof(pow$null)) 
@@ -167,7 +192,7 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 				polygon(nd$x, nd$y, col=rgb(0,0,1,.5), border=rgb(0,0,1,.5))
 			}
 		} else { 
-			plot(0,0, xlim=xlim, ylim = c(min(td$y, nd$y), max(td$y,nd$y)), main=main, xlab=" Likelihood Ratio", ...)  ## blank plot
+			plot(0,0, xlim=xlim, ylim = ylim, main=main, xlab=" Likelihood Ratio", ...)  ## blank plot
 		}
 
 		## Plot the test distribution with appropriate shading
@@ -235,11 +260,11 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
         else if (shade_aic==TRUE & test_dist==TRUE){
             legend("topright", c( paste("Type I error (", round(aic_wrong*100,3), "%)", sep=""),
                                   paste("Type II error (", round((1-aic_power)*100,3), "%)", sep="")), 
-                                  pch=c(15,15), col=c(rgb(1,.5,0,.5), rgb(1,1,0,.5)))
+                                  pch=c(15,15), col=c(rgb(1,.5,0,.5), rgb(1,1,0,.5)), bty="n")
         }
         else if (shade_aic==TRUE & test_dist==FALSE){
             legend("topright", paste("False Alarms (", aic_wrong*100, "%)", sep=""),
-                                  pch=15, col=rgb(1,.5,0,.5))
+                                  pch=15, col=rgb(1,.5,0,.5), bty="n")
         }
     }
 

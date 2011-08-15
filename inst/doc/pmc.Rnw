@@ -41,6 +41,7 @@ text(lambda[[1]][3], 300, "True lambda", pos=2)
 @
 
 <<label=code1b, echo=FALSE>>=
+require(pmc)
 data(simtree_lambda_dist)
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5),
 border="white", breaks=15, main="", xlab="Estimated lambda")
@@ -49,6 +50,8 @@ text(lambda[[1]][3], 300, "True lambda", pos=2)
 @
 
 <<label=code1c, echo=FALSE>>=
+require(pmc)
+data(simtree_lambda_dist)
 hist(bm_v_lambda$test_par_dist[2,], col=rgb(0,0,1,.5),
 border="white", breaks=15, main="", xlab="Estimated sigma")
 abline(v=lambda[[1]][2], lwd=3, lty=2, col="darkred") #True value
@@ -85,6 +88,7 @@ text(lambda[[1]][2], 300, "True sigma", pos=4)
 \subfigure[]{
   %% echo=TRUE won't work inside a subfigure environment
 <<label=Fig2a, fig=TRUE, echo=FALSE>>=
+require(pmc)
 data(anoles_model_choice)
 plot(ouLP_v_ouLP4, show_text=FALSE, test=FALSE, shade_p=TRUE, shade=FALSE)
 @
@@ -99,6 +103,8 @@ plot(ouLP_v_ouLP4, show_text=FALSE, shade_power=TRUE, shade=FALSE)
 
 
 <<label=code3, echo=FALSE>>=
+require(pmc)
+data(anoles_model_choice)
 par(mfrow=c(1,4), mar=c(5, 0.1, 4, 0.1))
 plot(ouLP_tree, edge.color = treepalette(ouLP_tree), edge.width=5, cex=1.2, show.tip.label=FALSE)
 text(par()$xaxp[2]/2, 1, "(a) OU.3", cex=2)
@@ -121,6 +127,8 @@ plot(blank, edge.color = "white", edge.width=5, cex=1.8, show.tip.label=TRUE, la
 
 
 <<label=code4, echo=FALSE>>=
+require(pmc)
+data(anoles_model_choice)
 par(mfrow=c(2,2))
 plot(bm_v_ouLP, show_text=FALSE)
 legend("topright", c("BM sims", "OU.3 sims", "obs"), pch=c(15,15,46),
@@ -157,10 +165,12 @@ lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"))
 \begin{center}
 <<label=Fig5, fig=TRUE, echo=FALSE>>=
 ### Plots of the error rates ########
+require(pmc)
+data(anoles_model_choice)
 plot_error <- function(pow, null, test, info){
   plot(pow, shade_aic=T, show_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=paste(null, "vs", test))
 }
-info <- "aic"
+info <- "aicc"
 par(mfrow=c(2,2))
 plot_error(bm_v_ouLP, "BM", "OU.3", info)
 plot_error(bm_v_ou1, "BM", "OU.1", info)
@@ -176,6 +186,7 @@ plot_error(ouLP_v_half, "OU.3", "OU.15", info)
 \begin{figure}
 \begin{center}
 <<label=Fig6a, fig=TRUE, echo=FALSE>>=
+require(pmc)
 data("power_curves")
 # n is a vec of number of taxa used in each sim: 
 plot_size <- function(){
@@ -203,6 +214,7 @@ plot_size()
 \begin{figure}
 \begin{center}
 <<label=Fig6b, fig=TRUE, echo=FALSE>>=
+require(pmc)
 data("power_curves")
 plot_shape <- function(){
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
