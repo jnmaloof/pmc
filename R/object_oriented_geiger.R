@@ -71,7 +71,7 @@ transformTree <- function(fit){
 	else if(fit$model == "lambda") out <- lambdaTree(fit$tree, fit[[1]]$lambda)
 	else if(fit$model == "kappa") out <- kappaTree(fit$tree, fit[[1]]$kappa)
 	else if(fit$model == "delta") out <- deltaTree(fit$tree, fit[[1]]$delta)
-	else if(fit$model == "EB") out <- exponentialchangeTree(fit$tree, fit[[1]]$r)
+	else if(fit$model == "EB") out <- exponentialchangeTree(fit$tree, a=fit[[1]]$r)
 	else print(paste("Transform model ", fit$model, " not recognized"))
 	out
 }
