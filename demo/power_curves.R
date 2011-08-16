@@ -16,9 +16,9 @@ require(TreePar)
 nboot <- 8
 cpu <- 16
 
-alpha <- c(seq(.1, 1, length=10), 2:10, seq(20,50, by=10))
-n <- c(10, 20, 40, 60, 80, 100, 150, 200)
-lambda <- c(.01, .05, .1, .2, .4, .6, .8, 1)
+alpha  <- c(seq(.1, 1, length=10), 2:10, seq(20,50, by=10))
+n      <- c(10,  20, 40, 60, 80, 100)
+lambda <- c(.01, .1, .4, .6, .8, 1)
 data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
 
 ## Do the Anoles tree for comparison
