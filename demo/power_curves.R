@@ -12,18 +12,15 @@ tweet_errors(script, tags=tags)
 
 require(pmc)
 require(TreePar)
+require(ouch)
 
 nboot <- 1000
 cpu <- 16
 
-alpha  <- c(seq(.1, 1, length=10), 2:10, seq(20,50, by=10))
+alpha  <- c(exp(seq(-4,4,length=10)))
 n      <- c(10,  20, 40, 60, 80, 100)
 lambda <- c(.01, .1, .4, .6, .8, 1)
-data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
 
-## Do the Anoles tree for comparison
-tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
-anoles <- treepower(tree, nboot=nboot, cpu=cpu, alpha=alpha )
 
 size <- lapply(1:length(n), function(i){
 	simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
@@ -38,6 +35,13 @@ shape <- lapply(1:length(lambda), function(i){
 	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
 })
 
+
+save(file="power_curves.Rdat", list=ls() )
+
+## Do the Anoles tree for comparison
+data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
+tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
+anoles <- treepower(tree, nboot=nboot, cpu=cpu, alpha=alpha )
 
 save(file="power_curves.Rdat", list=ls() )
 
