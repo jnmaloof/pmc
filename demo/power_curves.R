@@ -1,4 +1,15 @@
 #power_curves.R
+
+###############
+require(socialR)
+script <- "power_curves.R"
+gitaddr <- gitcommit(script)
+tags="phylogenetics"
+tweet_errors(script, tags=tags)
+###############
+
+
+
 require(pmc)
 nboot <- 2000
 cpu <- 16
@@ -9,9 +20,9 @@ lambda <- c(.01, .05, .1, .2, .4, .6, .8, 1)
 data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
 
 
-#sfInit(parallel=TRUE, cpu=16)
-#sfLibrary(pmc)
-#sfExportAll()
+sfInit(parallel=TRUE, cpu=16)
+sfLibrary(pmc)
+sfExportAll()
 
 ## Do the Anoles tree for comparison
 tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
@@ -35,18 +46,17 @@ save(file="power_curves.Rdat", list=ls() )
 
 
 ############## Figure 6 #################
-
 # n is a vec of number of taxa used in each sim: 
 plot_size <- function(){
-    k <- length(n)-2
+    k <- length(n)-2 ## skip the last 2, which haven't converged
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1), main="Power by tree size", log="x", xlab="alpha", ylab="power")
-  for(i in 1:k ){ ## skip the last 2, which haven't converged
+  for(i in 1:k ){
     points(alpha, size[[i]]$power, pch=16, col=i)
     lines(alpha, size[[i]]$power, col=i)
   }
   points(alpha, anoles$power, pch=16, col="purple")
   lines(alpha, anoles$power, col="purple", lwd=4)
-  legend("topleft", c(paste(n[1:3], "taxa"), "23 (anoles)"), col=c(1:k,"purple"), pch=16  ) 
+  legend("topleft", c(paste(n[1:k], "taxa"), "23 (anoles)"), col=c(1:k,"purple"), pch=16) 
 
 }
 
@@ -63,12 +73,14 @@ plot_shape <- function(){
   legend("topleft", c(paste(lambda, "lambda"), "anoles"), col=c(1:k, "purple"), pch=16  ) 
 }
 
-cairo_pdf("powercurve_size.pdf", width=5, height=5)
+cairo_png("powercurve_size.png")
 plot_size()
 dev.off()
 
-cairo_pdf("powercurve_shape.pdf", width=5, height=5)
+cairo_png("powercurve_shape.png")
 plot_shape()
 dev.off()
 
+upload("powercurve_size.png", script=script, gitaddr=gitaddr, tags=tags)
+upload("powercurve_shape.png", script=script, gitaddr=gitaddr, tags=tags)
 

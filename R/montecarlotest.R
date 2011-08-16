@@ -156,10 +156,10 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
     xlim <- c( min(pow$null_dist, pow$test_dist), max(pow$null_dist, pow$test_dist) )
 	if(is.null(ylim)) 
     ylim <- c( min(nd$y, td$y), max(nd$y, td$y) )
-  if(legend==TRUE){
-    ylim[2] <- 1.3*ylim[2]
-    xlim[2] <- 1.3*xlim[2]
-  }
+
+  ylim[2] <- 1.1*ylim[2]
+  xlim[2] <- 1.1*xlim[2]
+  
 
   ## Select the information criterion
 	info_criterion = match.arg(info_criterion)
@@ -184,7 +184,7 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 	if(type != "hist"){
 		## Plot the null distribution with appropriate shading
 		if(null_dist){ 
-			plot(nd, xlim=xlim, main=main, lwd=1, xlab=" Likelihood Ratio", col=rgb(0,0,1,1), ...) 
+			plot(nd, ylim=ylim, xlim=xlim, main=main, lwd=1, xlab=" Likelihood Ratio", col=rgb(0,0,1,1), ...) 
 			if(shade_p){
 				shade_p <- which(nd$x > pow$lr)
 				polygon(c(pow$lr,nd$x[shade_p]), c(0,nd$y[shade_p]), col=rgb(0,0,1,.5), border=rgb(0,0,1,.5))
@@ -197,7 +197,7 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 
 		## Plot the test distribution with appropriate shading
 		if(test_dist){
-			if(!null_dist) plot(td, xlim=xlim, main=main, lwd=1, xlab=" Likelihood Ratio", lty=0, col=rgb(1,0,0,1), ...)  ## just plot test dist 
+			if(!null_dist) plot(td, xlim=xlim, ylim=ylim, main=main, lwd=1, xlab=" Likelihood Ratio", lty=0, col=rgb(1,0,0,1), ...)  ## just plot test dist 
 			else lines(td, lwd=1, col=rgb(1,0,0,1))
 			threshold_tail <- sort(pow$null_dist)[ round(pow$threshold*pow$nboot) ]
 			if(shade_power){
@@ -220,7 +220,7 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 
 	## Plot histograms instead of density plots
 	} else {
-	hist(pow$null_dist, xlim=xlim, lwd=3, col=rgb(0,0,1,.5), border="white", main=main, xlab=" Likelihood Ratio", ...)
+	hist(pow$null_dist, xlim=xlim, ylim=ylim, lwd=3, col=rgb(0,0,1,.5), border="white", main=main, xlab=" Likelihood Ratio", ...)
 		if(test_dist){
 			hist(pow$test_dist, add=T, lwd=0, col=rgb(1,0,0,.5), border="white", main=main, xlab=" Likelihood Ratio", ...)
 		}
