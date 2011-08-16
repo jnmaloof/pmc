@@ -20,7 +20,7 @@ lambda <- fitContinuous_object(data$phy, data$data, model="lambda",
                                bounds=bounds)
 
 lambda[[1]]$lambda <- 0.6
-bm_v_lambda <- montecarlotest(bm, lambda, nboot = 200, cpu=2)
+bm_v_lambda <- montecarlotest(bm, lambda, nboot = 50, cpu=2)
 
 # display the confidence intervals for lambda (the test model)
 o <- confidenceIntervals.pow(bm_v_lambda)

@@ -157,8 +157,8 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 	if(is.null(ylim)) 
     ylim <- c( min(nd$y, td$y), max(nd$y, td$y) )
   if(legend==TRUE){
-    ylim <- 1.2*ylim
-    xlim <- 1.2*xlim
+    ylim[2] <- 1.3*ylim[2]
+    xlim[2] <- 1.3*xlim[2]
   }
 
   ## Select the information criterion
