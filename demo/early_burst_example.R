@@ -3,7 +3,7 @@ require(pmc)
 ## SIMULATED EXAMPLE 
 simtree <- sim.bd.taxa(n=100, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
 ## Set simulated tree to acutally look like lambda~.6 data.  
-dat <- rTraitCont(exponentialchangeTree(simtree, -0.1), sigma=5)
+dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.1), sigma=5)
 data<-list(phy=simtree, data=dat)
 
 # Okay, fit the models
