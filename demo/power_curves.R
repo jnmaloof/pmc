@@ -11,18 +11,15 @@ tweet_errors(script, tags=tags)
 
 
 require(pmc)
-nboot <- 2000
+require(TreePar)
+
+nboot <- 8
 cpu <- 16
 
 alpha <- c(seq(.1, 1, length=10), 2:10, seq(20,50, by=10))
 n <- c(10, 20, 40, 60, 80, 100, 150, 200)
 lambda <- c(.01, .05, .1, .2, .4, .6, .8, 1)
 data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
-
-
-#sfInit(parallel=TRUE, cpu=16)
-#sfLibrary(pmc)
-#sfExportAll()
 
 ## Do the Anoles tree for comparison
 tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
