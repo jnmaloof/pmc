@@ -14,7 +14,7 @@ require(pmc)
 require(TreePar)
 require(ouch)
 
-nboot <- 1000
+nboot <- 2
 cpu <- 16
 
 alpha  <- c(exp(seq(-4,4,length=10)))
