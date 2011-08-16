@@ -13,7 +13,7 @@ tweet_errors(script, tags=tags)
 require(pmc)
 require(TreePar)
 
-nboot <- 8
+nboot <- 1000
 cpu <- 16
 
 alpha  <- c(seq(.1, 1, length=10), 2:10, seq(20,50, by=10))
@@ -70,11 +70,11 @@ plot_shape <- function(){
   legend("topleft", c(paste(lambda, "lambda"), "anoles"), col=c(1:k, "purple"), pch=16  ) 
 }
 
-cairo_png("powercurve_size.png")
+png("powercurve_size.png")
 plot_size()
 dev.off()
 
-cairo_png("powercurve_shape.png")
+png("powercurve_shape.png")
 plot_shape()
 dev.off()
 
