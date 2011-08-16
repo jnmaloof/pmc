@@ -26,14 +26,14 @@ tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
 anoles <- treepower(tree, nboot=nboot, cpu=cpu, alpha=alpha )
 
 size <- lapply(1:length(n), function(i){
-	simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
+	simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
 })
 
 ## number of taxa
 N <- 50
 shape <- lapply(1:length(lambda), function(i){
-	simtree <- sim.bd.taxa(n=N, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
+	simtree <- sim.bd.taxa(n=N, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]]
 	simtree <- lambdaTree(simtree, lambda[i])
 	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
 })
