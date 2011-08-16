@@ -20,9 +20,9 @@ lambda <- c(.01, .05, .1, .2, .4, .6, .8, 1)
 data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
 
 
-sfInit(parallel=TRUE, cpu=16)
-sfLibrary(pmc)
-sfExportAll()
+#sfInit(parallel=TRUE, cpu=16)
+#sfLibrary(pmc)
+#sfExportAll()
 
 ## Do the Anoles tree for comparison
 tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
