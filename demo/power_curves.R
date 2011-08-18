@@ -14,10 +14,10 @@ require(pmc)
 require(TreePar)
 require(ouch)
 
-nboot <- 2
+nboot <- 500
 cpu <- 16
 
-alpha  <- c(exp(seq(-4,4,length=10)))
+alpha  <- c(.01, .05, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1, 2, 5, 10, 20, 50)
 n      <- c(10,  20, 40, 60, 80, 100)
 lambda <- c(.01, .1, .4, .6, .8, 1)
 
