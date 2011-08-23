@@ -11,36 +11,37 @@ tweet_errors(script, tags=tags)
 
 
 require(pmc)
-nboot <- 2000
+require(TreePar)
+require(ouch)
+
+nboot <- 500
 cpu <- 16
 
-alpha <- c(seq(.1, 1, length=10), 2:10, seq(20,50, by=10))
-n <- c(10, 20, 40, 60, 80, 100, 150, 200)
-lambda <- c(.01, .05, .1, .2, .4, .6, .8, 1)
-data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
+alpha  <- c(.01, .05, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1, 2, 5, 10, 20, 50)
+n      <- c(10,  20, 40, 60, 80, 100)
+lambda <- c(.01, .1, .4, .6, .8, 1)
 
-
-sfInit(parallel=TRUE, cpu=16)
-sfLibrary(pmc)
-sfExportAll()
-
-## Do the Anoles tree for comparison
-tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
-anoles <- treepower(tree, nboot=nboot, cpu=cpu, alpha=alpha )
 
 size <- lapply(1:length(n), function(i){
-	simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
+	simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
 })
 
 ## number of taxa
 N <- 50
 shape <- lapply(1:length(lambda), function(i){
-	simtree <- sim.bd.taxa(n=N, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
+	simtree <- sim.bd.taxa(n=N, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]]
 	simtree <- lambdaTree(simtree, lambda[i])
 	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
 })
 
+
+save(file="power_curves.Rdat", list=ls() )
+
+## Do the Anoles tree for comparison
+data(bimac) # ouch package Anolis sizes (from N. Lesser Antilles)
+tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
+anoles <- treepower(tree, nboot=nboot, cpu=cpu, alpha=alpha )
 
 save(file="power_curves.Rdat", list=ls() )
 
@@ -73,11 +74,11 @@ plot_shape <- function(){
   legend("topleft", c(paste(lambda, "lambda"), "anoles"), col=c(1:k, "purple"), pch=16  ) 
 }
 
-cairo_png("powercurve_size.png")
+png("powercurve_size.png")
 plot_size()
 dev.off()
 
-cairo_png("powercurve_shape.png")
+png("powercurve_shape.png")
 plot_shape()
 dev.off()
 
