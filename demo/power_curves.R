@@ -14,12 +14,12 @@ require(pmc)
 require(TreePar)
 require(ouch)
 
-nboot <- 500
+nboot <- 1000
 cpu <- 16
 
-alpha  <- c(.01, .05, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1, 2, 5, 10, 20, 50)
-n      <- c(10,  20, 40, 60, 80, 100)
-lambda <- c(.01, .1, .4, .6, .8, 1)
+alpha  <- c(.01, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2, 5, 10)
+n      <- c(5,  50, 200)
+lambda <- c(.25, .5, .75, 1)
 
 
 size <- lapply(1:length(n), function(i){
@@ -49,7 +49,7 @@ save(file="power_curves.Rdat", list=ls() )
 ############## Figure 6 #################
 # n is a vec of number of taxa used in each sim: 
 plot_size <- function(){
-    k <- length(n)-2 ## skip the last 2, which haven't converged
+    k <- length(n)
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1), main="Power by tree size", log="x", xlab="alpha", ylab="power")
   for(i in 1:k ){
     points(alpha, size[[i]]$power, pch=16, col=i)
