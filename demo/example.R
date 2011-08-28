@@ -33,7 +33,6 @@ sfLibrary(geiger)
 nboot <- 45
 Asim <- sfLapply(1:nboot, function(i) compare_models(bm, lambda))
 Bsim <- sfLapply(1:nboot, function(i) compare_models(lambda, bm))
-sfStop()
 bm_v_lambda <- collect(Asim, Bsim, bm, lambda)
 
 png("test.png")
@@ -41,7 +40,7 @@ plot(bm_v_lambda)
 dev.off()
 
 require(socialR)
-upload("test.png", script="example.R", gitaddr=gitcommit(script="example.R"))
+#upload("test.png", script="example.R", gitaddr=gitcommit(script="example.R"))
 
 ## parallel automatically ## 
 mc <- montecarlotest(bm, lambda, nboot = nboot, cpu=16)
