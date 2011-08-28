@@ -31,14 +31,8 @@ sfLibrary(geiger)
 
 
 nboot <- 45
-Asim <- sfLapply(1:nboot, function(i){ 
-                            set.seed(i)
-                            compare_models(bm, lambda)
-                          })
-Bsim <- sfLapply(1:nboot, function(i){ 
-                            set.seed(i+nboot) 
-                            compare_models(lambda, bm)
-                          })
+Asim <- sfLapply(1:nboot, function(i) compare_models(bm, lambda))
+Bsim <- sfLapply(1:nboot, function(i) compare_models(lambda, bm))
 bm_v_lambda <- collect(Asim, Bsim, bm, lambda)
 
 png("test.png")
