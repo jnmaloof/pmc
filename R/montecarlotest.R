@@ -123,13 +123,15 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 	dof <- function(object){
 		if(is(object, "fitContinuous")) dof<- object[[1]]$k
 		else if(is(object, "hansentree")){
-			dof <- length(object@sqrt.alpha)+length(object@sigma)+sum(sapply(object@theta,length))
+			dof <- length(object@sqrt.alpha)+length(object@sigma)+
+                    sum(sapply(object@theta,length))
 		} else if(is(object, "browntree")) { 
 			dof <- length(object@sigma)+sum(sapply(object@theta,length))
 		} else {
 			dof <- object$k
 			if(is.null(object$k)) 
-        print(paste("cannot determine degrees of freedom, please input for model"))
+        print(paste("cannot determine degrees of freedom,i
+                    please input for model"))
 		}
 		dof
 	}
