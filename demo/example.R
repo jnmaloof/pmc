@@ -30,7 +30,7 @@ sfLibrary(pmc)
 sfLibrary(geiger)
 
 
-nboot <- 45
+nboot <- 1000
 Asim <- sfLapply(1:nboot, function(i) compare_models(bm, lambda))
 Bsim <- sfLapply(1:nboot, function(i) compare_models(lambda, bm))
 bm_v_lambda <- collect(Asim, Bsim, bm, lambda)
