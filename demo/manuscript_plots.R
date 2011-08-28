@@ -87,7 +87,7 @@ cairo_pdf("boettiger_figure6a.pdf")
 
 data("power_curves")
 # n is a vec of number of taxa used in each sim: 
-k <- length(n)-2
+k <- length(n)
 plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
    main="Power by tree size", log="x", xlab="alpha", ylab="power")
 for(i in 1:k ){ ## skip the last 2, which haven't converged
@@ -97,9 +97,6 @@ for(i in 1:k ){ ## skip the last 2, which haven't converged
 points(alpha, anoles$power, pch=16, col="purple")
 lines(alpha, anoles$power, col="purple", lwd=4)
 legend("topleft", c(paste(n[1:k], "taxa"), "23 (anoles)"), col=c(1:k,"purple"), pch=16  ) 
-
-
-
 dev.off()
 
 

@@ -12,19 +12,30 @@ import(laser)
 export(pmc_model, simulate.pmc_model, update.pmc_model, getParameters.pmc_model, loglik.pmc_model, pmc) 
 
 
-## montecarlotest.R fns 
-export(plot.pow, montecarlotest, loglik, getParameters, KL_divergence, plot_par_dists)
+## montecarlotest.R fns  -- provided by mcmcTools
+#export(plot.pow, montecarlotest, loglik, getParameters) 
+
+## plot_functions.R
+export(plot_par_dists)
 
 
 ## confidenceIntervals.R fns 
 export(confidenceIntervals.pow)
+
 ## treeformats.R 
 export(convert, treepalette)
+
 ##powercurves.R 
 export(treepower)
 
+
+## Object oriented structures for common phylogenetic models
+## allows the existing functions to use the montecarlotest() functions suite
+
+
 ## object_oriented_geiger.R fns
 export(fitContinuous_object, simulate.fitContinuous, update.fitContinuous, loglik.fitContinuous, getParameters.fitContinuous, fitcts)
+
 ## object_oriented_ouch.R fns
 export(loglik.browntree, loglik.hansentree, getParameters.browntree, getParameters.hansentree)
 
