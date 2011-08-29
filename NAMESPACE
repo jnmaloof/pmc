@@ -1,10 +1,10 @@
-import(geiger)
-import(ape)
-import(ouch)
-import(snowfall)
-import(TreeSim)
-import(odesolve)
-import(laser)
+#import(geiger)
+#import(ape)
+#import(ouch)
+#import(snowfall)
+#import(TreeSim)
+#import(odesolve)
+#import(laser)
 
 
 ## pmc_model.R: a generic wrapper to help any packae with a fit 
