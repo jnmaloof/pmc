@@ -63,6 +63,12 @@ plot(blank, edge.color = "white", edge.width=5, cex=1.8, show.tip.label=TRUE, la
 dev.off()
 
 
+require(snowfall)
+sfInit(parallel=TRUE, cpu=cpus)
+sfExportAll()
+sfLibrary(pmc)
+sfLibrary(geiger)
+
 ### Run all the pairwise Monte Carlo Likelihood tests
 ### The actually time-consuming step
 t1<- system.time(ouLP_v_ouLP4 <- montecarlotest(ouLP, ouLP4, nboot=nboot, cpu=cpus))

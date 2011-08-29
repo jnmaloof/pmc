@@ -123,13 +123,15 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 	dof <- function(object){
 		if(is(object, "fitContinuous")) dof<- object[[1]]$k
 		else if(is(object, "hansentree")){
-			dof <- length(object@sqrt.alpha)+length(object@sigma)+sum(sapply(object@theta,length))
+			dof <- length(object@sqrt.alpha)+length(object@sigma)+
+                    sum(sapply(object@theta,length))
 		} else if(is(object, "browntree")) { 
 			dof <- length(object@sigma)+sum(sapply(object@theta,length))
 		} else {
 			dof <- object$k
 			if(is.null(object$k)) 
-        print(paste("cannot determine degrees of freedom, please input for model"))
+        print(paste("cannot determine degrees of freedom,i
+                    please input for model"))
 		}
 		dof
 	}
@@ -269,39 +271,4 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
     }
 
 }
-
-
-
-
-
-squareme <- function(n){
-  cols <- ceiling(sqrt(n))
-  rows <- ceiling(n/cols)
-  c(rows, cols)
-}
-
-plot_par_dists <- function(outdist, par_id=NULL){
-  n_pars <- length(outdist[,1])
-  par_names <- rownames(outdist)
-## Plot all
-  if(is.null(par_id)){
-    par(mfrow=squareme(n_pars))
-    for(i in 1:n_pars){
-      post <- density(outdist[i,])
-      plot(post$x, post$y, xlab = par_names[i], main="", col=rgb(0,1,0,.5), lwd=0, ylab="")
-      polygon(post$x, post$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5))
-    }
-## Plot just those specified 
-  } else {
-    if(is.character(par_id)) i <- which(par_names, par_id)
-    if(is.numeric(par_id)) i <- par_id
-    post <- density(outdist[i,])
-    plot(post$x, post$y, xlab = par_names[i], main="", col=rgb(0,1,0,.5), lwd=0, ylab="")
-    polygon(post$x, post$y, col=rgb(0,1,0,.5), border=rgb(0,1,0,.5))
-  }
-}
-
-
-
-
 
