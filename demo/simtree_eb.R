@@ -3,7 +3,7 @@ require(TreeSim)
 ## SIMULATED EXAMPLE 
 simtree <- sim.bd.taxa(n=600, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
 ## Set simulated tree to acutally look like lambda~.6 data.  
-dat <- rTraitCont(exponentialTree(simtree, -2), sigma=2)
+dat <- rTraitCont(exponentialchangeTree(simtree, a=-2), sigma=2)
 dat <- rTraitCont(simtree, sigma=2)
 dat <- rnorm(length(simtree$tip.label) )
 data<-list(phy=simtree, data=dat)
