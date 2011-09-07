@@ -18,8 +18,8 @@ save(list=ls(), file="simtree_lambda_dist.Rdat")
 
 o <- confidenceIntervals.pow(bm_v_eb)
 # display the confidence intervals for lambda (the test model)
-o[["test"]][,"lambda"]
-o[["test"]][,"beta"] # beta = sigma^2 is name used by geiger
+#o[["test"]][,"lambda"]
+#o[["test"]][,"beta"] # beta = sigma^2 is name used by geiger
 
 
 
