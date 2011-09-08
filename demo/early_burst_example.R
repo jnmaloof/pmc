@@ -1,3 +1,11 @@
+###############
+require(socialR)
+script <- "early_burst_example.R"
+gitaddr <- gitcommit(script)
+tags="phylogenetics"
+tweet_errors(script, tags=tags)
+###############
+
 #early_burst_example.R
 require(pmc)
 require(TreeSim)
