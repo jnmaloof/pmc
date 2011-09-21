@@ -253,20 +253,19 @@ plot.pow <- function(pow, main="", legend=FALSE, type="density", test_dist=TRUE,
 	}
 	## add legend
 	if(legend){
-        if (shade==TRUE){
-       	    legend("topright", c("sim under Null", "sim under Test", "observed"), 
-                   pch=c(15,15,46), lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"))
-#            legend("topright", c("sim under Null", "sim under Test", "observed"), 
-#                   pch=c(15,15,25), fg=c("white", "white", "black"), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "black"))
+        if (shade){
         }
         else if (shade_aic==TRUE & test_dist==TRUE){
-            legend("topright", c( paste("Type I error (", round(aic_wrong*100,3), "%)", sep=""),
-                                  paste("Type II error (", round((1-aic_power)*100,3), "%)", sep="")), 
-                                  pch=c(15,15), col=c(rgb(1,.5,0,.5), rgb(1,1,0,.5)), bty="n")
+            legend("topright", c( paste("Type I error (", 
+              round(aic_wrong*100,3), "%)", sep=""),
+              paste("Type II error (",
+              round((1-aic_power)*100,3), "%)", sep="")),
+              pch=c(15,15), col=c(rgb(1,.5,0,.5), rgb(1,1,0,.5)), bty="n")
         }
         else if (shade_aic==TRUE & test_dist==FALSE){
-            legend("topright", paste("False Alarms (", aic_wrong*100, "%)", sep=""),
-                                  pch=15, col=rgb(1,.5,0,.5), bty="n")
+            legend("topright", paste("False Alarms (",
+              aic_wrong*100, "%)", sep=""),
+              pch=15, col=rgb(1,.5,0,.5), bty="n")
         }
     }
 

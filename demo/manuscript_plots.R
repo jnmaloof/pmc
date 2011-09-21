@@ -13,7 +13,7 @@ pdf("boettiger_figure1a.pdf")
 pdf("boettiger_figure1b.pdf")
   data(simtree_lambda_dist)
   hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5),
-  border="white", breaks=15, main="", xlab="Estimated lambda")
+  border="white", breaks=15, main="", xlab="Estimated lambda", xlim=c(0,1))
   abline(v=lambda[[1]][3], lwd=3, lty=2, col="darkred") #True value
   text(lambda[[1]][3], 300, "True lambda", pos=2)
 dev.off()
@@ -21,7 +21,7 @@ dev.off()
 pdf("boettiger_figure1c.pdf")
   data(simtree_lambda_dist)
   hist(bm_v_lambda$test_par_dist[2,], col=rgb(0,0,1,.5),
-  border="white", breaks=15, main="", xlab="Estimated sigma")
+  border="white", breaks=20, main="", xlab="Estimated sigma")
   abline(v=lambda[[1]][2], lwd=3, lty=2, col="darkred") #True value
   text(lambda[[1]][2], 300, "True sigma", pos=4)
 dev.off()
@@ -47,20 +47,20 @@ dev.off()
 cairo_pdf("boettiger_figure4.pdf")
   data(anoles_model_choice)
   par(mfrow=c(2,2))
-  plot(bm_v_ouLP, show_text=FALSE, main="(a) BM vs. OU.3")
-  legend("topright", c("BM sims", "OU.3 sims", "obs"), pch=c(15,15,46),
+  plot(bm_v_ouLP, show_text=FALSE, main="(a) BM vs. OU.3", xlab=expression(paste(delta)))
+  legend("topright", c("BM sims", "OU.3 sims"), pch=c(15,15),
   lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 
-  plot(ouLP_v_half, show_text=FALSE, main="(b) OU.3 vs. OU.15")
-  legend("topright", c("OU.3 sims", "OU.15 sims", "obs"), pch=c(15,15,46),
+  plot(ouLP_v_ouLP4, show_text=FALSE, main="(b) OU.3 vs. OU.4", xlab=expression(paste(delta)))
+  legend("topright", c("OU.3 sims", "OU.4 sims"), pch=c(15,15),
   lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 
-  plot(ouLP_v_ouLP4, show_text=FALSE, main="(c) OU.3 vs. OU.4")
-  legend("topright", c("OU.3 sims", "OU.4 sims", "obs"), pch=c(15,15,46),
+  plot(ouLP_v_half, show_text=FALSE, main="(c) OU.3 vs. OU.15", xlab=expression(paste(delta)))
+  legend("topright", c("OU.3 sims", "OU.15 sims"), pch=c(15,15),
   lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 
-  plot(bm_v_ou1, show_text=FALSE, main="(d) BM vs. OU.1")
-  legend("topright", c("BM sims", "OU.1 sims", "obs"), pch=c(15,15,46),
+    plot(bm_v_ou1, show_text=FALSE, main="(d) BM vs. OU.1", xlab=expression(paste(delta)))
+  legend("topright", c("BM sims", "OU.1 sims"), pch=c(15,15),
   lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 dev.off()
 
@@ -69,15 +69,15 @@ dev.off()
 ##################### FIGURE 5 ########################################
 cairo_pdf("boettiger_figure5.pdf")
   data(anoles_model_choice)
-  plot_error <- function(pow, main, info){
-      plot(pow, shade_aic=T, show_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=main)
+  plot_error <- function(pow, main, info, ...){
+      plot(pow, shade_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=main, xlab=expression(paste(delta)), ...)
   }
   info <- "aic"
   par(mfrow=c(2,2))
   plot_error(bm_v_ouLP, "(a) BM vs. OU.3", info)
-  plot_error(bm_v_ou1, "(b) BM vs. OU.1", info)
-  plot_error(ouLP_v_ouLP4, "(c) OU.3 vs. OU.4", info)
-  plot_error(ouLP_v_half, "(d) OU.3 vs. OU.15", info)
+  plot_error(ouLP_v_ouLP4, "(b) OU.3 vs. OU.4", info)
+  plot_error(ouLP_v_half, "(c) OU.3 vs. OU.15", info)
+  plot_error(bm_v_ou1, "(d) BM vs. OU.1", info)
 dev.off()
 
 
