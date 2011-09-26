@@ -54,7 +54,7 @@ convert <- function(ot, regimes=NULL){
 
 
 # coloring for trees 
-treepalette <- function(apetree, colormap = c("rainbow", "heat.colors", "terrain.colors", "topo.colors", "cm.colors"), custom=NULL, rev=FALSE ){ 
+treepalette <- function(apetree, colormap = c("rainbow", "heat.colors", "terrain.colors", "topo.colors", "cm.colors", "gray"), custom=NULL, rev=FALSE ){ 
 	colormap <- match.arg(colormap)
 	if(colormap=="rainbow") 
     levels(apetree$regimes) <- rainbow(length(levels(apetree$regimes)))
@@ -66,7 +66,10 @@ treepalette <- function(apetree, colormap = c("rainbow", "heat.colors", "terrain
     levels(apetree$regimes) <- topo.colors(length(levels(apetree$regimes)))
 	if(colormap=="cm.colors") 
     levels(apetree$regimes) <- cm.colors(length(levels(apetree$regimes)))
-
+	if(colormap=="gray"){
+    n <-length(levels(apetree$regimes))+2
+    levels(apetree$regimes) <- gray((1:n)/n)
+  }
   if(!is.null(custom))
     levels(apetree$regimes) <- custom
 	if(rev==TRUE) 
