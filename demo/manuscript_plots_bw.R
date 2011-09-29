@@ -76,12 +76,9 @@ dev.off()
 cairo_pdf("boettiger_figure5.pdf")
   data(anoles_model_choice)
   plot_error <- function(pow, main, info, ...){
-      plot(pow, shade_aic = T, shade = F, show_data = F, show_text = F,
-      info = info,legend = TRUE, main = main, xlab = expression(paste(delta)),
-      color1 = rgb(1,.5,0,.5), color2 = rgb(1,1,0,.5), 
-      border2 = rgb(1,.5,0,1), border2=rgb(1,1,0,1), ...)
+      plot(pow, shade_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=main, xlab=expression(paste(delta)), ...)
   }
-  info <- "aic"
+  info <- "aicc"
   par(mfrow=c(2,2))
   plot_error(bm_v_ouLP, "(a) BM vs. OU.3", info)
   plot_error(ouLP_v_ouLP4, "(b) OU.3 vs. OU.4", info)

@@ -22,13 +22,14 @@ n      <- c(5,  50, 200)
 lambda <- c(.25, .5, .75, 1)
 
 
+# size simulations
 size <- lapply(1:length(n), function(i){
 	simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
 })
 
-## number of taxa
-N <- 50
+## Shape simulations
+N <- 50 ## number of taxa fixed to 50
 shape <- lapply(1:length(lambda), function(i){
 	simtree <- sim.bd.taxa(n=N, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]]
 	simtree <- lambdaTree(simtree, lambda[i])
