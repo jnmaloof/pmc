@@ -11,7 +11,6 @@ tweet_errors(script, tags=tags)
 
 
 require(pmc)
-require(snowfall)
 require(TreePar)
 require(ouch)
 
