@@ -27,7 +27,7 @@ treepower <- function(tree, nboot = 100, cpu = 2, threshold = .95, alpha = seq(0
 	## Actually do the bootstraps for each alpha
 	test_dist <- sfLapply(1:length(alpha), function(i){
 		test@sqrt.alpha <- sqrt(alpha[i])
-		sfSapply(1:nboot, function(i){
+		sapply(1:nboot, function(i){
 				data <- simulate(test)$rep.1
 				null <- update(null, data)
 				test <- update(test, data)
