@@ -1,14 +1,41 @@
-\documentclass[a4paper]{article}
+\documentclass{article}
+\author{Carl Boettiger}
+\title{An introduction to the \texttt{pmc} Package}
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage[colorlinks]{hyperref}
-%\usepackage{minted}
-%\renewenvironment{Sinput}{\minted[frame=single]{r}}{\endminted}
-%\DefineVerbatimEnvironment{Soutput}{Verbatim}{frame=leftline}
-%\DefineVerbatimEnvironment{Scode}{Verbatim}{}
+\usepackage{amsmath}  % extended mathematics
+\usepackage{booktabs} % book-quality tables
+\usepackage{units}    % non-stacked fractions and better unit spacing
+\usepackage{multicol} % multiple column layout facilities
+\usepackage{lipsum}   % filler text
+\usepackage{fancyvrb} % extended verbatim environments
+\fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+\usepackage{xspace}
+%-------------------------------------------------------------------------------
+\RequirePackage{fancyvrb}
+\RequirePackage{listings}
+%% important: keep the following comment in
+%% (see https://mailman.stat.ethz.ch/pipermail/r-help/2009-July/204747.html)
+%% this comment persuades Sweav enot to insert\usepackage{Sweave}
+%-------------------------------------------------------------------------------
+\SweaveOpts{keep.source=TRUE}
+%-------------------------------------------------------------------------------
+<<SweaveListingsPreparations,results=tex,echo=FALSE,strip.white=false>>=
+require(SweaveListingUtils)
+## Must require any other packages to be loaded here
+require(pmc)
+SweaveListingPreparations()
+##setToBeDefinedPkgs(....) line just necessary for the example;
+## may be skipped in general
+## you may also wish to pass arguments to SweaveListingPreparations()
+## see ?SweaveListingPreparations 
+setToBeDefinedPkgs(pkgs=c("SweaveListingUtils","distr", "pmc"),
+                   keywordstyles=c("\\bf\\color{blue}","\\bf\\color{red}"))
+@
 
-\author{Carl Boettiger}
-\title{An introduction to the \texttt{pmc} Package}
+
+
 \begin{document}
 \maketitle
 The Phylogentic Monte Carlo (\texttt{pmc}) package provides methods for estimating the power phylogenetic methods and providing a robust comparison of common phylogenetic models.  This package accompanies Boettiger \emph{et. al.} 2011, \emph{Is your phylogeny informative? Measuring the power of comparative methods.}  The following vignette is provided as the supplement to the paper.  
@@ -22,7 +49,6 @@ The development version of the package is available on Github: \href{https://git
 This document uses Sweave to automatically regenerate the figures presented in the manuscript from the data provided. Each of the analyses presented in the paper is provided as a demo script in the package.  One can display all the demos, or call an individual demo, which displays and runs the code in the R console:
 
 <<label=demos>>=
-require(pmc)
 #demo(package="pmc")
 #demo(geospiza_lambda)
 @
@@ -32,7 +58,6 @@ The different demos create all the figures from the four different datasets anal
 
 \section{plots}
 <<label=code1a, echo=FALSE>>=
-require(pmc)
 data(geospiza_lambda) # option to use saved data from the manuscript
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5),
 border="white", breaks=15, main="", xlab="Estimated lambda")
@@ -41,7 +66,6 @@ text(lambda[[1]][3], 300, "True lambda", pos=2)
 @
 
 <<label=code1b, echo=FALSE>>=
-require(pmc)
 data(simtree_lambda_dist)
 hist(bm_v_lambda$test_par_dist[3,], col=rgb(0,0,1,.5),
 border="white", breaks=15, main="", xlab="Estimated lambda")
@@ -50,7 +74,6 @@ text(lambda[[1]][3], 300, "True lambda", pos=2)
 @
 
 <<label=code1c, echo=FALSE>>=
-require(pmc)
 data(simtree_lambda_dist)
 hist(bm_v_lambda$test_par_dist[2,], col=rgb(0,0,1,.5),
 border="white", breaks=15, main="", xlab="Estimated sigma")
@@ -80,31 +103,28 @@ text(lambda[[1]][2], 300, "True sigma", pos=4)
 \label{fig:one}
 \end{figure}
 
-
-\setkeys{Gin}{width=0.5\textwidth}
-%\section{Figure 1}
-\begin{figure}
-\begin{center}
-\subfigure[]{
-  %% echo=TRUE won't work inside a subfigure environment
 <<label=Fig2a, fig=TRUE, echo=FALSE>>=
-require(pmc)
 data(anoles_model_choice)
 plot(ouLP_v_ouLP4, show_text=FALSE, test=FALSE, shade_p=TRUE, shade=FALSE)
 @
-}\subfigure[]{
+
 <<label=Fig2b, fig=TRUE, echo=FALSE>>=
 plot(ouLP_v_ouLP4, show_text=FALSE, shade_power=TRUE, shade=FALSE)
 @
-}
-\end{center}
-\caption{This example can be reproduced using \texttt{demo(anoles\_model\_choice)}}\label{fig:two}
-\end{figure}
+
+\setkeys{Gin}{width=0.5\textwidth}
+  %% echo=TRUE won't work inside a subfigure environment
+%\section{Figure 1}
+%\begin{figure}
+%\begin{center}
+%\subfigure[]{ <<Fig2a>> }
+%\subfigure[]{ <<Fig2b>> }
+%\end{center}
+%\caption{This example can be reproduced using \texttt{demo(anoles\_model\_choice)}}\label{fig:two}
+%\end{figure}
 
 \setkeys{Gin}{width=0.6\paperwidth}
-
 <<label=code3, echo=FALSE>>=
-require(pmc)
 data(anoles_model_choice)
 layout(cbind(1,2,3,4), widths=c(1,1,1,1))
 par(mar=c(5,.1,.1,.1))
@@ -131,7 +151,6 @@ plot(half_tree, edge.color ="white", edge.width=.1, cex=1., show.tip.label=TRUE,
 
 \setkeys{Gin}{width=0.8\textwidth}
 <<label=code4, echo=FALSE>>=
-require(pmc)
 data(anoles_model_choice)
 par(mfrow=c(2,2))
 plot(bm_v_ouLP, show_text=FALSE)
@@ -169,10 +188,9 @@ lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 \begin{center}
 <<label=Fig5, fig=TRUE, echo=FALSE>>=
 ### Plots of the error rates ########
-require(pmc)
 data(anoles_model_choice)
 plot_error <- function(pow, null, test, info){
-  plot(pow, shade_aic=T, show_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=paste(null, "vs", test))
+  plot(pow, shade_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=paste(null, "vs", test))
 }
 info <- "aic"
 par(mfrow=c(2,2))
@@ -190,7 +208,6 @@ plot_error(ouLP_v_half, "OU.3", "OU.15", info)
 \begin{figure}
 \begin{center}
 <<label=Fig6a, fig=TRUE, echo=FALSE>>=
-require(pmc)
 data("power_curves")
 # n is a vec of number of taxa used in each sim: 
 plot_size <- function(){
@@ -218,7 +235,6 @@ plot_size()
 \begin{figure}
 \begin{center}
 <<label=Fig6b, fig=TRUE, echo=FALSE>>=
-require(pmc)
 data("power_curves")
 plot_shape <- function(){
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
@@ -251,7 +267,6 @@ From the output of the \texttt{montecarlotest} function, it is also possible to 
 \begin{figure}
 \begin{center}
 <<label=parplot, fig=TRUE, echo=TRUE>>=
-require(pmc)
 data(anoles_model_choice)
 o <- confidenceIntervals.pow(bm_v_ouLP)
 o[["test"]][,"sigma"]
@@ -260,6 +275,15 @@ plot_par_dists(bm_v_ouLP$test_par_dist)
 \end{center}
 \label{fig:S1}
 \end{figure}
+
+
+
+<<cleanup , echo=FALSE>>=
+unloadNamespace("pmc")
+unloadNamespace("SweaveListingUtils")
+@
+
+
 \end{document}
 
 
