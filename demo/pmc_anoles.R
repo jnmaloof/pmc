@@ -20,7 +20,7 @@ ou3v15 <- pmc(tree, log(anoles["size"]), "hansen", "hansen",
                    
 ou1v3 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
              list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1), 
-             list(regimes=anoles["OU.4"], sqrt.alpha=1, sigma=1), nboot=20)
+             list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), nboot=20)
  
 ou0v1 <- pmc(tree, log(anoles["size"]), "brown", "hansen", 
              list(), 
@@ -45,6 +45,8 @@ print(c, vp = vplayout(2, 1))
 print(d, vp = vplayout(2, 2))
 
 ## Illustrate plotting the trees 
+
+require(ape)
 
 ## Convert is a custom pmc function that toggles between tree formats
 ou4_tree <- convert(tree, regimes=anoles[["OU.4"]])

@@ -88,8 +88,11 @@ plot.pmc <- function(object, A="null", B="test"){
        geom_vline(x=object$lr, lwd=1, lty=2)
 }
 
+#' @param object a pmc object fit
+#' @return a ggplot2 plot object
+#' @export
 plot_pars <- function(object){
-  ggplot(object$par_dists)
+  ggplot(object$par_dists) + geom_boxplot(aes(comparison, value)) + facet_wrap(~parameter, scales="free_y") 
 }
 
 
