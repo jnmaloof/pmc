@@ -65,10 +65,10 @@ pmc <- function(tree, data,
   ## some reformating, for convenience 
   dat <- melt(reps)
   names(dat) <- c("value", "parameter", "comparison", "rep")
-  null = -2*(subset(dat, parameter=="lr", comparison=="AA")$value -
-             subset(dat, parameter=="lr", comparison=="BA")$value)
-  test = -2*(subset(dat, parameter=="lr", comparison=="AB")$value - 
-             subset(dat, parameter=="lr", comparison=="BB")$value)
+  null = -2*(subset(dat, parameter=="lr" & comparison=="AA")$value -
+             subset(dat, parameter=="lr" & comparison=="BA")$value)
+  test = -2*(subset(dat, parameter=="lr" & comparison=="AB")$value - 
+             subset(dat, parameter=="lr" & comparison=="BB")$value)
   output <- list(lr=lr_orig, null=null, test=test, par_dists=dat, 
                  A=A, B=B, call=match.call()) 
   class(output) <- "pmc"
