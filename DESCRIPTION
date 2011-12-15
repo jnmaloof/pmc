@@ -12,8 +12,7 @@ Imports:
     geiger,
     ouch,
     reshape,
-    snowfall,
-    ggplot2
+    snowfall
 Depends:
     ggplot2
 Collate:

@@ -10,4 +10,5 @@
 \description{
   S3 generic to provide a log-likelihood
 }
+\keyword{internal}
 

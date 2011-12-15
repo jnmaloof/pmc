@@ -53,18 +53,23 @@ pmc <- function(tree, data,
       simB <- simB$rep.1
     AfitB <- update(A, simB, ...)
     BfitB <- update(B, simB, ...)
-    lrB <- -2*(loglik(AfitB) - loglik(BfitB)) 
-    list(lrA=lrA, parsAA=getParameters(AfitA), parsBA=getParameters(BfitA),
-         lrB=lrB, parsAB=getParameters(AfitB), parsBB=getParameters(BfitB))
-  })
-  ## some reformating 
-  dat <- melt(reps)
-  names(dat) <- c("value", "variable", "rep")
-  null = subset(dat, variable=="lrA")$value
-  test = subset(dat, variable=="lrB")$value
-  par_dists = subset(dat, !(variable %in% c("lrA", "lrB")))
+    lrB <- -2*(loglik(AfitB) - loglik(BfitB))
+#    list(lrA=lrA, parsAA=getParameters(AfitA), parsBA=getParameters(BfitA),
+#         lrB=lrB, parsAB=getParameters(AfitB), parsBB=getParameters(BfitB))
 
-  output <- list(lr=lr_orig, null=null, test=test, par_dists=par_dists, 
+    list(AA=as.list(c(lr=loglik(AfitA), getParameters(AfitA))), 
+         BA=as.list(c(lr=loglik(BfitA), getParameters(BfitA))),
+         AB=as.list(c(lr=loglik(AfitB), getParameters(AfitB))), 
+         BB=as.list(c(lr=loglik(BfitB), getParameters(BfitB))))
+  })
+  ## some reformating, for convenience 
+  dat <- melt(reps)
+  names(dat) <- c("value", "parameter", "comparison", "rep")
+  null = -2*(subset(dat, parameter=="lr", comparison=="AA")$value -
+             subset(dat, parameter=="lr", comparison=="BA")$value)
+  test = -2*(subset(dat, parameter=="lr", comparison=="AB")$value - 
+             subset(dat, parameter=="lr", comparison=="BB")$value)
+  output <- list(lr=lr_orig, null=null, test=test, par_dists=dat, 
                  A=A, B=B, call=match.call()) 
   class(output) <- "pmc"
   output
@@ -83,6 +88,9 @@ plot.pmc <- function(object, A="null", B="test"){
        geom_vline(x=object$lr, lwd=1, lty=2)
 }
 
+plot_pars <- function(object){
+  ggplot(object$par_dists)
+}
 
 
 #' Fit any model used in PMC 

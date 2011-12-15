@@ -10,4 +10,5 @@
 \description{
   S3 generic to provide the parameters
 }
+\keyword{internal}
 

@@ -10,4 +10,5 @@
 \description{
   Method to extract the parameters
 }
+\keyword{internal}
 
