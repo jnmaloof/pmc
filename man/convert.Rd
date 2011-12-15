@@ -1,24 +1,21 @@
 \name{convert}
 \alias{convert}
-
-\title{
-  Convert between ape and ouch trees
-}
-\description{
-Given an ape tree (class phylo) returns an ouch tree 
-(class ouchtree) or vice versa.  Returns regimes from the 
-ouch fit object as well.  
-}
+\title{toggles between ouch and ape format trees}
 \usage{
-convert(ot)
+  convert(ot, regimes = NULL)
 }
 \arguments{
-  \item{ot}{
-    a phylogenetic tree
-}
-}
-\author{
-  Carl Boettiger 
-}
+  \item{ot}{a phylogenetic tree in ouch or ape format}
 
+  \item{regimes}{if given in ape format, are appended to
+  phylo format as phy$regimes.  If the ouchtree is a fitted
+  hansen object, regimes will automatically be imported
+  from it unless other regime choice is given here.}
+}
+\value{
+  a phylogenetic tree in the opposite format
+}
+\description{
+  toggles between ouch and ape format trees
+}
 

@@ -1,6 +1,13 @@
 # treeformats.R
-# Convert toggles between ouch and ape format trees 
 
+#' toggles between ouch and ape format trees 
+#' @param ot a phylogenetic tree in ouch or ape format
+#' @param regimes if given in ape format, are appended to 
+#'  phylo format as phy$regimes.  If the ouchtree is a fitted
+#'  hansen object, regimes will automatically be imported from it
+#'  unless other regime choice is given here.  
+#' @return a phylogenetic tree in the opposite format
+#' @export
 convert <- function(ot, regimes=NULL){
 	if(is(ot, "ouchtree")){
 

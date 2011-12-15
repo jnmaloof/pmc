@@ -110,7 +110,6 @@ cairo_pdf("ou3_v_ou4.pdf", height=4, width=4)
 plot(ouLP_v_ouLP4, show_text=FALSE)
 legend("topright", c("OU.3 sims", "OU.4 sims", "obs"), pch=c(15,15,46), lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"))
 dev.off()
-
 cairo_pdf("bm_v_ou3.pdf", height=4, width=4)
 plot(bm_v_ouLP, show_text=FALSE)
 legend("topright", c("BM sims", "OU.3 sims", "obs"), pch=c(15,15,46), lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"))
@@ -136,7 +135,7 @@ plot_error <- function(pow, null, test, info){
 # legend("topright", c(paste("AIC", "Type I err"), paste("AIC", "Type II err")), pch=15, col=c(rgb(1,.5,0,.5), rgb(1,1,0,.5)))
 }
 
-info <- "threshold"
+info <- "aicc"
 #cairo_pdf("aic_errors.pdf", height=6, width=6)
 par(mfrow=c(2,2))
 plot_error(bm_v_ouLP, "BM", "OU.3", info)

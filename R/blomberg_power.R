@@ -35,7 +35,6 @@ blomberg_power <- function(phy, nboot=200, cpu=2, threshold =.95){
 		plot(density(K_dist_bm), col="darkred", lwd=3, ylim=c(0,3), main=paste("overlap = ", overlap))
 		lines(density(K_dist_null), col="darkblue", lwd=3)
 	}
-	social_plot(plt(), file="blombergK.png", tags=tags, comment=paste("Nnode = ", phy$Nnode))
 	out
 }
 

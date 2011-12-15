@@ -6,9 +6,12 @@ ci <- function(dist, thresh=.95){
   upper <- thresh+lower
   sort(dist)[c(round(lower*n), round(n*upper))]
 }
+
+
 ci_all_pars <-  function(par_dists, thresh=.95){ 
   sapply(1:dim(par_dists)[1], function(i) ci(par_dists[i,], thresh))
 }
+
 
 confidenceIntervals.pow <- function(pow, thresh=.95){
   test_ci <- ci_all_pars(pow$test_par_dist) 

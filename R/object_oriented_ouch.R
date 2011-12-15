@@ -2,11 +2,41 @@
 
 ## Ouch is really already object oriented, but needs a few additional methods.  
 ## Also needs to tweak the "update" method (since ouch simulate returns a list of replicates)
+
+#' S3 generic to provide a log-likelihood
+#' @param x a model fit that can return a loglikelihood
+loglik <- function(x, ...) UseMethod("loglik")
+
+#' Method to extract the log likelihood 
+#' @return the log likelihood  
+#' @method loglik hansentree
+#' @S3method loglik hansentree
 loglik.hansentree <- function(object) object@loglik
+
+
+#' Method to extract the log likelihood 
+#' @return the log likelihood  
+#' @method loglik hansentree
+#' @S3method loglik hansentree
 loglik.browntree <- function(object) object@loglik
+
+
+#' S3 generic to provide the parameters 
+#' @param x a model fit of interest 
+getParameters <- function(x, ...) UseMethod("loglik")
+
+#' Method to extract the parameters 
+#' @return a list of parameters
+#' @method getParameters hansentree
+#' @S3method getParameters hansentree
 getParameters.hansentree <- function(object){
 	c(sigma=object@sigma, unlist(object@theta), sqrt.alpha=object@sqrt.alpha)
 }
+
+#' Method to extract the parameters 
+#' @return a list of parameters
+#' @method getParameters browntree
+#' @S3method getParameters browntree
 getParameters.browntree <- function(object){
 	c(sigma=object@sigma, unlist(object@theta))
 }
@@ -16,7 +46,8 @@ getParameters.browntree <- function(object){
 
 
 
-## ouch cannot simulate before it has fit to data.  this makes a tree that can be simulated directly from set parameters
+## ouch cannot simulate before it has fit to data.  
+## this makes a tree that can be simulated directly from set parameters
 ## not strictly needed pmc
 make_browntree <- function(tree, sigma, theta){
 	class(tree) <- "browntree"

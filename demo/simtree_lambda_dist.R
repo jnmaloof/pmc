@@ -1,6 +1,6 @@
 require(pmc)
 ## SIMULATED EXAMPLE 
-simtree <- sim.bd.taxa(n=600, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]] 
+simtree <- sim.bd.taxa(n=600, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 ## Set simulated tree to acutally look like lambda~.6 data.  
 dat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
  dat <- rTraitCont(simtree, sigma=2)

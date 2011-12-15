@@ -1,10 +1,20 @@
-\documentclass{article}
-\author{Carl Boettiger}
-\title{An introduction to the \texttt{pmc} Package}
+\documentclass{elsarticle}
+
+%% Redefines the elsarticle footer
+\makeatletter
+\def\ps@pprintTitle{%
+ \let\@oddhead\@empty
+ \let\@evenhead\@empty
+ \def\@oddfoot{\it \hfill\today}%
+ \let\@evenfoot\@oddfoot}
+\makeatother
+
+
+%\bibliographystyle{elsarticle-harv}
 \usepackage{graphicx}
 \usepackage{subfigure}
-\usepackage[colorlinks]{hyperref}
-\usepackage{amsmath}  % extended mathematics
+\usepackage[pdftex, colorlinks]{hyperref}
+\usepackage{amsmath, amsfonts}  % extended mathematics
 \usepackage{booktabs} % book-quality tables
 \usepackage{units}    % non-stacked fractions and better unit spacing
 \usepackage{multicol} % multiple column layout facilities
@@ -12,32 +22,59 @@
 \usepackage{fancyvrb} % extended verbatim environments
 \fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
 \usepackage{xspace}
+
+\textwidth 6.75in
+\oddsidemargin -0.15in
+\evensidemargin -0.15in
+\textheight 9in
+\topmargin -0.5in
+\newcommand{\ud}{\mathrm{d}}
+
+% should be able to set figure size with:
+%  <<label=test, fig=TRUE, width=5, height=5>>=
+
 %-------------------------------------------------------------------------------
 \RequirePackage{fancyvrb}
 \RequirePackage{listings}
 %% important: keep the following comment in
 %% (see https://mailman.stat.ethz.ch/pipermail/r-help/2009-July/204747.html)
-%% this comment persuades Sweav enot to insert\usepackage{Sweave}
+%% this comment persuades Sweave not to insert\usepackage{Sweave}
 %-------------------------------------------------------------------------------
 \SweaveOpts{keep.source=TRUE}
 %-------------------------------------------------------------------------------
 <<SweaveListingsPreparations,results=tex,echo=FALSE,strip.white=false>>=
+## Must require any other packages to be loaded here!! 
 require(SweaveListingUtils)
-## Must require any other packages to be loaded here
+require(ggplot2)
 require(pmc)
+## must call this setup 
 SweaveListingPreparations()
-##setToBeDefinedPkgs(....) line just necessary for the example;
-## may be skipped in general
 ## you may also wish to pass arguments to SweaveListingPreparations()
-## see ?SweaveListingPreparations 
-setToBeDefinedPkgs(pkgs=c("SweaveListingUtils","distr", "pmc"),
+## This next line may be skipped in general, see ?SweaveListingPreparations 
+setToBeDefinedPkgs(pkgs=c("SweaveListingUtils","distr", "ggplot2"),
                    keywordstyles=c("\\bf\\color{blue}","\\bf\\color{red}"))
 @
-
-
+                   
 
 \begin{document}
-\maketitle
+\begin{frontmatter}
+  \title{An introduction to the \texttt{pmc} Package}
+  \author[davis]{Carl Boettiger\corref{cor1}}
+  \ead{cboettig@ucdavis.edu}
+  %\author[davis]{}
+  \cortext[cor1]{Corresponding author.}
+  \address[davis]{Center for Population Biology, University of California, Davis, United States}
+
+  \begin{abstract}
+  The Phylogenetic Monte Carlo package provides a suite of utilities for more robust model choice and uncertainty analysis in comparative phylogenetic models.  This vignette accompanies the manuscript by Boettiger et al, and describes how to use the package by illustrating how each of the analyses in the manuscript were performed.  
+  \end{abstract}
+
+  \begin{keyword}
+   R  \sep vignette
+   \end{keyword}
+ \end{frontmatter}
+
+\section{Introduction}
 The Phylogentic Monte Carlo (\texttt{pmc}) package provides methods for estimating the power phylogenetic methods and providing a robust comparison of common phylogenetic models.  This package accompanies Boettiger \emph{et. al.} 2011, \emph{Is your phylogeny informative? Measuring the power of comparative methods.}  The following vignette is provided as the supplement to the paper.  
 
 
@@ -103,16 +140,7 @@ text(lambda[[1]][2], 300, "True sigma", pos=4)
 \label{fig:one}
 \end{figure}
 
-<<label=Fig2a, fig=TRUE, echo=FALSE>>=
-data(anoles_model_choice)
-plot(ouLP_v_ouLP4, show_text=FALSE, test=FALSE, shade_p=TRUE, shade=FALSE)
-@
-
-<<label=Fig2b, fig=TRUE, echo=FALSE>>=
-plot(ouLP_v_ouLP4, show_text=FALSE, shade_power=TRUE, shade=FALSE)
-@
-
-\setkeys{Gin}{width=0.5\textwidth}
+%\setkeys{Gin}{width=0.5\textwidth}
   %% echo=TRUE won't work inside a subfigure environment
 %\section{Figure 1}
 %\begin{figure}
@@ -123,7 +151,8 @@ plot(ouLP_v_ouLP4, show_text=FALSE, shade_power=TRUE, shade=FALSE)
 %\caption{This example can be reproduced using \texttt{demo(anoles\_model\_choice)}}\label{fig:two}
 %\end{figure}
 
-\setkeys{Gin}{width=0.6\paperwidth}
+% setting figure widths has to be done like this
+\setkeys{Gin}{width=\linewidth}
 <<label=code3, echo=FALSE>>=
 data(anoles_model_choice)
 layout(cbind(1,2,3,4), widths=c(1,1,1,1))
@@ -137,7 +166,6 @@ mtext("(c) OU.15", 1, cex=1.2)
 plot(half_tree, edge.color ="white", edge.width=.1, cex=1., show.tip.label=TRUE, label.offset=-1.2)
 @
 
-% setting figure widths has to be done like this
 \begin{figure}
 \begin{center}
 <<label=Fig3, fig=TRUE, echo=FALSE>>=
@@ -150,33 +178,26 @@ plot(half_tree, edge.color ="white", edge.width=.1, cex=1., show.tip.label=TRUE,
 
 
 \setkeys{Gin}{width=0.8\textwidth}
-<<label=code4, echo=FALSE>>=
+\begin{figure}
+\begin{center}
+<<Fig4, fig=TRUE, echo=TRUE>>=
 data(anoles_model_choice)
 par(mfrow=c(2,2))
-plot(bm_v_ouLP, show_text=FALSE)
+plot(bm_v_ouLP, show_text=FALSE, main="")
 legend("topright", c("BM sims", "OU.3 sims", "obs"), pch=c(15,15,46),
 lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 
-plot(ouLP_v_half, show_text=FALSE)
+plot(ouLP_v_half, show_text=FALSE, main="")
 legend("topright", c("OU.3 sims", "OU.15 sims", "obs"), pch=c(15,15,46),
 lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 
-plot(ouLP_v_ouLP4, show_text=FALSE)
+plot(ouLP_v_ouLP4, show_text=FALSE, main="")
 legend("topright", c("OU.3 sims", "OU.4 sims", "obs"), pch=c(15,15,46),
 lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 
-plot(bm_v_ou1, show_text=FALSE)
+plot(bm_v_ou1, show_text=FALSE, main="")
 legend("topright", c("BM sims", "OU.1 sims", "obs"), pch=c(15,15,46),
 lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
-@
-
-
-\setkeys{Gin}{width=0.8\textwidth}
-
-\begin{figure}
-\begin{center}
-<<label=Fig4, fig=TRUE, echo=FALSE>>=
-<<code4>>
 @
 \end{center}
 \caption{This example can also be reproduced using \texttt{demo(anoles\_model\_choice)}}
@@ -186,13 +207,14 @@ lty=c(0,0,2), col=c(rgb(0,0,1,.5), rgb(1,0,0,.5), "darkred"), bty="n")
 
 \begin{figure}
 \begin{center}
-<<label=Fig5, fig=TRUE, echo=FALSE>>=
+<<label=Fig5, fig=TRUE, echo=TRUE>>=
 ### Plots of the error rates ########
 data(anoles_model_choice)
 plot_error <- function(pow, null, test, info){
-  plot(pow, shade_aic=T, shade=F, show_data=F, show_text=F, info=info, legend=TRUE, main=paste(null, "vs", test))
+  plot(pow, shade_aic=T, shade=F, show_data=F, show_text=F,
+       info=info, legend=TRUE, main=paste(null, "vs", test))
 }
-info <- "aic"
+info <- "aicc"
 par(mfrow=c(2,2))
 plot_error(bm_v_ouLP, "BM", "OU.3", info)
 plot_error(bm_v_ou1, "BM", "OU.1", info)
@@ -200,14 +222,14 @@ plot_error(ouLP_v_ouLP4, "OU.3", "OU.4", info)
 plot_error(ouLP_v_half, "OU.3", "OU.15", info)
 @
 \end{center}
-\caption{This example can also be reproduced using \texttt{demo(anoles\_model\_choice)}}
+\caption{Note that we have specified the information criteria to evaluate as ``AICc'' in this example.  The example can also be reproduced using \texttt{demo(anoles\_model\_choice)}}
 \label{fig:five}
 \end{figure}
 
-\setkeys{Gin}{width=0.5\textwidth}
+%\setkeys{Gin}{width=0.5\textwidth}
 \begin{figure}
 \begin{center}
-<<label=Fig6a, fig=TRUE, echo=FALSE>>=
+<<label=Fig6a, fig=TRUE, echo=TRUE>>=
 data("power_curves")
 # n is a vec of number of taxa used in each sim: 
 plot_size <- function(){
@@ -234,7 +256,7 @@ plot_size()
 
 \begin{figure}
 \begin{center}
-<<label=Fig6b, fig=TRUE, echo=FALSE>>=
+<<label=Fig6b, fig=TRUE, echo=TRUE>>=
 data("power_curves")
 plot_shape <- function(){
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
@@ -258,31 +280,19 @@ plot_shape()
 \pagebreak
 
 
-
-
 \section{Further examples}
 From the output of the \texttt{montecarlotest} function, it is also possible to generate the distributions of the parameters.  For instance, this shows the distributions of the parameter outputs from the OU.3 model.  We also provide a function to calculate confidence intervals from these distributions.  It is further possible to create the distribution of parameter values observed under one model when simulating under the other, using \verb|out$test_sim_null_pars| or \verb|out$null_sim_test_pars|.  
-\setkeys{Gin}{width=0.8\textwidth}
+%\setkeys{Gin}{width=0.8\textwidth}
 
-\begin{figure}
-\begin{center}
-<<label=parplot, fig=TRUE, echo=TRUE>>=
+<<parplot, echo=TRUE>>=
 data(anoles_model_choice)
 o <- confidenceIntervals.pow(bm_v_ouLP)
 o[["test"]][,"sigma"]
-plot_par_dists(bm_v_ouLP$test_par_dist)
-@
-\end{center}
-\label{fig:S1}
-\end{figure}
-
-
-
-<<cleanup , echo=FALSE>>=
-unloadNamespace("pmc")
-unloadNamespace("SweaveListingUtils")
 @
 
+
+%\section*{ }%bibliography
+%\bibliography{/home/cboettig/Documents/Mendeley/bib/library.bib}
 
 \end{document}
 

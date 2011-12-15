@@ -10,7 +10,6 @@ TreeSim2laser <- function(x){
 }
 
 
-
 pmc_model <- function(fit_method, simulate_method, fit_input, 
                       data_name = NULL, get_sim_input, get_sim_output,
                       get_loglik, get_parameters=NULL)
@@ -88,52 +87,3 @@ getParameters.pmc_model <- function(m) m$get_parameters(m$fit_results)
 
 loglik.pmc_model <- function(m) m$get_loglik(m$fit_results)
 
-pmc <- function(null, test, nboot=100, cpu=1, getParNames=FALSE){
-  ## parallelization 
-	if(cpu>1 & !sfIsRunning()){ 	
-		sfInit(parallel=TRUE, cpu=cpu) 
-		sfLibrary(pmc)
-		sfExportAll()
-	} else if(cpu<2 & !sfIsRunning()){
-    sfInit()
-  }
-
-
-  ## Perform the bootstrapping
-  null_sim <- sfSapply(1:nboot, function(i){
-    data <- simulate(null)
-    null <- update(null, data)
-    test <- update(test, data)
-    lr <- -2*(loglik(null) - loglik(test)) 
-	 list(lr, getParameters(null), getParameters(test))
-	})
-	test_sim <- sfSapply(1:nboot, function(i){
-		data <- simulate(test)
-		null <- update(null, data)
-		test <- update(test, data)
-		lr <- -2*(loglik(null) - loglik(test))
-		list(lr, getParameters(null), getParameters(test))
-	})
-
-
-  ## Formatting output
-	null_dist <- unlist(null_sim[1,]) 
-	test_dist <- unlist(test_sim[1,]) 
-	null_bootstrap_pars <- matrix( unlist(null_sim[2,]), ncol=nboot)
-	test_bootstrap_pars <- matrix( unlist(test_sim[3,]), ncol=nboot)
-	null_sim_test_pars  <- matrix( unlist(null_sim[3,]), ncol=nboot)
-  test_sim_null_pars  <- matrix( unlist(test_sim[2,]), ncol=nboot)
-  if(GetParNames){ 
-    rownames(null_bootstrap_pars) <- names(getParameters(null))
-    rownames(test_bootstrap_pars) <- names(getParameters(test))
-    rownames(null_sim_test_pars) <- names(getParameters(test))
-    rownames(test_sim_null_pars) <- names(getParameters(null))
-  }
-  output <- list(null_dist=null_dist, test_dist=test_dist, nboot=nboot, 
-                 null=null, test=test, null_par_dist = null_bootstrap_pars, 
-                 test_par_dist = test_bootstrap_pars, null_sim_test_pars = 
-                 null_sim_test_pars, test_sim_null_pars=test_sim_null_pars)
-	class(output) <- "pow"
-	output
-
-}
