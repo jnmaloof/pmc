@@ -60,8 +60,23 @@ convert <- function(ot, regimes=NULL){
 
 
 
-# coloring for trees 
-treepalette <- function(apetree, colormap = c("rainbow", "heat.colors", "terrain.colors", "topo.colors", "cm.colors", "gray"), custom=NULL, rev=FALSE ){ 
+#' flexible regime coloring for trees 
+#' @param tree A phylo class or ouch-class tree
+#' @param regimes in ouch format, (only needed if not already given in tree) 
+#' @param colormap a standard colormap color, see the list
+#' @param custom a custom colormap
+#' @param rev logical, reverse the order of the colormap colors 
+#' @return a set of colors than can be passed as edge.color in plot.phylo
+#' @export
+treepalette <- function(tree, regimes=NULL, colormap = c("rainbow", "heat.colors",
+                        "terrain.colors", "topo.colors", "cm.colors", "gray"),
+                        custom=NULL, rev=FALSE){
+
+  if(!is.null(regimes) & is(tree,"ouchtree"))
+    apetree <- convert(tree, regimes=regimes)
+  else
+    apetree <- tree
+
 	colormap <- match.arg(colormap)
 	if(colormap=="rainbow") 
     levels(apetree$regimes) <- rainbow(length(levels(apetree$regimes)))
