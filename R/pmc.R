@@ -26,7 +26,8 @@
 #' attach(geospiza)
 #' out <- pmc(geospiza.tree, geospiza.data, "BM", "lambda")
 #' ## FIXME add examples that require conversion of data formats
-#' @import snowfall reshape
+#' @import snowfall 
+#' @import reshape
 #' @export
 pmc <- function(tree, data, 
                 modelA = c("BM", "OU", "lambda", "kappa", "delta", "EB", "white", "trend", "hansen"), 
@@ -52,7 +53,7 @@ pmc <- function(tree, data,
       simB <- simB$rep.1
     AfitB <- update(A, simB, ...)
     BfitB <- update(B, simB, ...)
-    lrB <- -2*(loglik(A) - loglik(B)) 
+    lrB <- -2*(loglik(AfitB) - loglik(BfitB)) 
     list(lrA=lrA, parsAA=getParameters(AfitA), parsBA=getParameters(BfitA),
          lrB=lrB, parsAB=getParameters(AfitB), parsBB=getParameters(BfitB))
   })
@@ -68,6 +69,21 @@ pmc <- function(tree, data,
   class(output) <- "pmc"
   output
 }
+
+#' plot the distributions
+#' @param object a pmc object
+#' @import ggplot2
+#' @method plot pmc
+#' @S3method plot pmc
+plot.pmc <- function(object, A="null", B="test"){
+  df <- data.frame(object$null, object$test)
+  colnames(df) <- c(A, B)
+  dat <- melt(df)
+  ggplot(dat) + geom_density(aes(value, fill=variable), alpha=.7) +
+       geom_vline(x=object$lr, lwd=1, lty=2)
+}
+
+
 
 #' Fit any model used in PMC 
 #' @param tree a phylogenetic tree. can be ouch or ape format
@@ -93,7 +109,8 @@ pmc <- function(tree, data,
 #' tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
 #' ou.2 <- pmc_fit(data=log(bimac['size']),tree, model="hansen", 
 #'                 list(regimes=bimac['OU.2'],sqrt.alpha=1,sigma=1))
-#' @import geiger ouch
+#' @import geiger 
+#' @import ouch
 #' @export
 pmc_fit <- function(tree, data, model, options=list()){
   # Figure out if we need ape/geiger based formats or ouch formats

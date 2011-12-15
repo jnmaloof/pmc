@@ -8,6 +8,14 @@ Description: Monte Carlo based model choice for applied phylogenetics of
     continuous traits
 URL: http://www.carlboettiger.info
 License: BSD
+Imports:
+    geiger,
+    ouch,
+    reshape,
+    snowfall,
+    ggplot2
+Depends:
+    ggplot2
 Collate:
     'blomberg_power.R'
     'confidenceIntervals.R'
