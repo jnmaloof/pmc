@@ -33,7 +33,6 @@ format_data <- function(tree, traits, species_names = NULL, regimes = NULL ){
 			stop("Species names not found")
 		}
 	}
-
 	## attach species names to traits
 	if(is(traits, "numeric") ){
 		names(traits) <- species_names
