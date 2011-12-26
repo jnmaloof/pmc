@@ -2,7 +2,19 @@
 \alias{simulate.fitContinuous}
 \title{simulate method}
 \usage{
-  \method{simulate}{fitContinuous} (fit)
+  \method{simulate}{fitContinuous} (object, nsim = 1,
+    seed = NULL, ...)
+}
+\arguments{
+  \item{object}{a fitContinuous object}
+
+  \item{nsim}{number of sims (currently always 1)}
+
+  \item{seed}{an optional seed for the simulations (not
+  implemented)}
+
+  \item{...}{additional arguments, not implemented for
+  fitContinuous simulations}
 }
 \value{
   simulated dataset
@@ -11,8 +23,7 @@
   simulate method
 }
 \details{
-  rTraitCont might not be ideal here, should warn if alpha
-  is large!  Currently only designed to simulate from the
-  first fit
+  intended as an internal function, though an available S3
+  method
 }
 

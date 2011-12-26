@@ -4,10 +4,15 @@
 \usage{
   \method{loglik}{fitContinuous} (fit)
 }
+\arguments{
+  \item{fit}{a fitContinuous object}
+}
 \value{
-  the log likelihood
+  the log likelihood, currently only for a single/first
+  trait
 }
 \description{
   Method to extract the log likelihood
 }
+\keyword{internal}
 

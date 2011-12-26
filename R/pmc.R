@@ -22,16 +22,18 @@
 #' @details Possible models are all models from fitContinuous, ouch's hansen model
 #' @examples
 #' require(geiger) # just for the sample data
-#' data(geopsiza)
+#' data(geospiza)
 #' attach(geospiza)
-#' out <- pmc(geospiza.tree, geospiza.data, "BM", "lambda")
+#' out <- pmc(geospiza.tree, geospiza.data[1], "BM", "lambda", nboot=2)
 #' ## FIXME add examples that require conversion of data formats
 #' @import snowfall 
 #' @import reshape
 #' @export
 pmc <- function(tree, data, 
-                modelA = c("BM", "OU", "lambda", "kappa", "delta", "EB", "white", "trend", "hansen"), 
-                modelB = c("BM", "OU", "lambda", "kappa", "delta", "EB", "white", "trend", "hansen"), 
+                modelA = c("BM", "OU", "lambda", "kappa", "delta", "EB",
+                           "white", "trend", "hansen"), 
+                modelB = c("BM", "OU", "lambda", "kappa", "delta", "EB",
+                           "white", "trend", "hansen"), 
                 optionsA=list(), optionsB=list(), nboot=20, ...){
 
   A <- pmc_fit(tree, data, modelA, optionsA)
@@ -43,20 +45,17 @@ pmc <- function(tree, data,
     simA <- simulate(A)
     if (is(A, "ouchtree"))
       simA <- simA$rep.1
-    AfitA <- update(A, simA, ...)
-    BfitA <- update(B, simA, ...)
+    AfitA <- update(A, data=simA)
+    BfitA <- update(B, data=simA)
     lrA <- -2*(loglik(AfitA) - loglik(BfitA)) 
 
     ## Do the B sims
     simB <- simulate(B)
     if (is(B, "ouchtree"))
       simB <- simB$rep.1
-    AfitB <- update(A, simB, ...)
-    BfitB <- update(B, simB, ...)
+    AfitB <- update(A, data=simB)
+    BfitB <- update(B, data=simB)
     lrB <- -2*(loglik(AfitB) - loglik(BfitB))
-#    list(lrA=lrA, parsAA=getParameters(AfitA), parsBA=getParameters(BfitA),
-#         lrB=lrB, parsAB=getParameters(AfitB), parsBB=getParameters(BfitB))
-
     list(AA=as.list(c(lr=loglik(AfitA), getParameters(AfitA))), 
          BA=as.list(c(lr=loglik(BfitA), getParameters(BfitA))),
          AB=as.list(c(lr=loglik(AfitB), getParameters(AfitB))), 
@@ -76,18 +75,28 @@ pmc <- function(tree, data,
 }
 
 #' plot the distributions
-#' @param object a pmc object
+#' @param x a pmc object
+#' @param ... Additional arguments: 
+#'  A= a name for the first model in the pmc pairwise comparison
+#'  B= a name for the second model in the pairwise comparison
 #' @import ggplot2
 #' @method plot pmc
 #' @S3method plot pmc
-plot.pmc <- function(object, A="null", B="test"){
-  df <- data.frame(object$null, object$test)
+plot.pmc <- function(x, ...){
+  if(is.null(A)) 
+    A <- "null"
+  if(is.null(B)) 
+    B <- "test"
+  df <- data.frame(x$null, x$test)
   colnames(df) <- c(A, B)
   dat <- melt(df)
+  # FIXME strange that ggplot wants 'value' and 'variable' to be unquoted!
+  # Makes these appear to be undefined values & creates a warning in check  
   ggplot(dat) + geom_density(aes(value, fill=variable), alpha=.7) +
-       geom_vline(x=object$lr, lwd=1, lty=2)
+       geom_vline(x=x$lr, lwd=1, lty=2)
 }
 
+#' plot the parameter distributions
 #' @param object a pmc object fit
 #' @return a ggplot2 plot object
 #' @export
@@ -99,6 +108,8 @@ plot_pars <- function(object){
 #' Fit any model used in PMC 
 #' @param tree a phylogenetic tree. can be ouch or ape format
 #' @param data trait data in ape or ouch format
+#' @param model the name of the model to fit, see details for a list of 
+#' currently supported types
 #' @param options whatever additional options would be provided 
 #' to the model fit, see details
 #' @return a pmc_model object, anything that has methods "simulate", 
@@ -112,14 +123,14 @@ plot_pars <- function(object){
 #' data(geospiza)
 #' attach(geospiza)
 #' lambdaFit<-pmc_fit(geospiza.tree, geospiza.data, model="lambda") 
-#' Or a single trait at a time 
+#' ## Or a single trait at a time: 
 #' lambdaFit<-pmc_fit(geospiza.tree, geospiza.data[1], model="lambda") 
 #' ## an ouch example
 #' require(ouch) # just for the data, 
 #' data(bimac)
 #' tree <- with(bimac,ouchtree(node,ancestor,time/max(time),species))
-#' ou.2 <- pmc_fit(data=log(bimac['size']),tree, model="hansen", 
-#'                 list(regimes=bimac['OU.2'],sqrt.alpha=1,sigma=1))
+#' ou.3 <- pmc_fit(data=log(bimac['size']),tree, model="hansen", 
+#'                 list(regimes=bimac['OU.3'],sqrt.alpha=1,sigma=1))
 #' @import geiger 
 #' @import ouch
 #' @export
@@ -127,7 +138,6 @@ pmc_fit <- function(tree, data, model, options=list()){
   # Figure out if we need ape/geiger based formats or ouch formats
   fitContinuous_types <- c("BM", "OU", "lambda", "kappa", 
                            "delta", "EB", "white", "trend")
-
   if(model %in% fitContinuous_types){
     type <- "fitContinuous"  
   } else if(model %in% c("brown", "hansen")){
@@ -149,7 +159,7 @@ pmc_fit <- function(tree, data, model, options=list()){
   } else if(type == "hansen"){
     ## Fit an ouch object (hansen) 
     if(is(tree, "phylo")){
-      tmp <- format_data(tree, traits)
+      tmp <- format_dat(tree, traits)
       tree <- tmp$tree
       data <- tmp$data
     }

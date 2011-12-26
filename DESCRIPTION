@@ -9,6 +9,7 @@ Description: Monte Carlo based model choice for applied phylogenetics of
 URL: http://www.carlboettiger.info
 License: BSD
 Imports:
+    ape,
     geiger,
     ouch,
     reshape,
@@ -19,7 +20,6 @@ Collate:
     'confidenceIntervals.R'
     'format_data.R'
     'pmc.R'
-    'pmc_model.R'
     'powercurve.R'
     'wrappers_geiger.R'
     'wrappers_laser.R'

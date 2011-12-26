@@ -48,9 +48,9 @@
 }
 \examples{
 require(geiger) # just for the sample data
-data(geopsiza)
+data(geospiza)
 attach(geospiza)
-out <- pmc(geospiza.tree, geospiza.data, "BM", "lambda")
+out <- pmc(geospiza.tree, geospiza.data[1], "BM", "lambda", nboot=2)
 ## FIXME add examples that require conversion of data formats
 }
 

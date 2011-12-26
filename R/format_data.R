@@ -1,26 +1,24 @@
 #' format data in ape format into ouch format
-#' @param tree a phylogenetic tree of class "phylo", ape format
-#' @param traits a numeric with trait values, or a matrix or data frame of traits, rownames matching species or handed in
+#' @param tree a phylogenetic tree of class "phylo", ape format, 
+#' ouch format, or the name of a nexus file.  
+#' @param traits a numeric with trait values, or a matrix or data frame of 
+#' traits, rownames matching species or handed in
 #' @param species_names in the order of entries in traits, if not given in rownames.  
 #' @param regimes the column in traits containing regime labels
 #' @return the ouch-formatted tree, traits, and regimes  
 #' @seealso \code{\link{convert}} to toggle between formats, including regime paintings
-#' @details Should become an internal function to handle data conversion to ape-type 
+#' @details Should become an internal function to handle data conversion to ape-type
+#' @import geiger
 #' @export 
 format_data <- function(tree, traits, species_names = NULL, regimes = NULL ){
-	require(geiger)
 # Function checks that tree and trait match and convert them into a format used by wrightscape
 # Function also will code tree by finding the common ancestor of all species with matching entry specified in the regimes list and assigning that codename as the regime of all descendents of that ancestor.  May not handle conflicts if corresponding to overlapping clades.  Alternatively, the regimes can be specified directly in ouch format.   
-
-	# Args:
-		# tree can be a path to a nexus file, an object of class "phylo", or an object of class "ouchtree"
-
 
 	if( is(tree, "character" ) ){ 
 		tree <- read.nexus(tree) 
 	} else if (is(tree, "ouchtree")) {
 		# uses my ouch2ape tree conversion script
-		#tree <- convert(tree)
+		tree <- convert(tree)
 	}
 	if( !is(tree, "phylo") ) { stop("Problem with tree format") }
 
@@ -153,47 +151,6 @@ compute_regimes <- function(tree, traits, species_names, regimes){
 
 
 
-
-
-######## Depricated format function ###############
-
-## adapted from maticce
-ape2ouch_all <-
- function(tree, characterStates){
-	if( is(tree, "phylo")){
-		tree <- ape2ouch(tree) 
-	} else if(is(tree, "ouchtree") ) {
-		# already an ouchtree format
-	} else { stop(paste("Input tree type not recognized" )) }
-  ## Check character states to make sure that they are either named and match names in the trees, or are the same length as the tips
-    dataFlag <- NULL
-    stopFlag <- FALSE
-    tree 
-    terminals <- tree@nodelabels[(tree@nnodes - tree@nterm + 1):tree@nnodes]
-    if(any(FALSE %in% (terminals %in% names(characterStates)))) {
-      message(paste("Not every terminal branch in tree has a corresponding name in", sQuote("characterStates")))
-      if(length(characterStates) == tree@nterm) {
-        message("Data assumed to be in the same order as terminals")
-        dataFlag <- 'sameOrderTerminals' 
-        }
-      if(length(characterStates) == tree@nnodes) {
-        message("Data assumed to be in the same order as nodes;\nany data not associated with a terminal branch will be ignored")
-        dataFlag <- 'sameOrderNodes'
-        }
-      if(identical(dataFlag, NULL)) stopFlag <- TRUE
-      message("-------------------\n")
-      }
-    else dataFlag <- 'named'
-    if(stopFlag) stop("Correct discrepancies between trees and data and try again!")
-    
-    ## make sure data fits the tree
-    dataIn <- NULL
-    if(dataFlag == 'sameOrderTerminals') dataIn <- c(rep(NA, tree@nnodes - tree@nterm), characterStates)
-    if(dataFlag == 'sameOrderNodes') dataIn <- characterStates
-    if(dataFlag == 'named') dataIn <- characterStates[match(tree@nodelabels, names(characterStates))]
-    else names(dataIn) <- tree@nodes
-	list(tree=tree, data=dataIn)
-} 
 
 
 
