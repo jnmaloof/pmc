@@ -9,7 +9,6 @@
 #' @export 
 format_data <- function(tree, traits, species_names = NULL, regimes = NULL ){
 	require(geiger)
-
 # Function checks that tree and trait match and convert them into a format used by wrightscape
 # Function also will code tree by finding the common ancestor of all species with matching entry specified in the regimes list and assigning that codename as the regime of all descendents of that ancestor.  May not handle conflicts if corresponding to overlapping clades.  Alternatively, the regimes can be specified directly in ouch format.   
 
@@ -96,11 +95,14 @@ message("traits ouch-formatted as numeric")
 	list(tree=tree, data=dataIn, regimes=R$regimes, noregimes=nr)
 } 
 
-
+#' internal method for computing the regimes used by format_data()
+#' @param tree ouch-formated phylogenetic tree
+#' @param traits ouch-formated data set
+#' @param species_names for all the nodes 
+#' @param regimes list in ouch format
+#' @return a list of the regimes as edge-labels for ape's phylo format 
+#' @keywords internal
 compute_regimes <- function(tree, traits, species_names, regimes){
-# regimes can be an integer specifying the column in traits dataframe 
-# Internal function for convert_data
-# takes ouch_formatted tree and traits,  
 
 	## attach species names to regimes
 	if(is.null(regimes) ){
@@ -153,12 +155,7 @@ compute_regimes <- function(tree, traits, species_names, regimes){
 
 
 
-
-
-
-
-
-
+######## Depricated format function ###############
 
 ## adapted from maticce
 ape2ouch_all <-
@@ -195,7 +192,6 @@ ape2ouch_all <-
     if(dataFlag == 'sameOrderNodes') dataIn <- characterStates
     if(dataFlag == 'named') dataIn <- characterStates[match(tree@nodelabels, names(characterStates))]
     else names(dataIn) <- tree@nodes
-
 	list(tree=tree, data=dataIn)
 } 
 

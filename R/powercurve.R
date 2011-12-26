@@ -1,7 +1,6 @@
 ## powertest.R
 # power curve
 treepower <- function(tree, nboot = 100, cpu = 2, threshold = .95, alpha = seq(0.001, 30, length=100), method="hansen"){
-
 	## Gotta get templates for the models, do so by fitting some dummy data
 	data <- c(rep(NA, tree@nnodes-tree@nterm), rnorm(tree@nterm))
 	names(data) <- tree@nodes

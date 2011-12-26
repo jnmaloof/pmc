@@ -16,15 +16,14 @@ Imports:
 Depends:
     ggplot2
 Collate:
-    'blomberg_power.R'
     'confidenceIntervals.R'
     'format_data.R'
-    'object_oriented_geiger.R'
-    'object_oriented_laser.R'
-    'object_oriented_ouch.R'
-    'oo_treepar.R'
-    'plot_functions.R'
     'pmc.R'
     'pmc_model.R'
     'powercurve.R'
-    'treeformats.R'
+    'wrappers_geiger.R'
+    'wrappers_laser.R'
+    'wrappers_ouch.R'
+    'wrappers_treepar.R'
+    'convert.R'
+    'treepalette.R'
