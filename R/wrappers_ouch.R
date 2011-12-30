@@ -56,7 +56,7 @@ make_browntree <- function(tree, sigma, theta){
 #' @method get_phy ouchtree 
 #' @S3method get_phy ouchtree
 #' @keywords internal
-get_phy.ouchtree <- function(x, ...)
+get_phy.ouchtree <- function(x, ...) x
 
 
 #' Method to grab the data 

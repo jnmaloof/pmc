@@ -45,23 +45,25 @@ pmc <- function(tree, data,
     ## Do the A sims
     simA <- simulate(A)
     if (is(A, "ouchtree"))
-      simA <- simA$rep.1
-    ## cannot mix geiger & ouch methods without converting 
-    # data formats  on cross-sim/fit
+      simA <- simA$rep.1 # reformat output from ouch's simulate method
     AfitA <- update(A, data=simA)
+    # The cross-comparison needs to check the data-formats match
     if(class(A) != class(B))
       simA <- format_data(get_phy(A), get_data(A))$data
     BfitA <- update(B, data=simA)
-    lrA <- -2*(loglik(AfitA) - loglik(BfitA)) 
 
     ## Do the B sims
     simB <- simulate(B)
     if (is(B, "ouchtree"))
       simB <- simB$rep.1
-    if(class(A) != class(B))
-      simB <- format_data(get_phy(A), get_data(A))$data
-    AfitB <- update(A, data=simB)
     BfitB <- update(B, data=simB)
+    # The cross-comparison needs to check the data-formats match
+    if(class(A) != class(B))
+      simB <- format_data(get_phy(B), get_data(B))$data
+    AfitB <- update(A, data=simB)
+
+
+    lrA <- -2*(loglik(AfitA) - loglik(BfitA)) 
     lrB <- -2*(loglik(AfitB) - loglik(BfitB))
     list(AA=as.list(c(lr=loglik(AfitA), getParameters(AfitA))), 
          BA=as.list(c(lr=loglik(BfitA), getParameters(BfitA))),

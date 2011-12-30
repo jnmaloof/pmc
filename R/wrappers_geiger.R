@@ -126,7 +126,11 @@ loglik.fitContinuous <- function(fit){
 #' @S3method getParameters fitContinuous  
 #' @keywords internal
 getParameters.fitContinuous <- function(fit){
-	unlist(fit[[1]])
+	who <- match(c("lnl", "beta", "alpha", "root", "lambda", "k", "kappa", "delta", "a"),  names(fit[[1]]))
+  pars <- fit[[1]][na.omit(who)]
+  out <- as.numeric(pars)
+  names(out) <- names(pars) 
+  out
 }
 
 

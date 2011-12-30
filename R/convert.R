@@ -1,12 +1,17 @@
 #' toggles between ouch and ape format trees 
 #' @param ot a phylogenetic tree in ouch or ape format
-#' @param regimes if given in ape format, are appended to 
-#'  phylo format as phy$regimes.  If the ouchtree is a fitted
-#'  hansen object, regimes will automatically be imported from it
-#'  unless other regime choice is given here.  
+#' @param regimes if given in ape format, are appended to
+#' phylo format as phy$regimes.  If the ouchtree is a fitted
+#' hansen object, regimes will automatically be imported from it
+#' unless other regime choice is given here.  
+#' @param safe mode for going from ape to ouch.  After converting, this
+#' writes to a temporary nexus file and reads the tree back in, because
+#' phylo format does not have a unique specification for a unique tree,
+#' resulting in all kinds of silly problems when developers haven't been careful. 
+#' Defaults to true, and will clean up after itself.  
 #' @return a phylogenetic tree in the opposite format
 #' @export
-convert <- function(ot, regimes=NULL){
+convert <- function(ot, regimes=NULL, safe=TRUE){
 	if(is(ot, "ouchtree")){
 
 		n <- ot@nnodes
@@ -38,6 +43,12 @@ convert <- function(ot, regimes=NULL){
 
 		tree <- list(edge=edge, Nnode = (n-1)/2, tip.label = labels, edge.length= lengths )
 		class(tree) <- "phylo"
+
+    if(safe){
+      write.nexus(file="tmp3612411.nex", tree)
+      tree <- read.nexus("tmp3612411.nex")
+      unlink("tmp.nex")
+    }
 
 		if (is(ot, "hansentree")) {
 			regimes <- ot@regimes[[1]][-1]
