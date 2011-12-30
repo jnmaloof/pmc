@@ -3,8 +3,8 @@
 \title{Performs a phylogenetic monte carlo between modelA and modelB}
 \usage{
   pmc(tree, data,
-    modelA = c("BM", "OU", "lambda", "kappa", "delta", "EB", "white", "trend", "hansen"),
-    modelB = c("BM", "OU", "lambda", "kappa", "delta", "EB", "white", "trend", "hansen"),
+    modelA = c("BM", "OU", "lambda", "kappa", "delta", "EB", "white", "trend", "hansen", "brown"),
+    modelB = c("BM", "OU", "lambda", "kappa", "delta", "EB", "white", "trend", "hansen", "brown"),
     optionsA = list(), optionsB = list(), nboot = 20, ...)
 }
 \arguments{
@@ -43,14 +43,13 @@
   both simulated datasets.
 }
 \details{
-  Possible models are all models from fitContinuous, ouch's
-  hansen model
+  Possible models are all models from fitContinuous & ouch
+  Currently mixing models isn't supported.
 }
 \examples{
 require(geiger) # just for the sample data
 data(geospiza)
 attach(geospiza)
 out <- pmc(geospiza.tree, geospiza.data[1], "BM", "lambda", nboot=2)
-## FIXME add examples that require conversion of data formats
 }
 

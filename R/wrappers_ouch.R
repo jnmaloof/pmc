@@ -3,10 +3,6 @@
 ## Ouch is really already object oriented, but needs a few additional methods.  
 ## Also needs to tweak the "update" method (since ouch simulate returns a list of replicates)
 
-#' S3 generic to provide a log-likelihood
-#' @param x a model fit that can return a loglikelihood
-#' @keywords internal
-loglik <- function(x, ...) UseMethod("loglik")
 
 #' Method to extract the log likelihood 
 #' @return the log likelihood  
@@ -14,7 +10,6 @@ loglik <- function(x, ...) UseMethod("loglik")
 #' @S3method loglik hansentree
 #' @keywords internal
 loglik.hansentree <- function(object) object@loglik
-
 
 #' Method to extract the log likelihood 
 #' @return the log likelihood  
@@ -24,10 +19,6 @@ loglik.hansentree <- function(object) object@loglik
 loglik.browntree <- function(object) object@loglik
 
 
-#' S3 generic to provide the parameters 
-#' @param x a model fit of interest 
-#' @keywords internal
-getParameters <- function(x, ...) UseMethod("getParameters")
 
 #' Method to extract the parameters 
 #' @return a list of parameters
@@ -59,3 +50,19 @@ make_browntree <- function(tree, sigma, theta){
 	tree@data <- list(numeric(tree@nnodes))
 	tree
 }
+
+#' Method to grab the phylogeny 
+#' @return the phylogeny of the object 
+#' @method get_phy ouchtree 
+#' @S3method get_phy ouchtree
+#' @keywords internal
+get_phy.ouchtree <- function(x, ...)
+
+
+#' Method to grab the data 
+#' @return the trait data of the object 
+#' @method get_data ouchtree 
+#' @S3method get_data ouchtree
+#' @keywords internal
+get_data.ouchtree <- function(x, ...) x@data
+

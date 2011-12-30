@@ -7,7 +7,8 @@
 }
 \arguments{
   \item{tree}{a phylogenetic tree of class "phylo", ape
-  format, ouch format, or the name of a nexus file.}
+  format, or a tree in ouch format with the data also in
+  ouch format}
 
   \item{traits}{a numeric with trait values, or a matrix or
   data frame of traits, rownames matching species or handed

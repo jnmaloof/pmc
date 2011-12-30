@@ -1,21 +1,10 @@
 #power_curves.R
-
-###############
-require(socialR)
-script <- "power_curves.R"
-gitaddr <- gitcommit(script)
-tags="phylogenetics"
-tweet_errors(script, tags=tags)
-###############
-
-
-
 require(pmc)
 require(TreePar)
 require(ouch)
 
 nboot <- 1000
-cpu <- 16
+cpu <- 4
 
 alpha  <- c(.01, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2, 5, 10, 20)
 n      <- c(5, 10, 20, 50, 100)
@@ -35,8 +24,6 @@ shape <- lapply(1:length(lambda), function(i){
 	simtree <- lambdaTree(simtree, lambda[i])
 	treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
 })
-
-
 save(file="power_curves.Rdat", list=ls() )
 
 ## Do the Anoles tree for comparison
@@ -75,14 +62,4 @@ plot_shape <- function(){
   legend("topleft", c(paste(lambda, "lambda"), "anoles"), col=c(1:k, "purple"), pch=16  ) 
 }
 
-png("powercurve_size.png")
-plot_size()
-dev.off()
-
-png("powercurve_shape.png")
-plot_shape()
-dev.off()
-
-upload("powercurve_size.png", script=script, gitaddr=gitaddr, tags=tags)
-upload("powercurve_shape.png", script=script, gitaddr=gitaddr, tags=tags)
 

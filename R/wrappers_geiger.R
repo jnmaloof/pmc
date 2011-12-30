@@ -87,22 +87,24 @@ update.fitContinuous <- function(object, ...){
 simulate.fitContinuous <- function(object, nsim=1, seed=NULL, ...){
 # rTraitCont might not be ideal here, should warn if alpha is large!
 #  Currently only designed to simulate from the first object
-#  data <- data.frame(matrix(NA, ncol=length(object), nrow=dim(object[[1]]$data)[1]))
   data <- object[[1]]$data 
   for(i in 1:length(object)){
     if(object[[i]]$model != "OU"){
       tree <- transformTree(object[[i]]) 
-      data[[i]] <- rTraitCont(tree, model="BM", sigma=sqrt(object[[i]]$beta),
+    # transform the tree and apply the BM simulation method
+      data[,i] <- rTraitCont(tree, model="BM", sigma=sqrt(object[[i]]$beta),
                               root=object[[i]]$root)
-    } else if(object[[i]]$model == "OU"){
-      data[[i]] <- rTraitCont(object$tree, model="OU", sigma=sqrt(object[[i]]$beta),
-                              alpha=object[[i]]$alpha, theta=object[[i]]$root, 
-                              root=object[[i]]$root)
+    } else if(object[[i]]$model == "OU"){ 
+      # use untransfromed tree & with the OU simulation method
+      data[,i] <- rTraitCont(object[[i]]$tree, model="OU", 
+                             sigma=sqrt(object[[i]]$beta),
+                             alpha=object[[i]]$alpha, theta=object[[i]]$root, 
+                             root=object[[i]]$root)
     }
   }
   # Keep labels for traits and species on data 
-#  names(data) <- names(object[[1]]$data)
-#  rownames(data) <- rownames(object[[1]]$data)
+  names(data) <- names(object[[1]]$data)
+  rownames(data) <- rownames(object[[1]]$data)
 	data
 }
 
@@ -143,3 +145,18 @@ transformTree <- function(fit){
 	out
 }
 
+
+
+#' Method to grab the phylogeny 
+#' @return the phylogeny of the object 
+#' @method get_phy fitContinuous 
+#' @S3method get_phy fitContinuous
+#' @keywords internal
+get_phy.fitContinuous <- function(x, ...) x[[1]]$tree
+
+#' Method to grab the data 
+#' @return the trait data of the object 
+#' @method get_data fitContinuous 
+#' @S3method get_data fitContinuous
+#' @keywords internal
+get_data.fitContinuous <- function(x, ...) x[[1]]$data

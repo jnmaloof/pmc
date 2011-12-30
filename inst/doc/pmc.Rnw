@@ -30,32 +30,6 @@
 \topmargin -0.5in
 \newcommand{\ud}{\mathrm{d}}
 
-% should be able to set figure size with:
-%  <<label=test, fig=TRUE, width=5, height=5>>=
-
-%-------------------------------------------------------------------------------
-\RequirePackage{fancyvrb}
-\RequirePackage{listings}
-%% important: keep the following comment in
-%% (see https://mailman.stat.ethz.ch/pipermail/r-help/2009-July/204747.html)
-%% this comment persuades Sweave not to insert\usepackage{Sweave}
-%-------------------------------------------------------------------------------
-\SweaveOpts{keep.source=TRUE}
-%-------------------------------------------------------------------------------
-<<SweaveListingsPreparations,results=tex,echo=FALSE,strip.white=false>>=
-## Must require any other packages to be loaded here!! 
-require(SweaveListingUtils)
-require(ggplot2)
-require(pmc)
-## must call this setup 
-SweaveListingPreparations()
-## you may also wish to pass arguments to SweaveListingPreparations()
-## This next line may be skipped in general, see ?SweaveListingPreparations 
-setToBeDefinedPkgs(pkgs=c("SweaveListingUtils","distr", "ggplot2"),
-                   keywordstyles=c("\\bf\\color{blue}","\\bf\\color{red}"))
-@
-                   
-
 \begin{document}
 \begin{frontmatter}
   \title{An introduction to the \texttt{pmc} Package}
@@ -83,7 +57,9 @@ The development version of the package is available on Github: \href{https://git
 
 
 \section{Replicating the examples using demos}
-This document uses Sweave to automatically regenerate the figures presented in the manuscript from the data provided. Each of the analyses presented in the paper is provided as a demo script in the package.  One can display all the demos, or call an individual demo, which displays and runs the code in the R console:
+This document uses Sweave to automatically regenerate the figures presented in the manuscript from the data provided. 
+%Each of the analyses presented in the paper is provided as a demo script in the package.  
+%One can display all the demos, or call an individual demo, which displays and runs the code in the R console:
 
 <<label=demos>>=
 #demo(package="pmc")
@@ -140,18 +116,7 @@ text(lambda[[1]][2], 300, "True sigma", pos=4)
 \label{fig:one}
 \end{figure}
 
-%\setkeys{Gin}{width=0.5\textwidth}
-  %% echo=TRUE won't work inside a subfigure environment
-%\section{Figure 1}
-%\begin{figure}
-%\begin{center}
-%\subfigure[]{ <<Fig2a>> }
-%\subfigure[]{ <<Fig2b>> }
-%\end{center}
-%\caption{This example can be reproduced using \texttt{demo(anoles\_model\_choice)}}\label{fig:two}
-%\end{figure}
 
-% setting figure widths has to be done like this
 \setkeys{Gin}{width=\linewidth}
 <<label=code3, echo=FALSE>>=
 data(anoles_model_choice)

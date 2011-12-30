@@ -13,7 +13,8 @@ Imports:
     geiger,
     ouch,
     reshape,
-    snowfall
+    snowfall,
+    TreeSim
 Depends:
     ggplot2
 Collate:
@@ -27,3 +28,4 @@ Collate:
     'wrappers_treepar.R'
     'convert.R'
     'treepalette.R'
+    'generics.R'

@@ -19,21 +19,22 @@
 #' by fitting both models to simulations from model B, and the likelihood 
 #' ratio between the original MLE estimated models from the data.  
 #' return has object class pmc. 
-#' @details Possible models are all models from fitContinuous, ouch's hansen model
+#' @details Possible models are all models from fitContinuous & ouch
+#' Currently mixing models isn't supported.  
 #' @examples
 #' require(geiger) # just for the sample data
 #' data(geospiza)
 #' attach(geospiza)
 #' out <- pmc(geospiza.tree, geospiza.data[1], "BM", "lambda", nboot=2)
-#' ## FIXME add examples that require conversion of data formats
 #' @import snowfall 
 #' @import reshape
+#' @import TreeSim
 #' @export
 pmc <- function(tree, data, 
                 modelA = c("BM", "OU", "lambda", "kappa", "delta", "EB",
-                           "white", "trend", "hansen"), 
+                           "white", "trend", "hansen", "brown"), 
                 modelB = c("BM", "OU", "lambda", "kappa", "delta", "EB",
-                           "white", "trend", "hansen"), 
+                           "white", "trend", "hansen", "brown"), 
                 optionsA=list(), optionsB=list(), nboot=20, ...){
 
   A <- pmc_fit(tree, data, modelA, optionsA)
@@ -45,7 +46,11 @@ pmc <- function(tree, data,
     simA <- simulate(A)
     if (is(A, "ouchtree"))
       simA <- simA$rep.1
+    ## cannot mix geiger & ouch methods without converting 
+    # data formats  on cross-sim/fit
     AfitA <- update(A, data=simA)
+    if(class(A) != class(B))
+      simA <- format_data(get_phy(A), get_data(A))$data
     BfitA <- update(B, data=simA)
     lrA <- -2*(loglik(AfitA) - loglik(BfitA)) 
 
@@ -53,6 +58,8 @@ pmc <- function(tree, data,
     simB <- simulate(B)
     if (is(B, "ouchtree"))
       simB <- simB$rep.1
+    if(class(A) != class(B))
+      simB <- format_data(get_phy(A), get_data(A))$data
     AfitB <- update(A, data=simB)
     BfitB <- update(B, data=simB)
     lrB <- -2*(loglik(AfitB) - loglik(BfitB))
@@ -64,6 +71,7 @@ pmc <- function(tree, data,
   ## some reformating, for convenience 
   dat <- melt(reps)
   names(dat) <- c("value", "parameter", "comparison", "rep")
+  class(dat$value) <- "numeric"
   null = -2*(subset(dat, parameter=="lr" & comparison=="AA")$value -
              subset(dat, parameter=="lr" & comparison=="BA")$value)
   test = -2*(subset(dat, parameter=="lr" & comparison=="AB")$value - 
@@ -83,12 +91,8 @@ pmc <- function(tree, data,
 #' @method plot pmc
 #' @S3method plot pmc
 plot.pmc <- function(x, ...){
-  if(is.null(A)) 
-    A <- "null"
-  if(is.null(B)) 
-    B <- "test"
   df <- data.frame(x$null, x$test)
-  colnames(df) <- c(A, B)
+  colnames(df) <- c("null", "test")
   dat <- melt(df)
   # FIXME strange that ggplot wants 'value' and 'variable' to be unquoted!
   # Makes these appear to be undefined values & creates a warning in check  
@@ -159,7 +163,7 @@ pmc_fit <- function(tree, data, model, options=list()){
   } else if(type == "hansen"){
     ## Fit an ouch object (hansen) 
     if(is(tree, "phylo")){
-      tmp <- format_dat(tree, traits)
+      tmp <- format_data(tree, data)
       tree <- tmp$tree
       data <- tmp$data
     }

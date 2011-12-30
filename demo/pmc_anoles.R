@@ -1,6 +1,10 @@
-require(pmc)
-data(anoles)
+# Author: Carl Boettiger <cboettig@gmail.com>
+# License: BSD
 
+
+require(pmc)
+#data(anoles)
+load("anoles.rda")
 
 
 
@@ -18,19 +22,23 @@ sfExportAll()                 # make all data available to all parallel nodes
 
 ou3v4 <- pmc(tree, log(anoles["size"]), modelA="hansen", modelB="hansen", 
              optionsA=list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
-             optionsB=list(regimes=anoles["OU.4"], sqrt.alpha=1, sigma=1), nboot=20)
+             optionsB=list(regimes=anoles["OU.4"], sqrt.alpha=1, sigma=1),
+             nboot=20)
 
 ou3v15 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
              list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
-             list(regimes=anoles["OU.15"], sqrt.alpha=1, sigma=1), nboot=20)
+             list(regimes=anoles["OU.15"], sqrt.alpha=1, sigma=1),
+             nboot=20)
                    
 ou1v3 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
              list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1), 
-             list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), nboot=20)
+             list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1),
+             nboot=20)
  
 ou0v1 <- pmc(tree, log(anoles["size"]), "brown", "hansen", 
              list(), 
-             list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1), nboot=20)
+             list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1),
+             nboot=20)
 
 
 

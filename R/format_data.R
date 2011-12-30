@@ -1,6 +1,6 @@
 #' format data in ape format into ouch format
-#' @param tree a phylogenetic tree of class "phylo", ape format, 
-#' ouch format, or the name of a nexus file.  
+#' @param tree a phylogenetic tree of class "phylo", ape format, or a tree
+#' in ouch format with the data also in ouch format
 #' @param traits a numeric with trait values, or a matrix or data frame of 
 #' traits, rownames matching species or handed in
 #' @param species_names in the order of entries in traits, if not given in rownames.  
@@ -18,7 +18,11 @@ format_data <- function(tree, traits, species_names = NULL, regimes = NULL ){
 		tree <- read.nexus(tree) 
 	} else if (is(tree, "ouchtree")) {
 		# uses my ouch2ape tree conversion script
-		tree <- convert(tree)
+    # should handle the data conversion of ouch2ape as well! 
+		outtree <- convert(tree, regimes=regimes)
+    dat <- traits[!tree@nodelabels=="",1]
+    names(dat) <- tree@nodelabels[!tree@nodelabels==""]
+    return(list(tree=outtree, data=dat))
 	}
 	if( !is(tree, "phylo") ) { stop("Problem with tree format") }
 
