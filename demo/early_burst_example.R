@@ -16,6 +16,7 @@ dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.5), sigma=5)
 sfInit(par=T, cpu=2)
 sfExportAll() # for parallelization
 ## Specify the models and the options needed.  
+regimes <- format_data(simtree,dat)$noregimes
 eb_v_ou <- pmc(simtree, dat, modelA="EB", modelB="hansen", 
                optionsB=list(sqrt.alpha=1, sigma=1, regimes=regimes), 
                nboot=2) # small nboot just for example
@@ -26,7 +27,6 @@ plot(eb_v_ou)
 ouch <- format_data(simtree, dat)
 ape <- format_data(ouch$tree, ouch$dat)
 A <- pmc_fit(ape$tree, ape$data, model="BM")
-regimes <- format_data(simtree,dat)$noregimes
 B <- pmc_fit(simtree, dat, model="hansen", options=list(sqrt.alpha=1, sigma=1, regimes=regimes))
 
 
