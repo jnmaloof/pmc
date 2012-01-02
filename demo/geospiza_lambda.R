@@ -1,6 +1,9 @@
 require(pmc)
 ## GEOSPIZA EXAMPLE
 data(geospiza)
+bm_v_lambda <- pmc(geospiza$geospiza.tree, geospiza$geospiza.data, "BM", "lambda")
+
+
 # get the data as a single named numeric
 traits <- geospiza$geospiza.data[[1]]
 names(traits) <- rownames(geospiza$geospiza.data)

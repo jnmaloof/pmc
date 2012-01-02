@@ -25,8 +25,8 @@
 #' require(geiger) # just for the sample data
 #' data(geospiza)
 #' attach(geospiza)
-#' out <- pmc(geospiza.tree, geospiza.data[1], "BM", "lambda", nboot=2)
-#' 
+#' out <- pmc(geospiza.tree, geospiza.data[1], "BM", "lambda", nboot=5)
+#' plot_pars(out) # show the parameters  
 #' ## Ex. mixing methods from packages -- data formats handled automatically 
 #' ## Load Libraries ##
 #' require(TreeSim) # to simulate a sample phyologeny
@@ -130,6 +130,7 @@ plot.pmc <- function(x, ...){
 #' @return a ggplot2 plot object
 #' @export
 plot_pars <- function(object){
+## add lines for the estimated parameter values of A & B
   ggplot(object$par_dists) + geom_boxplot(aes(comparison, value)) + facet_wrap(~parameter, scales="free_y") 
 }
 
