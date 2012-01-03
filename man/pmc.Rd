@@ -50,8 +50,8 @@
 require(geiger) # just for the sample data
 data(geospiza)
 attach(geospiza)
-out <- pmc(geospiza.tree, geospiza.data[1], "BM", "lambda", nboot=2)
-
+out <- pmc(geospiza.tree, geospiza.data[1], "BM", "lambda", nboot=5)
+plot_pars(out) # show the parameters
 ## Ex. mixing methods from packages -- data formats handled automatically
 ## Load Libraries ##
 require(TreeSim) # to simulate a sample phyologeny
