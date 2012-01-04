@@ -18,7 +18,6 @@ Imports:
 Depends:
     ggplot2
 Collate:
-    'confidenceIntervals.R'
     'format_data.R'
     'pmc.R'
     'powercurve.R'
@@ -29,3 +28,4 @@ Collate:
     'convert.R'
     'treepalette.R'
     'generics.R'
+    'data_documentation.R'

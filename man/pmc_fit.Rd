@@ -21,7 +21,8 @@
   "update", getParameters, and getLikelihood
 }
 \description{
-  Fit any model used in PMC
+  The fitting function used by pmc to generalize fitting to
+  any model
 }
 \details{
   options should include all parameters required by the fit

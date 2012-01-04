@@ -1,0 +1,174 @@
+\documentclass{elsarticle}
+
+%% Redefines the elsarticle footer
+\makeatletter
+\def\ps@pprintTitle{%
+ \let\@oddhead\@empty
+ \let\@evenhead\@empty
+ \def\@oddfoot{\it \hfill\today}%
+ \let\@evenfoot\@oddfoot}
+\makeatother
+
+
+\bibliographystyle{elsarticle-harv}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage[pdftex, colorlinks]{hyperref}
+\usepackage{amsmath, amsfonts}  % extended mathematics
+\usepackage{booktabs} % book-quality tables
+\usepackage{units}    % non-stacked fractions and better unit spacing
+\usepackage{multicol} % multiple column layout facilities
+\usepackage{lipsum}   % filler text
+\usepackage{fancyvrb} % extended verbatim environments
+\fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+\usepackage{xspace}
+
+\textwidth 6.75in
+\oddsidemargin -0.15in
+\evensidemargin -0.15in
+\textheight 9in
+\topmargin -0.5in
+\newcommand{\ud}{\mathrm{d}}
+
+\begin{document}
+\begin{frontmatter}
+  \title{An introduction to the \texttt{pmc} Package}
+  \author[davis]{Carl Boettiger\corref{cor1}}
+  \ead{cboettig@ucdavis.edu}
+  %\author[davis]{}
+  \cortext[cor1]{Corresponding author.}
+  \address[davis]{Center for Population Biology, University of California, Davis, United States}
+
+  \begin{abstract}
+  The Phylogenetic Monte Carlo package provides a suite of utilities for more robust model choice and uncertainty analysis in comparative phylogenetic models.  This vignette accompanies the manuscript by Boettiger et al, and describes how to use the package by illustrating how each of the analyses in the manuscript were performed.  
+  \end{abstract}
+
+  \begin{keyword}
+   R  \sep vignette
+   \end{keyword}
+ \end{frontmatter}
+
+\section{Introduction}
+The Phylogentic Monte Carlo (\texttt{pmc}) package provides methods for estimating the power phylogenetic methods and providing a robust comparison of common phylogenetic models.  This package accompanies Boettiger \emph{et. al.} 2011, \emph{Is your phylogeny informative? Measuring the power of comparative methods.}  The following vignette is provided as the supplement to the paper.  
+
+
+\section{Package availability}
+The development version of the package is available on Github: \href{https://github.com/cboettig/pmc}{https://github.com/cboettig/pmc}, under Downloads.  The current source-code, issues tracking features, and version history are also available there.  A stable version will soon be submitted to the CRAN network.  
+
+
+\section{Replicating the examples}
+This document uses Sweave to automatically regenerate the figures presented in the manuscript from the data provided. The different demos create all the figures from the four different datasets analyzed in the paper (\emph{Geospiza}, simulated large tree, \emph{Anoles}, collection of simulated trees of varying sizes and shapes).  Some demos are run on a reduced number of replicates relative to the paper, but all demos may take some time to run on a personal computer.  
+
+\subsection{Finches}
+
+The first set of examples uses the finches data and geiger functions~\citep{Harmon2008} to look at uncertainty in parameter estimates using the pmc method.  We start off by loading the required libraries 
+<<label=libraries, echo=TRUE>>=
+require(pmc)
+# load the geospiza (Darwin's finches) data set from the "geiger" package
+library(geiger)
+data(geospiza)
+@
+
+
+These next commands are optional, allowing the package to use the specified number of processors, if available.  
+<<label=parallel, echo=TRUE>>=
+require(snowfall) # load the parallelization package
+sfInit(parallel=T, cpu=4) # specify how many cpus we have
+sfLibrary(geiger) # export any libraries we've loaded 
+@
+Now actually running pmc takes just one line:
+
+<<label=pmc, echo=TRUE, cache=TRUE>>=
+bm_v_lambda <- pmc(geospiza$geospiza.tree, geospiza$geospiza.data, "BM", "lambda", nboot=20)
+@
+
+We can analyze the parameter distributions as presented in the manuscript.  For instance, we can look at a histogram of values of lambda obtained from the different simulations.  
+\setkeys{Gin}{width=0.35\textwidth}
+\begin{figure}
+\begin{center}
+<<label=Fig1a, fig=TRUE, echo=TRUE>>=
+lambdas <- subset(bm_v_lambda$par_dist, 
+           comparison=="BB" & parameter=="lambda")
+p1 <- ggplot(lambdas) + geom_histogram(aes(value)) +
+      geom_vline(xintercept=bm_v_lambda$B[[1]]$lambda)
+print(p1)
+@
+\end{center}
+\label{fig:onea}
+\end{figure}
+
+Note that the ability to estimate lambda is very poor, with most simulations returning an estimate of almost zero despite the true value used in the simulations being 0.6.  Estimating the sigma parameter is somewhat more reliable, even on this small tree:
+
+\begin{figure}
+\begin{center}
+<<label=Fig1a, fig=TRUE, echo=TRUE>>=
+betas <- subset(bm_v_lambda$par_dist, comparison=="BB" & parameter=="beta")
+p2 <- ggplot(betas) + geom_histogram(aes(sqrt(value))) # beta == sigma^2
+@
+print(p2)
+\end{center}
+\label{fig:oneb}
+\end{figure}
+
+
+We can also query the confidence intervals directly from the estimates returned by the pmc function.  We can subset the data to just get the confidence interval of the parameter of interest, 
+
+<<ci1, echo=TRUE>>=
+cast(lambdas, comparison ~ parameter, function(x)
+     quantile(x, c(.05, .95)), value=c("lower", "upper"))
+@
+
+Or get the intervals for all parameters at once. Note that the ``comparison'' indicates the model being fit with the first letter, and the model used for the simulations under the second letter. 
+<<ci_all, echo=TRUE>>=
+cast(bm_v_lambda$par_dist, comparison ~ parameter, function(x)
+     quantile(x, c(.05, .95)), value=c("lower", "upper"))
+@
+This way we can see the interval for lambda estimated when simulating under the brownian motion model (equiv to lambda=1) under the row BA, as well as the confidence interval on the lambda estimate when simulating with the correct model, lambda=0.6. These cross-comparisons can also be useful. We could always use variations of the subset command above to include only certain parameters or comparisons. 
+
+We can also summarize all this information at once in a traditional box-and-whiskers plot:
+\begin{figure}
+\begin{center}
+<<allpars, fig=TRUE, echo=TRUE>>=
+p3 <- plot_pars(bm_v_lambda$par_dists) 
+print(p3)
+@
+\end{center}
+\label{fig:pars}
+\end{figure}
+
+<<TreeSimError, echo=FALSE>>=
+Sys.setlocale(locale="C") -> locale
+# clean up
+rm(list="locale")
+@
+
+We can repeat the analysis with a larger tree, showing the uncertainty in the estimate of lambda decreases, if only slowly:
+\begin{figure}
+\begin{center}
+<<simtree, fig=TRUE, echo=TRUE>>=
+require(TreeSim)
+require(ape)
+simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
+simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
+bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=200)
+lambdas <- subset(bm_v_lambda$par_dist, 
+           comparison=="BB" & parameter=="lambda")
+p4 <- ggplot(lambdas) + geom_histogram(aes(value)) +
+      geom_vline(xintercept=bm_v_lambda$B[[1]]$lambda)
+print(p4)
+@
+\end{center}
+\label{fig:onec}
+\end{figure}
+
+
+\subsection{Anoles}
+Next we consider the examples re-analyzing the Anoles data from~\citep{Butler2004}.  
+
+\subsection{Power Curves}
+
+\section*{ }%bibliography
+\bibliography{/home/cboettig/Documents/Mendeley/bib/library}
+
+\end{document}
+
