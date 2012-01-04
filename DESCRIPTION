@@ -29,3 +29,4 @@ Collate:
     'treepalette.R'
     'generics.R'
     'data_documentation.R'
+    'maticce.R'

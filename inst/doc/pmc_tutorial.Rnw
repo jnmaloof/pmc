@@ -1,3 +1,4 @@
+%\VignetteIndexEntry{PMC Tutorial}
 \documentclass{elsarticle}
 
 %% Redefines the elsarticle footer
@@ -145,12 +146,13 @@ rm(list="locale")
 We can repeat the analysis with a larger tree, showing the uncertainty in the estimate of lambda decreases, if only slowly:
 \begin{figure}
 \begin{center}
-<<simtree, fig=TRUE, echo=TRUE>>=
+<<simtree, fig=TRUE, echo=TRUE, cache=TRUE>>=
 require(TreeSim)
-require(ape)
 simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
-bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=200)
+sfInit(parallel=T, cpu=4) # optional
+sfExportAll() # if using parallel 
+bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
 lambdas <- subset(bm_v_lambda$par_dist, 
            comparison=="BB" & parameter=="lambda")
 p4 <- ggplot(lambdas) + geom_histogram(aes(value)) +
@@ -164,6 +166,84 @@ print(p4)
 
 \subsection{Anoles}
 Next we consider the examples re-analyzing the Anoles data from~\citep{Butler2004}.  
+<<pmc_anoles, echo=TRUE, cache=TRUE>>=
+data(anoles)
+sfExportAll()                 # make all data available to all parallel nodes
+ou3v4 <- pmc(tree, log(anoles["size"]), modelA="hansen", modelB="hansen", 
+             optionsA=list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
+             optionsB=list(regimes=anoles["OU.4"], sqrt.alpha=1, sigma=1),
+             nboot=20)
+
+ou3v15 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
+             list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
+             list(regimes=anoles["OU.15"], sqrt.alpha=1, sigma=1),
+             nboot=20)
+                   
+ou1v3 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
+             list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1), 
+             list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1),
+             nboot=20)
+ 
+ou0v1 <- pmc(tree, log(anoles["size"]), "brown", "hansen", 
+             list(), 
+             list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1),
+             nboot=20)
+@
+
+
+\begin{figure}
+\begin{center}
+<<plot_anoles, echo=TRUE, fig=TRUE>>=
+a <- plot(ou3v4, A="OU.3", B="OU.4") 
+b <- plot(ou3v15, A="OU.3", B="OU.15") 
+c <- plot(ou1v3, A="OU.1", B="OU.3") 
+d <- plot(ou0v1, A="BM", B="OU.1") 
+
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2, 2)))
+vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y) 
+print(a, vp = vplayout(1, 1)) 
+print(b, vp = vplayout(1, 2)) 
+print(c, vp = vplayout(2, 1)) 
+print(d, vp = vplayout(2, 2))
+@
+\end{center}
+\end{figure}
+
+
+
+Illustrate plotting the trees 
+
+\begin{figure}
+\begin{center}
+<<treeplotting, echo=TRUE, fig=TRUE>>=
+require(ape)
+## Convert is a custom pmc function that toggles between tree formats
+ou4_tree <- convert(tree, regimes=anoles[["OU.4"]])
+ou3_tree <- convert(tree, regimes=anoles[["OU.LP"]])
+ou15_tree <- convert(tree, regimes=anoles[["OU.15"]])
+## plot labels as a seperate panel without a visble tree
+blank <- ou15_tree
+blank$edge.length <- rep(0, length(blank$edge.length))
+## Display the trees.  custom treepalette function for flexible coloring by regimes
+par(mfrow=c(1,4), mar=c(5, 0.1, 4, 0.1))
+plot(ou3_tree, edge.color = treepalette(ou3_tree), edge.width=5, cex=1.2, show.tip.label=FALSE)
+mtext("(a) OU.3", cex=2)
+plot(ou4_tree, edge.color = treepalette(ou4_tree), edge.width=5, cex=1.2, show.tip.label=FALSE)
+mtext("(b) OU.4", cex=2)
+plot(ou15_tree, edge.color = treepalette(ou15_tree), edge.width=5, cex=1.2, show.tip.label=FALSE)
+mtext("(c) OU.15", cex=2)
+plot(blank, edge.color = "white", edge.width=5, cex=1.8, show.tip.label=TRUE, label.offset = -.9)
+@
+\end{center}
+\end{figure}
+
+
+
+
+
+
+
 
 \subsection{Power Curves}
 

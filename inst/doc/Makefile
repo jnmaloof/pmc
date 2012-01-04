@@ -1,7 +1,14 @@
 ## Makefile to use knitr in the vignette
-RSCRIPT = Rscript
+
 
 all: pmc_tutorial.pdf
+
+setvars:
+ifeq (${R_HOME},)
+R_HOME=	$(shell R RHOME)
+endif
+RPROG=	$(R_HOME)/bin/R
+RSCRIPT=$(R_HOME)/bin/Rscript
 
 pmc_tutorial.pdf: pmc_tutorial/pmc_tutorial.Rnw
 	cp -f pmc_tutorial/pmc_tutorial.Rnw .

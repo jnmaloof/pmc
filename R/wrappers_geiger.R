@@ -164,3 +164,7 @@ get_phy.fitContinuous <- function(x, ...) x[[1]]$tree
 #' @S3method get_data fitContinuous
 #' @keywords internal
 get_data.fitContinuous <- function(x, ...) x[[1]]$data
+
+
+## Add fitDiscrete functionality !! ###
+

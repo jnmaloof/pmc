@@ -7,4 +7,13 @@
 #' @keywords data
 NULL
 
+#' The phylogeny for the anoles data set
+#'
+#' The bimaculus phylogeny, as from the ouch package
+#' @name tree
+#' @docType data
+# @references 
+#' @keywords data
+NULL
+
 
