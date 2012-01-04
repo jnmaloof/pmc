@@ -1,3 +1,4 @@
 make_anoles_example   Example of how the data in "anoles" was modified from ouch
 pmc_anoles            The examples with the bimac dataset from ouch
 pmc_finches           The examples with the geopsiza dataset from geiger
+power_curves          Shows how to compute the power curve of a phylogeny

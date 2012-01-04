@@ -150,9 +150,6 @@ We can repeat the analysis with a larger tree, showing the uncertainty in the es
 require(TreeSim)
 simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
-sfInit(parallel=T, cpu=4) # optional
-sfLibrary(geiger) # if using parallel 
-sfExportAll() # if using parallel 
 # This command is slow, due to geiger's slow fitting funtions
 bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
 lambdas <- subset(bm_v_lambda$par_dist, 
@@ -192,26 +189,26 @@ ou0v1 <- pmc(tree, log(anoles["size"]), "brown", "hansen",
 @
 
 
-%\begin{figure}
-%\begin{center}
-%<<plot_anoles, echo=TRUE, fig=TRUE>>=
-%a <- plot(ou3v4, A="OU.3", B="OU.4") 
-%b <- plot(ou3v15, A="OU.3", B="OU.15") 
-%c <- plot(ou1v3, A="OU.1", B="OU.3") 
-%d <- plot(ou0v1, A="BM", B="OU.1") 
-%
-%grid.newpage()
-%pushViewport(viewport(layout = grid.layout(2, 2)))
-%vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y) 
-%print(a, vp = vplayout(1, 1)) 
-%print(b, vp = vplayout(1, 2)) 
-%print(c, vp = vplayout(2, 1)) 
-%print(d, vp = vplayout(2, 2))
-%@
-%\end{center}
-%\end{figure}
-%
-%
+\begin{figure}
+\begin{center}
+<<plot_anoles, echo=TRUE, fig=TRUE>>=
+a <- plot(ou3v4, A="OU.3", B="OU.4") 
+b <- plot(ou3v15, A="OU.3", B="OU.15") 
+c <- plot(ou1v3, A="OU.1", B="OU.3") 
+d <- plot(ou0v1, A="BM", B="OU.1") 
+
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2, 2)))
+vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y) 
+print(a, vp = vplayout(1, 1)) 
+print(b, vp = vplayout(1, 2)) 
+rint(c, vp = vplayout(2, 1)) 
+print(d, vp = vplayout(2, 2))
+@
+\end{center}
+\end{figure}
+
+
 
 Illustrate plotting the trees 
 

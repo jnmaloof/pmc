@@ -3,8 +3,7 @@
 
 
 require(pmc)
-#data(anoles)
-load("anoles.rda")
+data(anoles)
 
 
 
