@@ -84,7 +84,8 @@ pmc <- function(tree, data,
       simA <- simA$rep.1 # reformat output from ouch's simulate method
     AfitA <- update(A, data=simA)
     # The cross-comparison needs to check the data-formats match
-    if(class(A) != class(B))
+    if((is(A, "ouchtree") & !is(B, "ouchtree")) |
+       (!is(A, "ouchtree") & is(B, "ouchtree")))
       simA <- format_data(get_phy(A), get_data(A))$data
     BfitA <- update(B, data=simA)
 
@@ -94,7 +95,8 @@ pmc <- function(tree, data,
       simB <- simB$rep.1
     BfitB <- update(B, data=simB)
     # The cross-comparison needs to check the data-formats match
-    if(class(A) != class(B))
+    if((is(A, "ouchtree") & !is(B, "ouchtree")) |
+       (!is(A, "ouchtree") & is(B, "ouchtree")))
       simB <- format_data(get_phy(B), get_data(B))$data
     AfitB <- update(A, data=simB)
 
