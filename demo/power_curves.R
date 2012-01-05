@@ -1,6 +1,6 @@
 #power_curves.R
 require(pmc)
-require(TreePar)
+require(TreeSim)
 require(ouch)
 
 nboot <- 200

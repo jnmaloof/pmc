@@ -12,6 +12,8 @@
 #' @return a phylogenetic tree in the opposite format
 #' @export
 convert <- function(ot, regimes=NULL, safe=TRUE){
+  if(!is.null(regimes))
+    safe<-FALSE # cannot write to nexus if regimes are required
 	if(is(ot, "ouchtree")){
 
 		n <- ot@nnodes
