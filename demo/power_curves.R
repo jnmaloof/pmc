@@ -9,6 +9,7 @@ cpu <- 4
 alpha  <- c(.01, .1, 1, 1.5, 2, 5, 10, 20)
 n      <- c(5, 10, 20, 50, 100)
 lambda <- c(.25, .5, .75, 1)
+
 # size simulations
 size <- lapply(1:length(n), function(i){
 	simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
