@@ -11,13 +11,22 @@ RPROG=	$(R_HOME)/bin/R
 RSCRIPT=$(R_HOME)/bin/Rscript
 
 pmc_tutorial.pdf: pmc_tutorial/pmc_tutorial.Rnw
-	cp -f pmc_tutorial/pmc_tutorial.Rnw .
-	$(RSCRIPT) --vanilla -e "require(knitr); knit( 'pmc_tutorial.Rnw');"
+	$(RSCRIPT) R CMD Sweave pmc_tutorial.Rnw 
 	#Compile in latex, but keep aux file till we make bibliography
-	$(RSCRIPT) -e "tools::texi2dvi( 'pmc_tutorial.tex', pdf = TRUE, clean = FALSE )" 
+	$(RSCRIPT) -e "tools::texi2dvi( 'pmc_tutorial.tex', pdf = TRUE, clean = FALSE )"	
 	bibtex pmc_tutorial # make the bibliography 
 	$(RSCRIPT) -e "tools::texi2dvi( 'pmc_tutorial.tex', pdf = TRUE, clean = TRUE )" # compile and cleanup
-#	cp pmc_tutorial/pmc_tutorial-fake.Rnw pmc_tutorial.Rnw
+
+knit:
+	cd pmc_tutorial
+	$(RSCRIPT) --vanilla -e "require(knitr); knit( 'pmc_tutorial.Rnw', '../pmc_tutorial.Rnw');"
+	cd ..
+	$(RSCRIPT) CMD Sweave pmc_tutorial.Rnw 
+	#Compile in latex, but keep aux file till we make bibliography
+	$(RSCRIPT) -e "tools::texi2dvi( 'pmc_tutorial.tex', pdf = TRUE, clean = FALSE )"
+	bibtool -s -d -x pmc_tutorial.aux ~/Documents/Mendeley/bib/library.bib pmc_tutorial.bib
+	bibtex pmc_tutorial # make the bibliography 
+	$(RSCRIPT) -e "tools::texi2dvi( 'pmc_tutorial.tex', pdf = TRUE, clean = TRUE )" # compile and cleanup
 
 pdfclean:
 	rm -f *.pdf
