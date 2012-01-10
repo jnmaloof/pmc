@@ -1,51 +1,29 @@
 \name{fitContinuous_object}
 \alias{fitContinuous_object}
-\title{
-an object oriented version of the Fit Continuous function in Geiger.  
-}
-\description{
-Works as fitContinuous, but returns an object of type "fitContinuous" that has methods associated with it to "simulate", "update", get the "loglik" or the names of its parameters "GetParameterNames".  These objects can be passed directly to the montecarlotest function.
-}
+\title{wrapper for fitContinuous}
 \usage{
-fitContinuous_object(tree, data, model = "BM", ...)
+  fitContinuous_object(tree, data, model = "BM",
+    bounds = NULL, meserr = NULL)
 }
 \arguments{
-  \item{tree}{
-  A phylogenetic tree of class "phylo"
-}
-  \item{data}{
-    data, see ?fitContinuous
-}
-  \item{model}{
-    a model type, see ?fitContinuous
-}
-  \item{\dots}{
-    other options taken by fitContinuous
-}
-}
+  \item{tree}{a phylo object phylogenetic tree}
 
-\value{ A fitContinuous S3 object with associated methods
+  \item{data}{ape data phylo format}
+
+  \item{model}{the type of model to fit}
+
+  \item{bounds}{optional list of bounds for the parameter
+  fits}
+
+  \item{meserr}{measurment error, if any}
 }
-\author{
-  Carl Boettiger
+\value{
+  an object of class fitContinuous
 }
-
-
-\examples{
-  data(geospiza)
-# get the data as a single named numeric
-  traits <- geospiza$geospiza.data[[1]]
-  names(traits) <- rownames(geospiza$geospiza.data)
-## get rid of tips we don't have data for
-  data <- treedata(geospiza$geospiza.tree,traits)
-  names(data$data) <- rownames(data$data)
-
-# Okay, fit the models
-  bm <-  fitContinuous_object(data$phy, data$data)
-  lambda <- fitContinuous_object(data$phy, data$data, model="lambda")
-  lambda[[1]]$lambda <- 0.6
-  \dontrun{
-    bm_v_lambda <- montecarlotest(bm, lambda, nboot = 1000, cpu=16)
-  }
+\description{
+  Runs the fitContinuous function and returns and object
+  with necessary information to run methods such as
+  'update' and 'simulate'.  Call is the same as the
+  original fitContinuous function.
 }
 

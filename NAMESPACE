@@ -1,33 +1,28 @@
-#import(geiger)
-#import(ape)
-#import(ouch)
-#import(snowfall)
-#import(TreeSim)
-#import(odesolve)
-#import(laser)
-
-## pmc_model.R: a generic wrapper to help any packae with a fit 
-## and simulate method use the pmc package functions
-export(pmc_model, simulate.pmc_model, update.pmc_model, getParameters.pmc_model, loglik.pmc_model, pmc) 
-
-## montecarlotest.R fns  -- provided by mcmcTools
-#export(plot.pow, montecarlotest, loglik, getParameters) 
-
-## plot_functions.R
-export(plot_par_dists)
-
-## confidenceIntervals.R fns 
-export(confidenceIntervals.pow)
-## treeformats.R 
-export(convert, treepalette)
-##powercurves.R 
+S3method(getParameters,browntree)
+S3method(getParameters,fitContinuous)
+S3method(getParameters,hansentree)
+S3method(get_data,fitContinuous)
+S3method(get_data,ouchtree)
+S3method(get_phy,fitContinuous)
+S3method(get_phy,ouchtree)
+S3method(loglik,fitContinuous)
+S3method(loglik,hansentree)
+S3method(plot,pmc)
+S3method(simulate,fitContinuous)
+S3method(update,fitContinuous)
+export(convert)
+export(format_data)
+export(mrcaOUCH)
+export(paintBranches)
+export(plot_pars)
+export(pmc)
+export(pmc_fit)
+export(treepalette)
 export(treepower)
-
-## Object oriented structures for common phylogenetic models
-## allows the existing functions to use the montecarlotest() functions suite
-
-## object_oriented_geiger.R fns
-export(fitContinuous_object, simulate.fitContinuous, update.fitContinuous, loglik.fitContinuous, getParameters.fitContinuous, fitcts)
-## object_oriented_ouch.R fns
-export(loglik.browntree, loglik.hansentree, getParameters.browntree, getParameters.hansentree)
-
+import(TreeSim)
+import(ape)
+import(geiger)
+import(ggplot2)
+import(ouch)
+import(reshape)
+import(snowfall)

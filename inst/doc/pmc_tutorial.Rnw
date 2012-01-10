@@ -1,0 +1,350 @@
+%\VignetteIndexEntry{PMC Tutorial}
+\documentclass{elsarticle}
+
+%% Redefines the elsarticle footer
+\makeatletter
+\def\ps@pprintTitle{%
+ \let\@oddhead\@empty
+ \let\@evenhead\@empty
+ \def\@oddfoot{\it \hfill\today}%
+ \let\@evenfoot\@oddfoot}
+\makeatother
+
+
+\usepackage{graphicx}
+%\usepackage{subfigure}
+\usepackage[pdftex, colorlinks]{hyperref}
+\usepackage{amsmath, amsfonts}  % extended mathematics
+\usepackage{booktabs} % book-quality tables
+%\usepackage{units}    % non-stacked fractions and better unit spacing
+%\usepackage{multicol} % multiple column layout facilities
+%\usepackage{fancyvrb} % extended verbatim environments
+%\fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+%\usepackage{xspace}
+
+\textwidth 6.75in
+\oddsidemargin -0.15in
+\evensidemargin -0.15in
+\textheight 9in
+\topmargin -0.5in
+\newcommand{\ud}{\mathrm{d}}
+
+\begin{document}
+\begin{frontmatter}
+  \title{An introduction to the \texttt{pmc} Package}
+  \author[davis]{Carl Boettiger\corref{cor1}}
+  \ead{cboettig@ucdavis.edu}
+  %\author[davis]{}
+  \cortext[cor1]{Corresponding author.}
+  \address[davis]{Center for Population Biology, University of California, Davis, United States}
+
+  \begin{abstract}
+  The Phylogenetic Monte Carlo package provides a suite of utilities for more robust model choice and uncertainty analysis in comparative phylogenetic models.  This vignette accompanies the manuscript by Boettiger et al, and describes how to use the package by illustrating how each of the analyses in the manuscript were performed.  
+  \end{abstract}
+
+  \begin{keyword}
+   R  \sep vignette
+   \end{keyword}
+ \end{frontmatter}
+
+\section{Introduction}
+The Phylogentic Monte Carlo (\texttt{pmc}) package provides methods for estimating the power phylogenetic methods and providing a robust comparison of common phylogenetic models.  This package accompanies Boettiger \emph{et. al.} 2011, \emph{Is your phylogeny informative? Measuring the power of comparative methods.}  The following vignette is provided as the supplement to the paper.  
+
+This document uses Sweave to automatically regenerate the figures presented in the manuscript from the data provided. The different demos create all the figures from the four different datasets analyzed in the paper (\emph{Geospiza}, simulated large tree, \emph{Anoles}, collection of simulated trees of varying sizes and shapes).  Some demos are run on a reduced number of replicates relative to the paper, but all demos may take some time to run on a personal computer.  
+
+\section{Package availability}
+The development version of the package is available on Github: \href{https://github.com/cboettig/pmc}{https://github.com/cboettig/pmc}, under Downloads.  The current source-code, issues tracking features, and version history are also available there.  A stable version will soon be submitted to the CRAN network.  
+
+
+
+\setkeys{Gin}{width=0.85\textwidth}
+
+\section{Finches Examples}
+
+The first set of examples uses the finches data and geiger functions~\citep{Harmon2008} to look at uncertainty in parameter estimates using the pmc method.  We start off by loading the required libraries 
+<<label=libraries, echo=TRUE, message=FALSE>>=
+library(pmc)
+# load the geospiza (Darwin's finches) data set from the "geiger" package
+library(geiger)
+data(geospiza)
+@
+
+
+These next commands are optional, allowing the package to use the specified number of processors, if available.  
+<<label=parallel, echo=TRUE, eval=FALSE>>=
+require(snowfall) # load the parallelization package
+sfInit(parallel=T, cpu=4) # specify how many cpus we have
+sfLibrary(geiger) # export any libraries we've loaded 
+@
+Now actually running pmc takes just one line:
+
+<<label=pmc, echo=TRUE, cache=TRUE>>=
+bm_v_lambda <- pmc(geospiza$geospiza.tree, geospiza$geospiza.data, "BM", "lambda", nboot=20)
+@
+
+We can analyze the parameter distributions as presented in the manuscript.  For instance, we can look at a histogram of values of lambda obtained from the different simulations. 
+
+
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{figure}
+\begin{center}
+<<label=Fig1a, fig=TRUE, echo=TRUE>>=
+lambdas <- subset(bm_v_lambda$par_dist, 
+           comparison=="BB" & parameter=="lambda")
+p1 <- ggplot(lambdas) + geom_histogram(aes(value)) +
+      geom_vline(xintercept=bm_v_lambda$B[[1]]$lambda)
+print(p1)
+@
+\end{center}
+\label{fig:onea}
+\end{figure}
+
+Note that the ability to estimate lambda is very poor, with most simulations returning an estimate of almost zero despite the true value used in the simulations being 0.6.  Estimating the sigma parameter is somewhat more reliable, even on this small tree:
+
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{figure}
+\begin{center}
+<<label=Fig1a, fig=TRUE, echo=TRUE>>=
+betas <- subset(bm_v_lambda$par_dist, comparison=="BB" & parameter=="beta")
+p2 <- ggplot(betas) + geom_histogram(aes(sqrt(value))) # beta == sigma^2
+print(p2)
+@
+\end{center}
+\label{fig:oneb}
+\end{figure}
+
+
+We can also query the confidence intervals directly from the estimates returned by the pmc function.  We can subset the data to just get the confidence interval of the parameter of interest, 
+
+<<ci1, echo=TRUE>>=
+cast(lambdas, comparison ~ parameter, function(x)
+     quantile(x, c(.05, .95)), value=c("lower", "upper"))
+@
+
+Or get the intervals for all parameters at once. Note that the ``comparison'' indicates the model being fit with the first letter, and the model used for the simulations under the second letter. 
+<<ci_all, echo=TRUE>>=
+cast(bm_v_lambda$par_dist, comparison ~ parameter, function(x)
+     quantile(x, c(.05, .95)), value=c("lower", "upper"))
+@
+This way we can see the interval for lambda estimated when simulating under the brownian motion model (equiv to lambda=1) under the row BA, as well as the confidence interval on the lambda estimate when simulating with the correct model, lambda=0.6. These cross-comparisons can also be useful. We could always use variations of the subset command above to include only certain parameters or comparisons. 
+
+We can also summarize all this information at once in a traditional box-and-whiskers plot:
+\setkeys{Gin}{width=0.85\textwidth}
+\begin{figure}
+\begin{center}
+<<allpars, fig=TRUE, echo=TRUE>>=
+p3 <- plot_pars(bm_v_lambda$par_dists) 
+print(p3)
+@
+\end{center}
+\label{fig:pars}
+\end{figure}
+
+<<TreeSimError, echo=FALSE>>=
+Sys.setlocale(locale="C") -> locale
+# clean up
+rm(list="locale")
+@
+\setkeys{Gin}{width=0.45\textwidth}
+We can repeat the analysis with a larger tree, showing the uncertainty in the estimate of lambda decreases, if only slowly:
+\begin{figure}
+\begin{center}
+<<simtree, fig=TRUE, echo=TRUE, cache=TRUE, warning=FALSE>>=
+require(TreeSim)
+simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
+simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
+# This command is slow, due to geiger's slow fitting funtions
+bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
+lambdas <- subset(bm_v_lambda$par_dist, 
+           comparison=="BB" & parameter=="lambda")
+p4 <- ggplot(lambdas) + geom_histogram(aes(value)) +
+      geom_vline(xintercept=bm_v_lambda$B[[1]]$lambda)
+print(p4)
+@
+\end{center}
+\label{fig:onec}
+\end{figure}
+\setkeys{Gin}{width=0.85\textwidth}
+
+\section{Anoles example}
+Next we consider the examples re-analyzing the Anoles data from~\citep{Butler2004}, using methods from the ouch package.  
+<<pmc_anoles, echo=TRUE, cache=TRUE>>=
+data(anoles)
+ou3v4 <- pmc(tree, log(anoles["size"]), modelA="hansen", modelB="hansen", 
+             optionsA=list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
+             optionsB=list(regimes=anoles["OU.4"], sqrt.alpha=1, sigma=1),
+             nboot=20)
+
+ou3v15 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
+             list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
+             list(regimes=anoles["OU.15"], sqrt.alpha=1, sigma=1),
+             nboot=20)
+                   
+ou1v3 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
+             list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1), 
+             list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1),
+             nboot=20)
+ 
+ou0v1 <- pmc(tree, log(anoles["size"]), "brown", "hansen", 
+             list(), 
+             list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1),
+             nboot=20)
+@
+
+
+\begin{figure}
+\begin{center}
+<<plot_anoles, echo=TRUE, fig=TRUE, message=FALSE, warning=FALSE>>=
+a <- plot(ou3v4, A="OU.3", B="OU.4") 
+b <- plot(ou3v15, A="OU.3", B="OU.15") 
+c <- plot(ou1v3, A="OU.1", B="OU.3") 
+d <- plot(ou0v1, A="BM", B="OU.1") 
+
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2, 2)))
+vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y) 
+print(a, vp = vplayout(1, 1)) 
+print(b, vp = vplayout(1, 2)) 
+print(c, vp = vplayout(2, 1)) 
+print(d, vp = vplayout(2, 2))
+@
+\end{center}
+\end{figure}
+
+
+Fits from the ouch methods include a phylogeny in the ouch format.  As many researchers would rather manipulate and plot the resulting phylogeny in the "phylo" format from the ape package, pmc provides a simple utility to convert the tree while keeping track of the regimes in ouch.  \footnote{Some caution should always be applied in using "phylo" format trees.  Unlike the ouch format, a given tree does not have a unique specification, and consequently some functions that use "phylo" trees make assumptions about the ordering of edges that may not be true, even for a technically valid, plottable "phylo" specification of the phylogeny.}
+%\begin{figure}
+%\begin{center}
+%<<treeplotting, echo=TRUE, fig=TRUE>>=
+%require(ape)
+%## Convert is a custom pmc function that toggles between tree formats
+%ou4_tree <- convert(tree, regimes=anoles[["OU.4"]])
+%plot(ou4_tree, edge.color = treepalette(ou4_tree), edge.width=5, cex=1.2, show.tip.label=TRUE)
+%mtext("OU.4 regimes", cex=2)
+%@
+%\end{center}
+%\end{figure}
+%
+
+\section{Early Burst models}
+We can also mix and match methods, comparing a fit from geiger with a fit from ouch.  We do so in this example, which shows that it may be very difficult to identify if a given dataset comes from an early burst or a OU model:  
+
+<<earlyburst, echo=TRUE, cache=TRUE, message=FALSE, warning=FALSE>>=
+## Load Libraries ##
+require(pmc)
+require(TreeSim) # to simulate a sample phyologeny
+## Simulate Data ##
+simtree <- sim.bd.taxa(n=60, numbsim=1, lambda=1, mu=0, frac=1,
+                       complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
+# simulates the EB model (by tranforming the tree)
+dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.5), sigma=5)
+
+# Specify the models and the options needed.  
+regimes <- format_data(simtree,dat)$noregimes
+eb_v_ou <- pmc(simtree, dat, modelA="EB", modelB="hansen", 
+               optionsB=list(sqrt.alpha=1, sigma=1, regimes=regimes), 
+                              nboot=20) # small nboot just for example
+plot(eb_v_ou) 
+@
+
+
+\section{Utilities}
+To implement the pmc package over a variety of methods, I have written an abstraction layer for phylogenetic comparative methods. A few of those methods may be useful to others, so I have made them accessible from the package and introduce them here.  Using the simulated tree and data from the early burst example above, we can swap between formats of both the tree and the data at whim, something that might be useful for anyone using both ouch and the other methods.  
+<<format_swap>>=
+ouch <- format_data(simtree, dat)
+ape <- format_data(ouch$tree, ouch$dat)
+@
+
+This format swapping is handled automatically in pmc's generic function for fitting phylogenetic models.  This function acts as a wrapper around existing methods, allowing the user to call the ouch methods while passing in data in either ouch or geiger format.   
+<<generic_fit>>=
+A <- pmc_fit(ape$tree, ape$data, model="BM")
+B <- pmc_fit(simtree, dat, model="hansen", options=list(sqrt.alpha=1, sigma=1, regimes=regimes))
+@
+This function also returns an object of a class that matches the fitting method used.  This means that we can use commands such as:
+<<class>>=
+sim <- simulate(A)
+newA <- update(A, simulate(A))
+@
+which automatically recognize the kind of model fit and use that method to perform the simulations and updates. This object-oriented design already exists in ouch, so this simply extends the practice to other methods.  The fitted object stores the traits and phylogeny used to make the fit, as well as the model and fitting options, which can also help the user avoid reproducibility errors of mismatching data, fit options and results.
+
+
+\subsection{Power Curves}
+
+A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of Boettiger et al, Evolution. This code illustrates how such an analysis is run with the pmc package.   
+<<label=powercurves, echo=TRUE, cache=TRUE, message=FALSE, warning=FALSE>>=
+require(pmc)
+require(TreeSim)
+require(ouch)
+nboot <- 200
+cpu <- 4
+alpha  <- c(.01, .1, 1, 1.5, 2, 5, 10, 20)
+n      <- c(5, 10, 20, 50, 100)
+lambda <- c(.25, .5, .75, 1)
+# size simulations
+size <- lapply(1:length(n), function(i){
+    simtree <- sim.bd.taxa(n=n[i], numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
+      treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
+})
+## Shape simulations
+N <- 50 ## number of taxa fixed to 50
+shape <- lapply(1:length(lambda), function(i){
+    simtree <- sim.bd.taxa(n=N, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]]
+      simtree <- lambdaTree(simtree, lambda[i])
+        treepower(ape2ouch(simtree), nboot=nboot, cpu=cpu, alpha=alpha)
+})
+@
+
+
+
+\begin{figure}
+\begin{center}
+<<label=Fig6a, fig=TRUE, echo=TRUE>>=
+plot_size <- function(){
+    k <- length(n)
+  plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
+       main="Power by tree size", log="x", xlab="alpha", ylab="power")
+  for(i in 1:k ){ ## skip the last 2, which haven't converged
+    points(alpha, size[[i]]$power, pch=16, col=i)
+    lines(alpha, size[[i]]$power, col=i)
+  }
+  legend("topleft", paste(n[1:3], "taxa"), col=1:k, pch=16  ) 
+
+}
+plot_size()
+@
+\end{center}
+\caption{}
+\label{fig:sixa}
+\end{figure}
+
+
+
+\begin{figure}
+\begin{center}
+<<label=Fig6b, fig=TRUE, echo=TRUE>>=
+
+
+plot_shape <- function(){
+  plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
+  main="Power by tree topology", log="x", xlab="alpha", ylab="power")
+    k <- length(lambda)
+  for(i in 1:k){
+    points(alpha, shape[[i]]$power, pch=16, col=i)
+    lines(alpha, shape[[i]]$power,  col=i)
+  }
+  legend("topleft", paste(lambda, "lambda"), col=c1:k, pch=16  ) 
+}
+plot_shape()
+@
+\end{center}
+\label{fig:sixb}
+\end{figure}
+
+
+
+\section*{ }%bibliography
+\bibliographystyle{elsarticle-harv}
+\bibliography{/home/cboettig/Documents/Mendeley/bib/library}
+
+\end{document}
+
