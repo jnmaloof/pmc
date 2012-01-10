@@ -155,8 +155,8 @@ We can repeat the analysis with a larger tree, showing the uncertainty in the es
 require(TreeSim)
 simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
-# This command is slow, due to geiger's slow fitting funtions
-bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
+invisible(capture.output( # hide geiger's messages 
+  bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)))
 lambdas <- subset(bm_v_lambda$par_dist, 
            comparison=="BB" & parameter=="lambda")
 p4 <- ggplot(lambdas) + geom_histogram(aes(value)) +
