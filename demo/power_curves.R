@@ -1,14 +1,5 @@
 #power_curves.R
 
-###############
-require(socialR)
-script <- "power_curves.R"
-gitaddr <- gitcommit(script)
-tags="phylogenetics"
-tweet_errors(script, tags=tags)
-###############
-
-
 
 require(pmc)
 require(TreePar)
@@ -19,7 +10,7 @@ cpu <- 16
 
 alpha  <- c(.01, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2, 5, 10, 20)
 n      <- c(5, 10, 20, 50, 100)
-lambda <- c(.25, .5, .75, 1)
+lambda <- c(.05, .2, .4, .6, .8)
 
 
 # size simulations
@@ -83,6 +74,4 @@ png("powercurve_shape.png")
 plot_shape()
 dev.off()
 
-upload("powercurve_size.png", script=script, gitaddr=gitaddr, tags=tags)
-upload("powercurve_shape.png", script=script, gitaddr=gitaddr, tags=tags)
 
