@@ -75,6 +75,7 @@ These next commands are optional, allowing the package to use the specified numb
 <<label=parallel, echo=TRUE, eval=FALSE>>=
 require(snowfall) # load the parallelization package
 sfInit(parallel=T, cpu=4) # specify how many cpus we have
+sfLibrary(pmc)
 sfLibrary(geiger) # export any libraries we've loaded 
 @
 Now actually running pmc takes just one line:

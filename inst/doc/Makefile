@@ -18,9 +18,8 @@ pmc_tutorial.pdf: pmc_tutorial/pmc_tutorial.Rnw
 	$(RSCRIPT) -e "tools::texi2dvi( 'pmc_tutorial.tex', pdf = TRUE, clean = TRUE )" # compile and cleanup
 
 knit:
-	cd pmc_tutorial
+	cp -f pmc_tutorial/knit_pmc_tutorial.Rnw pmc_tutorial.Rnw
 	$(RSCRIPT) --vanilla -e ".libPaths(c('~/R', .libPaths())); require(knitr); knit( 'pmc_tutorial.Rnw', '../pmc_tutorial.Rnw');"
-	cd ..
 	$(RPROG) CMD Sweave pmc_tutorial.Rnw 
 	#Compile in latex, but keep aux file till we make bibliography
 	$(RSCRIPT) -e "tools::texi2dvi( 'pmc_tutorial.tex', pdf = TRUE, clean = FALSE )"
