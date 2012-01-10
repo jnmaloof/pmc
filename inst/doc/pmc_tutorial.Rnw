@@ -16,11 +16,6 @@
 \usepackage[pdftex, colorlinks]{hyperref}
 \usepackage{amsmath, amsfonts}  % extended mathematics
 \usepackage{booktabs} % book-quality tables
-%\usepackage{units}    % non-stacked fractions and better unit spacing
-%\usepackage{multicol} % multiple column layout facilities
-%\usepackage{fancyvrb} % extended verbatim environments
-%\fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
-%\usepackage{xspace}
 
 \textwidth 6.75in
 \oddsidemargin -0.15in
@@ -28,6 +23,12 @@
 \textheight 9in
 \topmargin -0.5in
 \newcommand{\ud}{\mathrm{d}}
+
+%% Looks like a comment but it isn't! This is setting the default behavior for the Sweave chunk options, <<options >>= 
+% \SweaveOpts{prefix.string=figure/graphics-, prefix.cache=cache/graphics-, fig=TRUE, align=center, dev=tikz, external=TRUE, width=5, height=5, fig.hold=TRUE, cache=FALSE, align=center, message=FALSE, warning=FALSE}
+
+
+
 
 \begin{document}
 \begin{frontmatter}
@@ -62,7 +63,7 @@ The development version of the package is available on Github: \href{https://git
 \section{Finches Examples}
 
 The first set of examples uses the finches data and geiger functions~\citep{Harmon2008} to look at uncertainty in parameter estimates using the pmc method.  We start off by loading the required libraries 
-<<label=libraries, echo=TRUE, message=FALSE>>=
+<<label=libraries, echo=TRUE, message=FALSE, warning=FALSE>>=
 library(pmc)
 # load the geospiza (Darwin's finches) data set from the "geiger" package
 library(geiger)
@@ -149,7 +150,7 @@ rm(list="locale")
 We can repeat the analysis with a larger tree, showing the uncertainty in the estimate of lambda decreases, if only slowly:
 \begin{figure}
 \begin{center}
-<<simtree, fig=TRUE, echo=TRUE, cache=TRUE, warning=FALSE>>=
+<<simtree, fig=TRUE, echo=TRUE, cache=TRUE, warning=FALSE, message=FALSE>>=
 require(TreeSim)
 simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
@@ -332,7 +333,7 @@ plot_shape <- function(){
     points(alpha, shape[[i]]$power, pch=16, col=i)
     lines(alpha, shape[[i]]$power,  col=i)
   }
-  legend("topleft", paste(lambda, "lambda"), col=c1:k, pch=16  ) 
+  legend("topleft", paste(lambda, "lambda"), col=1:k, pch=16  ) 
 }
 plot_shape()
 @
