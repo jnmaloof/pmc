@@ -346,7 +346,8 @@ plot_shape()
 
 \section*{ }%bibliography
 \bibliographystyle{elsarticle-harv}
-\bibliography{/home/cboettig/Documents/Mendeley/bib/library}
+%\bibliography{/home/cboettig/Documents/Mendeley/bib/library}
+\bibliography{pmc_tutorial.bib}
 
 \end{document}
 
