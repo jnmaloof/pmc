@@ -82,9 +82,6 @@ simtree <- sim.bd.taxa(n=60, numbsim=1, lambda=1, mu=0, frac=1,
 dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.5), sigma=5)
 
 ## run PMC ##
-sfInit(parallel=TRUE, cpu=2)
-sfExportAll() # for parallelization
-sfLibrary(geiger)
 ## Specify the models and the options needed.
 regimes <- format_data(simtree, dat)$noregimes
 eb_v_ou <- pmc(simtree, dat, modelA="EB", modelB="hansen",

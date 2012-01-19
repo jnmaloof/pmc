@@ -25,7 +25,7 @@
 \newcommand{\ud}{\mathrm{d}}
 
 %% Looks like a comment but it isn't! This is setting the default behavior for the Sweave chunk options, <<options >>= 
-% \SweaveOpts{dev=tikz, external=TRUE, width=5, height=5, align=center, message=FALSE, warning=FALSE, cache=TRUE}
+% \SweaveOpts{dev=tikz, external=TRUE, width=5, height=5, align=center, message=FALSE, warning=FALSE}
 
 
 
@@ -63,41 +63,74 @@ The development version of the package is available on Github: \href{https://git
 \section{Finches Examples}
 
 The first set of examples uses the finches data and geiger functions~\citep{Harmon2008} to look at uncertainty in parameter estimates using the pmc method.  We start off by loading the required libraries 
-<<label=libraries, echo=TRUE, message=FALSE, warning=FALSE, cache=FALSE>>=
+<<label=libraries>>=
 library(pmc)
 # load the geospiza (Darwin's finches) data set from the "geiger" package
 library(geiger)
 data(geospiza)
+attach(geospiza)
 require(ggplot2)
 @
 
 
 These next commands are optional, allowing the package to use the specified number of processors, if available.  
-<<label=parallel, echo=TRUE, eval=FALSE>>=
+<<label=parallel, echo=TRUE>>=
 require(snowfall) # load the parallelization package
 sfInit(parallel=T, cpu=4) # specify how many cpus we have
 sfLibrary(pmc)
 sfLibrary(geiger) # export any libraries we've loaded 
 @
-Now actually running pmc takes just one line:
 
-<<label=pmc, echo=TRUE, cache=TRUE>>=
+Now actually running pmc takes just one line:
+<<label=pmc, echo=FALSE>>=
 invisible(capture.output( # avoid printing progress of loop 
-  bm_v_lambda <- pmc(geospiza$geospiza.tree, geospiza$geospiza.data,
-  "BM", "lambda", nboot=20) ))
+  bm_v_lambda <- pmc(geospiza.tree, geospiza.data["wingL"],
+  "BM", "lambda", nboot=100) 
+))
+@
+% NOTE to the Sweave reader: The block above evaluates but doesn't display,
+% the block below displays but doesn't evaluate. This prevents printing all the 
+% unneccessary output messages to the pdf. If geiger used "message" instead of "print",
+% this would not be an issue, since sweave is designed to surpress "messages" if desired.  
+<<label=pmc, eval=FALSE>>=
+  bm_v_lambda <- pmc(geospiza.tree, geospiza.data["wingL"],
+  "BM", "lambda", nboot=100) 
 @
 
-We can analyze the parameter distributions as presented in the manuscript.  For instance, we can look at a histogram of values of lambda obtained from the different simulations. 
 
+Currently the output will only run for a single trait at a time, for efficient memory usage.  Here we specify the wing length trait.  
+
+
+We can analyze the parameter distributions as presented in the manuscript.  
+For instance, we can look at a histogram of values of lambda obtained from the different simulations. 
+Because the pmc approach runs four different fits: 
+\begin{itemize} 
+\item ``AA'' fitting model A on data obtained by simulations from model A,
+\item ``BA'' fitting model B on the data simulated from model A
+\item ``AB'' fitting model A on simulations from B
+\item ``BB'' fitting B on simulations from B
+\end{itemize}
+
+there are actually 4 different parameter distributions we can use.  
+The comparisons ``AA'' and ``BB'' are the typical way one would bootstrap the model fits.
+All of these combinations are returned in the data set \verb|par_dists| which is one of the 
+items in the list returned by pmc (which we have named \verb|bm_v_lambda| above).  
+Subsetting is a good way to get the parameter of interest, lambda, for the comparison of interest, BB.
+(Note that for comparisons AA and AB, which fit model Brownian motion, there is of course no parameter lambda).
+
+<<subset>>=
+lambdas <- subset(bm_v_lambda["par_dists"], comparison=="BB" & parameter=="lambda")
+@
+
+The returned list from pmc also stores the two models it fit to the original data, inder the names A and B.  
+We can use this to extract the parameter of interest
 
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
 \begin{center}
-<<label=Fig1a, fig=TRUE, echo=TRUE, cache=FALSE>>=
-lambdas <- subset(bm_v_lambda$par_dist, 
-           comparison=="BB" & parameter=="lambda")
+<<Fig1a>>=
 p1 <- ggplot(lambdas) + geom_histogram(aes(value)) +
-      geom_vline(xintercept=bm_v_lambda$B[[1]]$lambda)
+      geom_vline(xintercept=bm_v_lambda[["B"]][["wingL"]][["lambda"]])
 print(p1)
 @
 \end{center}
@@ -109,7 +142,7 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
 \begin{center}
-<<label=Fig1a, fig=TRUE, echo=TRUE, cache=FALSE>>=
+<<Fig1a>>=
 betas <- subset(bm_v_lambda$par_dist, comparison=="BB" & parameter=="beta")
 p2 <- ggplot(betas) + geom_histogram(aes(sqrt(value))) # beta == sigma^2
 print(p2)
@@ -121,13 +154,13 @@ print(p2)
 
 We can also query the confidence intervals directly from the estimates returned by the pmc function.  We can subset the data to just get the confidence interval of the parameter of interest, 
 
-<<ci1, echo=TRUE>>=
+<<ci1>>=
 cast(lambdas, comparison ~ parameter, function(x)
      quantile(x, c(.05, .95)), value=c("lower", "upper"))
 @
 
 Or get the intervals for all parameters at once. Note that the ``comparison'' indicates the model being fit with the first letter, and the model used for the simulations under the second letter. 
-<<ci_all, echo=TRUE>>=
+<<ci_all>>=
 cast(bm_v_lambda$par_dist, comparison ~ parameter, function(x)
      quantile(x, c(.05, .95)), value=c("lower", "upper"))
 @
@@ -143,6 +176,8 @@ print(p3)
 \label{fig:pars}
 \end{figure}
 
+
+% needed on linux machines to avoid stupid errors from treesim/droptip
 <<TreeSimError, echo=FALSE>>=
 Sys.setlocale(locale="C") -> locale
 # clean up
@@ -152,7 +187,7 @@ rm(list="locale")
 
 \begin{figure}
 \begin{center}
-<<simtree, fig=TRUE, echo=TRUE, cache=TRUE, warning=FALSE, message=FALSE>>=
+<<simtree, cache=TRUE>>=
 require(TreeSim)
 simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
@@ -170,34 +205,34 @@ print(p4)
 
 \section{Anoles example}
 Next we consider the examples re-analyzing the Anoles data from~\citep{Butler2004}, using methods from the ouch package.  
-<<pmc_anoles, echo=TRUE, cache=TRUE>>=
+<<pmc_anoles, cache=TRUE>>=
 data(anoles)
 ou3v4 <- pmc(tree, log(anoles["size"]), modelA="hansen", modelB="hansen", 
              optionsA=list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
              optionsB=list(regimes=anoles["OU.4"], sqrt.alpha=1, sigma=1),
-             nboot=20)
+             nboot=100)
 
 ou3v15 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
              list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
              list(regimes=anoles["OU.15"], sqrt.alpha=1, sigma=1),
-             nboot=20)
+             nboot=100)
                    
 ou1v3 <- pmc(tree, log(anoles["size"]), "hansen", "hansen", 
              list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1), 
              list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1),
-             nboot=20)
+             nboot=100)
  
 ou0v1 <- pmc(tree, log(anoles["size"]), "brown", "hansen", 
              list(), 
              list(regimes=anoles["OU.1"], sqrt.alpha=1, sigma=1),
-             nboot=20)
+             nboot=100)
 @
 
 
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}
 \begin{center}
-<<plot_anoles, echo=TRUE, fig=TRUE, message=FALSE, warning=FALSE>>=
+<<plot_anoles>>=
 a <- plot(ou3v4, A="OU.3", B="OU.4") 
 b <- plot(ou3v15, A="OU.3", B="OU.15") 
 c <- plot(ou1v3, A="OU.1", B="OU.3") 
@@ -234,7 +269,7 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 
 \setkeys{Gin}{width=.5\textwidth}
 \begin{figure}
-<<earlyburst, echo=TRUE, cache=TRUE, message=FALSE, warning=FALSE>>=
+<<earlyburst, cache=TRUE>>=
 ## Load Libraries ##
 require(pmc)
 require(TreeSim) # to simulate a sample phyologeny
@@ -278,7 +313,7 @@ which automatically recognize the kind of model fit and use that method to perfo
 \subsection{Power Curves}
 
 A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of Boettiger et al, Evolution. This code illustrates how such an analysis is run with the pmc package.   
-<<label=powercurves, echo=TRUE, cache=TRUE, message=FALSE, warning=FALSE>>=
+<<label=powercurves, cache=TRUE>>=
 require(pmc)
 require(TreeSim)
 require(ouch)
@@ -305,7 +340,7 @@ shape <- lapply(1:length(lambda), function(i){
 
 \begin{figure}
 \begin{center}
-<<label=Fig6a, fig=TRUE, echo=TRUE>>=
+<<Fig6a>>=
 plot_size <- function(){
     k <- length(n)
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
@@ -328,7 +363,7 @@ plot_size()
 
 \begin{figure}
 \begin{center}
-<<label=Fig6b, fig=TRUE, echo=TRUE>>=
+<<Fig6b>>=
 
 
 plot_shape <- function(){

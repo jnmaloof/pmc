@@ -52,9 +52,6 @@
 #' dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.5), sigma=5)
 #' 
 #' ## run PMC ## 
-#' sfInit(parallel=TRUE, cpu=2)
-#' sfExportAll() # for parallelization
-#' sfLibrary(geiger)
 #' ## Specify the models and the options needed. 
 #' regimes <- format_data(simtree, dat)$noregimes
 #' eb_v_ou <- pmc(simtree, dat, modelA="EB", modelB="hansen", 
@@ -65,6 +62,7 @@
 #' @import snowfall 
 #' @import reshape
 #' @import TreeSim
+#' @import ouch
 #' @export
 pmc <- function(tree, data, 
                 modelA = c("BM", "OU", "lambda", "kappa", "delta", "EB",
@@ -180,7 +178,6 @@ plot_pars <- function(object){
 #' ou.3 <- pmc_fit(data=log(bimac['size']),tree, model="hansen", 
 #'                 list(regimes=bimac['OU.3'],sqrt.alpha=1,sigma=1))
 #' @import geiger 
-#' @import ouch
 #' @export
 pmc_fit <- function(tree, data, model, options=list()){
   # Figure out if we need ape/geiger based formats or ouch formats

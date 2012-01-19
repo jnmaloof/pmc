@@ -1,7 +1,7 @@
 Package: pmc
 Type: Package
 Title: Phylogenetic Monte Carlo
-Version: 0.0-2
+Version: 0.0-3
 Author: Carl Boettiger <cboettig@gmail.com>
 Maintainer: Carl Boettiger <cboettig@gmail.com>
 Description: Monte Carlo based model choice for applied phylogenetics of
@@ -15,9 +15,10 @@ Imports:
     snowfall,
     TreeSim,
     methods,
-    stats
+    ouch
 Depends:
-    ggplot2, ouch
+    ggplot2,
+    ouch
 Collate:
     'format_data.R'
     'pmc.R'

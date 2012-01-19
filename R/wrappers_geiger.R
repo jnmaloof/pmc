@@ -80,11 +80,15 @@ update.fitContinuous <- function(object, ...){
 #' @param seed an optional seed for the simulations (not implemented)
 #' @param ... additional arguments, not implemented for fitContinuous simulations
 #' @return simulated dataset
+# These next lines would generate the the S3 method line for the NAMESPACE,
+# but this causes a conflict with the S4 method so it has been removed.  
+# instead we export this function
 #' @method simulate fitContinuous
 #' @S3method simulate fitContinuous
 #' @details intended as an internal function, though an available S3 method
 #' @import ape
-# @importFrom stats simulate # not necessary 
+# properly speaking we don't want to export this, but it solves the s4 conflict
+#' @export
 simulate.fitContinuous <- function(object, nsim=1, seed=NULL, ...){
 # rTraitCont might not be ideal here, should warn if alpha is large!
 #  Currently only designed to simulate from the first object
