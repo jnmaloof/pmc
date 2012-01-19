@@ -25,7 +25,7 @@
 \newcommand{\ud}{\mathrm{d}}
 
 %% Looks like a comment but it isn't! This is setting the default behavior for the Sweave chunk options, <<options >>= 
-% \SweaveOpts{dev=tikz, external=TRUE, width=5, height=5, align=center, message=FALSE, warning=FALSE}
+% \SweaveOpts{dev=tikz, external=TRUE, fig.width=5, fig.height=5, fig.align=center, message=FALSE, warning=FALSE}
 
 
 
@@ -65,11 +65,10 @@ The development version of the package is available on Github: \href{https://git
 The first set of examples uses the finches data and geiger functions~\citep{Harmon2008} to look at uncertainty in parameter estimates using the pmc method.  We start off by loading the required libraries 
 <<label=libraries>>=
 library(pmc)
-# load the geospiza (Darwin's finches) data set from the "geiger" package
-library(geiger)
+library(geiger) # for the data
+library(ggplot2) #graphics
 data(geospiza)
 attach(geospiza)
-require(ggplot2)
 @
 
 
@@ -123,14 +122,18 @@ lambdas <- subset(bm_v_lambda["par_dists"], comparison=="BB" & parameter=="lambd
 @
 
 The returned list from pmc also stores the two models it fit to the original data, inder the names A and B.  
-We can use this to extract the parameter of interest
+We can use this to extract the value of lambda estimated on model B from the raw data:
+
+<<est>>=
+est <- bm_v_lambda[["B"]][["wingL"]][["lambda"]]
+@
 
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
 \begin{center}
 <<Fig1a>>=
 p1 <- ggplot(lambdas) + geom_histogram(aes(value)) +
-      geom_vline(xintercept=bm_v_lambda[["B"]][["wingL"]][["lambda"]])
+      geom_vline(xintercept=est)
 print(p1)
 @
 \end{center}

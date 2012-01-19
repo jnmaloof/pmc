@@ -19,7 +19,7 @@ knit:
 	pdflatex pmc_tutorial.tex
 	pdflatex pmc_tutorial.tex
 	rm -f *.bbl *.blg *.aux *.out *.log *.spl *.tikz 
-	cp *.bib *.tex *.pdf pmc_tutorial.Rnw ..
+	cp *.bib *.pdf pmc_tutorial.Rnw ../../vignettes
 
 pdfclean:
 	rm -f *.pdf
