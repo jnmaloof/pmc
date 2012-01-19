@@ -84,6 +84,7 @@ update.fitContinuous <- function(object, ...){
 #' @S3method simulate fitContinuous
 #' @details intended as an internal function, though an available S3 method
 #' @import ape
+# @importFrom stats simulate # not necessary 
 simulate.fitContinuous <- function(object, nsim=1, seed=NULL, ...){
 # rTraitCont might not be ideal here, should warn if alpha is large!
 #  Currently only designed to simulate from the first object

@@ -11,12 +11,13 @@ License: BSD
 Imports:
     ape,
     geiger,
-    ouch,
     reshape,
     snowfall,
-    TreeSim
+    TreeSim,
+    methods,
+    stats
 Depends:
-    ggplot2
+    ggplot2, ouch
 Collate:
     'format_data.R'
     'pmc.R'
