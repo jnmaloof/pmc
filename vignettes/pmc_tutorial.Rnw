@@ -447,67 +447,9 @@ The first set of examples uses the finches data and geiger functions~\citep{Harm
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Loading required package: ggplot2
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: reshape
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: plyr
-\end{verbatim}
-\begin{verbatim}
-## 
-## Attaching package: 'reshape'
-## 
-\end{verbatim}
-\begin{verbatim}
-## The following object(s) are masked from 'package:plyr':
-## 
-##     rename, round_any
-## 
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: grid
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: proto
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: ouch
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: methods
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: subplex
-\end{verbatim}
-\begin{verbatim}
-## Warning message: found an S4 version of 'simulate' so it has not been imported correctly
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{geiger}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }for{\ }the{\ }data}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Loading required package: ape
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: MASS
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: mvtnorm
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: msm
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{ggplot2}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}graphics}\hspace*{\fill}\\
+\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{geiger}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }for{\ }the{\ }data}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{ggplot2}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}graphics}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{data}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{attach}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\mbox{}
 \normalfont
@@ -522,26 +464,12 @@ These next commands are optional, allowing the package to use the specified numb
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlfunctioncall{require}\hlkeyword{(}\hlsymbol{snowfall}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }load{\ }the{\ }parallelization{\ }package}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Loading required package: snowfall
-\end{verbatim}
-\begin{verbatim}
-## Loading required package: snow
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{sfInit}\hlkeyword{(}\hlargument{parallel}{\ }\hlargument{=}{\ }\hlsymbol{T}\hlkeyword{,}{\ }\hlargument{cpu}{\ }\hlargument{=}{\ }\hlnumber{4}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }specify{\ }how{\ }many{\ }cpus{\ }we{\ }have}\mbox{}
+\hlfunctioncall{require}\hlkeyword{(}\hlsymbol{snowfall}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }load{\ }the{\ }parallelization{\ }package}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{sfInit}\hlkeyword{(}\hlargument{parallel}{\ }\hlargument{=}{\ }\hlsymbol{T}\hlkeyword{,}{\ }\hlargument{cpu}{\ }\hlargument{=}{\ }\hlnumber{4}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }specify{\ }how{\ }many{\ }cpus{\ }we{\ }have}\mbox{}
 \normalfont
 \end{flushleft}
 \begin{verbatim}
 ## R Version:  R version 2.14.1 (2011-12-22) 
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
 ## 
 \end{verbatim}
 \begin{flushleft}
@@ -552,13 +480,6 @@ These next commands are optional, allowing the package to use the specified numb
 \begin{verbatim}
 ## Library pmc loaded.
 \end{verbatim}
-\begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{sfLibrary}\hlkeyword{(}\hlsymbol{geiger}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }export{\ }any{\ }libraries{\ }we\usebox{\hlnormalsizeboxsinglequote}ve{\ }loaded}\mbox{}
@@ -567,32 +488,12 @@ These next commands are optional, allowing the package to use the specified numb
 \begin{verbatim}
 ## Library geiger loaded.
 \end{verbatim}
-\begin{verbatim}
-## Library geiger loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
 
 Now actually running pmc takes just one line:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## Dropped tips from the tree because there were no matching names in the data:
-## [1] "olivacea"
-## 
-## Fitting  BM model:
-## Dropped tips from the tree because there were no matching names in the data:
-## [1] "olivacea"
-## 
-## Fitting  lambda model:
-\end{verbatim}
-\end{kframe}}
-\end{knitrout}
+
 
 % NOTE to the Sweave reader: The block above evaluates but doesn't display,
 % the block below displays but doesn't evaluate. This prevents printing all the 
@@ -635,13 +536,10 @@ Subsetting is a good way to get the parameter of interest, lambda, for the compa
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{lambdas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\mbox{}
+\hlsymbol{lambdas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlsymbol{comparison}{\ }=={\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: object 'comparison' not found
-\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -667,15 +565,12 @@ We can use this to extract the value of lambda estimated on model B from the raw
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{betas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dist}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
+\hlsymbol{betas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
-\end{verbatim}
 
 
 \centering{}\includegraphics{Fig1a} 
@@ -696,15 +591,12 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{betas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dist}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
+\hlsymbol{betas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
-\end{verbatim}
 
 
 \centering{}\includegraphics{Fig1a} 
@@ -717,7 +609,7 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \end{figure}
 
 
-We can also query the confidence intervals directly from the estimates returned by the pmc function.  We can subset the data to just get the confidence interval of the parameter of interest, 
+We can also query the confidence intervals directly from the estimates returned by the pmc function.  Using the lambda value we already extracted, we can get confidence intervals, 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
@@ -728,7 +620,8 @@ We can also query the confidence intervals directly from the estimates returned 
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: object 'lambdas' not found
+##   comparison lambda_X5. lambda_X95.
+## 1         BB      1e-07      0.8773
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -746,15 +639,15 @@ Or get the intervals for all parameters at once. Note that the ``comparison'' in
 \end{flushleft}
 \begin{verbatim}
 ##   comparison beta_X5. beta_X95. k_X5. k_X95. lambda_X5. lambda_X95.
-## 1         AA 0.057537   0.64272     2      2         NA          NA
-## 2         AB 0.033484   0.38441     2      2         NA          NA
-## 3         BA 0.013515   0.10240     3      3      1e-07      0.9943
-## 4         BB 0.009134   0.04265     3      3      1e-07      0.9270
-##   lnl_X5. lnl_X95. lr_X5. lr_X95. root_X5. root_X95.
-## 1  -6.115    9.575 -6.115   9.575    4.101     4.374
-## 2  -2.772   13.087 -2.772  13.087    4.161     4.364
-## 3   1.600   13.517  1.600  13.517    4.097     4.423
-## 4   6.728   16.263  6.728  16.263    4.146     4.359
+## 1         AA 0.042661   0.74955     2      2         NA          NA
+## 2         AB 0.031497   0.28545     2      2         NA          NA
+## 3         BA 0.013709   0.09113     3      3      1e-07      0.9620
+## 4         BB 0.006739   0.04586     3      3      1e-07      0.8773
+##   lnl_X5. lnl_X95.  lr_X5. lr_X95. root_X5. root_X95.
+## 1 -7.1176    11.52 -7.1176   11.52    4.056     4.401
+## 2 -0.8421    13.49 -0.8421   13.49    4.146     4.331
+## 3  2.4736    14.17  2.4736   14.17    4.064     4.415
+## 4  7.0423    17.90  7.0423   17.90    4.156     4.337
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -788,17 +681,7 @@ This way we can see the interval for lambda estimated when simulating under the 
 
 \setkeys{Gin}{width=0.45\textwidth}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## Loading required package: TreeSim
-\end{verbatim}
-\begin{verbatim}
-## Fitting  BM model:
-## Fitting  lambda model:
-\end{verbatim}
-\end{kframe}}
-\end{knitrout}
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
@@ -823,10 +706,10 @@ This way we can see the interval for lambda estimated when simulating under the 
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{lambdas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dist}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlsymbol{lambdas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlsymbol{comparison}{\ }=={\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{p4}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}{\ }\hlkeyword{+}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{B}\hlkeyword{[[}\hlnumber{1}\hlkeyword{]}\hlkeyword{]}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{lambda}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}B"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}wingL"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}lambda"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p4}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
@@ -876,39 +759,11 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{a}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v4}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.4"{}}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Using  as id variables
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{b}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v15}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.15"{}}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Using  as id variables
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{c}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou1v3}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Using  as id variables
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{d}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou0v1}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}BM"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Using  as id variables
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hspace*{\fill}\\
+\hlsymbol{a}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v4}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.4"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{b}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v15}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.15"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{c}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou1v3}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{d}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou0v1}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}BM"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{grid.newpage}\hlkeyword{(}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{pushViewport}\hlkeyword{(}\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout}{\ }\hlargument{=}{\ }\hlfunctioncall{grid.layout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
@@ -934,7 +789,7 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 Fits from the ouch methods include a phylogeny in the ouch format.  As many researchers would rather manipulate and plot the resulting phylogeny in the "phylo" format from the ape package, pmc provides a simple utility to convert the tree while keeping track of the regimes in ouch.  \footnote{Some caution should always be applied in using "phylo" format trees.  Unlike the ouch format, a given tree does not have a unique specification, and consequently some functions that use "phylo" trees make assumptions about the ordering of edges that may not be true, even for a technically valid, plottable "phylo" specification of the phylogeny.}
 %\begin{figure}
 %\begin{center}
-%<<treeplotting, echo=TRUE, fig=TRUE>>=
+%<<treeplotting>>=
 %require(ape)
 %## Convert is a custom pmc function that toggles between tree formats
 %ou4_tree <- convert(tree, regimes=anoles[["OU.4"]])
@@ -949,19 +804,7 @@ Fits from the ouch methods include a phylogeny in the ouch format.  As many rese
 We can also mix and match methods, comparing a fit from geiger with a fit from ouch.  We do so in this example, which shows that it may be very difficult to identify if a given dataset comes from an early burst or a OU model, Fig~\ref{fig:eb}.
 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## traits ouch-formatted as data.frame
-\end{verbatim}
-\begin{verbatim}
-## Fitting  EB model:
-\end{verbatim}
-\begin{verbatim}
-## traits ouch-formatted as data.frame
-\end{verbatim}
-\end{kframe}}
-\end{knitrout}
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
@@ -992,9 +835,6 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 \hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{eb\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}ou}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Using  as id variables
-\end{verbatim}
 
 
 \centering{}\includegraphics{earlyburst_fig} 
@@ -1011,15 +851,8 @@ To implement the pmc package over a variety of methods, I have written an abstra
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{ouch}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{format\usebox{\hlnormalsizeboxunderscore}data}\hlkeyword{(}\hlsymbol{simtree}\hlkeyword{,}{\ }\hlsymbol{dat}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## traits ouch-formatted as data.frame
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{ape}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{format\usebox{\hlnormalsizeboxunderscore}data}\hlkeyword{(}\hlsymbol{ouch}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{tree}\hlkeyword{,}{\ }\hlsymbol{ouch}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{dat}\hlkeyword{)}\mbox{}
+\hlsymbol{ouch}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{format\usebox{\hlnormalsizeboxunderscore}data}\hlkeyword{(}\hlsymbol{simtree}\hlkeyword{,}{\ }\hlsymbol{dat}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{ape}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{format\usebox{\hlnormalsizeboxunderscore}data}\hlkeyword{(}\hlsymbol{ouch}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{tree}\hlkeyword{,}{\ }\hlsymbol{ouch}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{dat}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
 \end{kframe}}
@@ -1043,9 +876,6 @@ This format swapping is handled automatically in pmc's generic function for fitt
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}{\ }\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{regimes}\hlkeyword{)}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## traits ouch-formatted as data.frame
-\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -1054,12 +884,19 @@ This function also returns an object of a class that matches the fitting method 
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{sim}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlsymbol{newA}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{update}\hlkeyword{(}\hlsymbol{A}\hlkeyword{,}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\hlsymbol{sim}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Fitting  BM model:
+## Error: no applicable method for 'simulate' applied to an object of class "fitContinuous"
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlsymbol{newA}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{update}\hlkeyword{(}\hlsymbol{A}\hlkeyword{,}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: no applicable method for 'simulate' applied to an object of class "fitContinuous"
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -1092,114 +929,19 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
+## Library pmc loaded.
 \end{verbatim}
 \begin{verbatim}
 ## Library pmc loaded.
 \end{verbatim}
 \begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
-\begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
+## Library pmc loaded.
 \end{verbatim}
 \begin{verbatim}
 ## Library pmc loaded.
 \end{verbatim}
 \begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
-\begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
-\end{verbatim}
-\begin{verbatim}
 ## Library pmc loaded.
-\end{verbatim}
-\begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
-\begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Library pmc loaded.
-\end{verbatim}
-\begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
-\begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Library pmc loaded.
-\end{verbatim}
-\begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
@@ -1215,92 +957,16 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
+## Library pmc loaded.
 \end{verbatim}
 \begin{verbatim}
 ## Library pmc loaded.
 \end{verbatim}
 \begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
-\begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
-\end{verbatim}
-\begin{verbatim}
 ## Library pmc loaded.
 \end{verbatim}
 \begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
-\begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
-\end{verbatim}
-\begin{verbatim}
 ## Library pmc loaded.
-\end{verbatim}
-\begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
-\end{verbatim}
-\begin{verbatim}
-## Explicit sfStop() is missing: stop now.
-\end{verbatim}
-\begin{verbatim}
-## 
-## Stopping cluster
-## 
-\end{verbatim}
-\begin{verbatim}
-## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Library pmc loaded.
-\end{verbatim}
-\begin{verbatim}
-## Library pmc loaded in cluster.
-## 
-\end{verbatim}
-\begin{verbatim}
-## Warning message: 'keep.source' is deprecated and will be ignored
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
