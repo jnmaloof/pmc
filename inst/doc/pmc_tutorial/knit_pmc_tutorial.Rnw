@@ -25,7 +25,7 @@
 \newcommand{\ud}{\mathrm{d}}
 
 %% Looks like a comment but it isn't! This is setting the default behavior for the Sweave chunk options, <<options >>= 
-% \SweaveOpts{dev=tikz, external=TRUE, fig.width=5, fig.height=5, fig.align=center, message=FALSE, warning=FALSE}
+% \SweaveOpts{fig.width=5, fig.height=5, fig.align=center}
 
 
 
@@ -73,7 +73,7 @@ attach(geospiza)
 
 
 These next commands are optional, allowing the package to use the specified number of processors, if available.  
-<<label=parallel, echo=TRUE>>=
+<<label=parallel>>=
 require(snowfall) # load the parallelization package
 sfInit(parallel=T, cpu=4) # specify how many cpus we have
 sfLibrary(pmc)
@@ -82,10 +82,8 @@ sfLibrary(geiger) # export any libraries we've loaded
 
 Now actually running pmc takes just one line:
 <<label=pmc, echo=FALSE>>=
-invisible(capture.output( # avoid printing progress of loop 
-  bm_v_lambda <- pmc(geospiza.tree, geospiza.data["wingL"],
+bm_v_lambda <- pmc(geospiza.tree, geospiza.data["wingL"],
   "BM", "lambda", nboot=100) 
-))
 @
 % NOTE to the Sweave reader: The block above evaluates but doesn't display,
 % the block below displays but doesn't evaluate. This prevents printing all the 
@@ -140,7 +138,7 @@ print(p1)
 \label{fig:onea}
 \end{figure}
 
-Note that the ability to estimate lambda is very poor, with most simulations returning an estimate of almost zero despite the true value used in the simulations being 0.6.  Estimating the sigma parameter is somewhat more reliable, even on this small tree:
+Note that the ability to estimate lambda is very poor, with most simulations returning an estimate of almost zero despite the true value used in the simulations being \Sexpr{est}.  Estimating the sigma parameter is somewhat more reliable, even on this small tree:
 
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
@@ -171,7 +169,7 @@ This way we can see the interval for lambda estimated when simulating under the 
 \setkeys{Gin}{width=0.85\textwidth}
 \begin{figure}
 \begin{center}
-<<allpars, fig=TRUE, echo=TRUE>>=
+<<allpars>>=
 p3 <- plot_pars(bm_v_lambda$par_dists) 
 print(p3)
 @
@@ -182,20 +180,29 @@ print(p3)
 
 % needed on linux machines to avoid stupid errors from treesim/droptip
 <<TreeSimError, echo=FALSE>>=
-Sys.setlocale(locale="C") -> locale
+locale <- Sys.setlocale(locale="C") 
 # clean up
 rm(list="locale")
 @
 \setkeys{Gin}{width=0.45\textwidth}
 
-\begin{figure}
-\begin{center}
-<<simtree, cache=TRUE>>=
+<<simtree, echo=FALSE>>=
 require(TreeSim)
 simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
-invisible(capture.output(# hide geiger's progress indicators
-  bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)))
+bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
+@
+<<simtree_show, eval=FALSE>>=
+require(TreeSim)
+simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, 
+                       complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
+simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
+bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
+@
+
+\begin{figure}
+\begin{center}
+<<simtree_plot, eval=FALSE>>=
 lambdas <- subset(bm_v_lambda$par_dist, 
            comparison=="BB" & parameter=="lambda")
 p4 <- ggplot(lambdas) + geom_histogram(aes(value)) +
@@ -208,7 +215,7 @@ print(p4)
 
 \section{Anoles example}
 Next we consider the examples re-analyzing the Anoles data from~\citep{Butler2004}, using methods from the ouch package.  
-<<pmc_anoles, cache=TRUE>>=
+<<pmc_anoles>>=
 data(anoles)
 ou3v4 <- pmc(tree, log(anoles["size"]), modelA="hansen", modelB="hansen", 
              optionsA=list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
@@ -270,9 +277,8 @@ Fits from the ouch methods include a phylogeny in the ouch format.  As many rese
 \section{Early Burst models}
 We can also mix and match methods, comparing a fit from geiger with a fit from ouch.  We do so in this example, which shows that it may be very difficult to identify if a given dataset comes from an early burst or a OU model, Fig~\ref{fig:eb}.
 
-\setkeys{Gin}{width=.5\textwidth}
-\begin{figure}
-<<earlyburst, cache=TRUE>>=
+
+<<earlyburst, tidy=FALSE, echo=FALSE>>=
 ## Load Libraries ##
 require(pmc)
 require(TreeSim) # to simulate a sample phyologeny
@@ -281,13 +287,28 @@ simtree <- sim.bd.taxa(n=60, numbsim=1, lambda=1, mu=0, frac=1,
                        complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 # simulates the EB model (by tranforming the tree)
 dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.5), sigma=5)
-
 # Specify the models and the options needed.  
 regimes <- format_data(simtree,dat)$noregimes
-invisible(capture.output( # avoid printing progress of loop
   eb_v_ou <- pmc(simtree, dat, modelA = "EB", modelB = "hansen", 
     optionsB = list(sqrt.alpha = 1, sigma = 1, regimes = regimes), 
-    nboot = 20))) # small nboot just for example
+    nboot = 50)
+@
+<<earlyburst_show, tidy=FALSE, eval=FALSE>>=
+require(pmc)
+require(TreeSim) # to simulate a sample phyologeny
+simtree <- sim.bd.taxa(n=60, numbsim=1, lambda=1, mu=0, frac=1,
+                       complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
+dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.5), sigma=5)
+regimes <- format_data(simtree,dat)$noregimes
+  eb_v_ou <- pmc(simtree, dat, modelA = "EB", modelB = "hansen", 
+    optionsB = list(sqrt.alpha = 1, sigma = 1, regimes = regimes), 
+    nboot = 50)
+@
+
+
+\setkeys{Gin}{width=.5\textwidth}
+\begin{figure}
+<<earlyburst_fig>>=
 plot(eb_v_ou) 
 @
 \caption{Early burst models can be very almost impossible to distinguish from OU models when each has been parameterized from the same data.}\label{fig:eb}
@@ -316,7 +337,7 @@ which automatically recognize the kind of model fit and use that method to perfo
 \subsection{Power Curves}
 
 A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of Boettiger et al, Evolution. This code illustrates how such an analysis is run with the pmc package.   
-<<label=powercurves, cache=TRUE>>=
+<<label=powercurves>>=
 require(pmc)
 require(TreeSim)
 require(ouch)

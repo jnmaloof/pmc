@@ -14,12 +14,12 @@ knit:
 	$(RSCRIPT) --vanilla -e ".libPaths(c('~/R', .libPaths())); require(knitr); knit( 'knit_pmc_tutorial.Rnw', 'pmc_tutorial.Rnw');"
 	$(RPROG) CMD Sweave pmc_tutorial.Rnw 
 	pdflatex pmc_tutorial.tex
-	bibtool -s -d -x pmc_tutorial.aux ~/Documents/Mendeley/bib/library.bib > pmc_tutorial.bib
+#	bibtool -s -d -x pmc_tutorial.aux ~/Documents/Mendeley/bib/library.bib > pmc_tutorial.bib
 	bibtex pmc_tutorial 
 	pdflatex pmc_tutorial.tex
 	pdflatex pmc_tutorial.tex
 	rm -f *.bbl *.blg *.aux *.out *.log *.spl *.tikz 
-	cp *.bib *.pdf pmc_tutorial.Rnw ../../vignettes
+	cp *.bib *.pdf pmc_tutorial.Rnw ../../../vignettes
 
 pdfclean:
 	rm -f *.pdf
