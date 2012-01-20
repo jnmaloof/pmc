@@ -143,7 +143,7 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
 \begin{center}
-<<Fig1a>>=
+<<Fig1b>>=
 betas <- subset(bm_v_lambda[["par_dists"]], comparison=="BB" & parameter=="beta")
 p2 <- ggplot(betas) + geom_histogram(aes(sqrt(value))) # beta == sigma^2
 print(p2)
@@ -373,7 +373,7 @@ plot_size <- function(){
     points(alpha, size[[i]]$power, pch=16, col=i)
     lines(alpha, size[[i]]$power, col=i)
   }
-  legend("topleft", paste(n[1:3], "taxa"), col=1:k, pch=16  ) 
+  legend("topleft", paste(n, "taxa"), col=1:k, pch=16  ) 
 
 }
 plot_size()
