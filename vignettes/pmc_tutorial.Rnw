@@ -365,7 +365,6 @@
 \newcommand{\hlkwd}[1]{\textcolor[rgb]{0,0,0.51}{#1}}
 
 \definecolor{fgcolor}{rgb}{0,0,0}
-\usepackage{tikz}
 \usepackage{framed}
 \makeatletter
 \newenvironment{kframe}{%
@@ -448,9 +447,67 @@ The first set of examples uses the finches data and geiger functions~\citep{Harm
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{geiger}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }for{\ }the{\ }data}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{ggplot2}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}graphics}\hspace*{\fill}\\
+\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Loading required package: ggplot2
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: reshape
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: plyr
+\end{verbatim}
+\begin{verbatim}
+## 
+## Attaching package: 'reshape'
+## 
+\end{verbatim}
+\begin{verbatim}
+## The following object(s) are masked from 'package:plyr':
+## 
+##     rename, round_any
+## 
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: grid
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: proto
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: ouch
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: methods
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: subplex
+\end{verbatim}
+\begin{verbatim}
+## Warning message: found an S4 version of 'simulate' so it has not been imported correctly
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{geiger}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }for{\ }the{\ }data}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Loading required package: ape
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: MASS
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: mvtnorm
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: msm
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{ggplot2}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}graphics}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{data}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{attach}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\mbox{}
 \normalfont
@@ -465,12 +522,26 @@ These next commands are optional, allowing the package to use the specified numb
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlfunctioncall{require}\hlkeyword{(}\hlsymbol{snowfall}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }load{\ }the{\ }parallelization{\ }package}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{sfInit}\hlkeyword{(}\hlargument{parallel}{\ }\hlargument{=}{\ }\hlsymbol{T}\hlkeyword{,}{\ }\hlargument{cpu}{\ }\hlargument{=}{\ }\hlnumber{16}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }specify{\ }how{\ }many{\ }cpus{\ }we{\ }have}\mbox{}
+\hlfunctioncall{require}\hlkeyword{(}\hlsymbol{snowfall}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }load{\ }the{\ }parallelization{\ }package}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Loading required package: snowfall
+\end{verbatim}
+\begin{verbatim}
+## Loading required package: snow
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{sfInit}\hlkeyword{(}\hlargument{parallel}{\ }\hlargument{=}{\ }\hlsymbol{T}\hlkeyword{,}{\ }\hlargument{cpu}{\ }\hlargument{=}{\ }\hlnumber{4}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }specify{\ }how{\ }many{\ }cpus{\ }we{\ }have}\mbox{}
 \normalfont
 \end{flushleft}
 \begin{verbatim}
 ## R Version:  R version 2.14.1 (2011-12-22) 
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
 ## 
 \end{verbatim}
 \begin{flushleft}
@@ -481,6 +552,13 @@ These next commands are optional, allowing the package to use the specified numb
 \begin{verbatim}
 ## Library pmc loaded.
 \end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
+\end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{sfLibrary}\hlkeyword{(}\hlsymbol{geiger}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }export{\ }any{\ }libraries{\ }we\usebox{\hlnormalsizeboxsinglequote}ve{\ }loaded}\mbox{}
@@ -488,6 +566,13 @@ These next commands are optional, allowing the package to use the specified numb
 \end{flushleft}
 \begin{verbatim}
 ## Library geiger loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library geiger loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -497,7 +582,14 @@ Now actually running pmc takes just one line:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## Error: could not find function "pmc"
+## Dropped tips from the tree because there were no matching names in the data:
+## [1] "olivacea"
+## 
+## Fitting  BM model:
+## Dropped tips from the tree because there were no matching names in the data:
+## [1] "olivacea"
+## 
+## Fitting  lambda model:
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -575,21 +667,19 @@ We can use this to extract the value of lambda estimated on model B from the raw
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{p1}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}{\ }\hlkeyword{+}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{est}\hlkeyword{)}\mbox{}
+\hlsymbol{betas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dist}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: could not find function "ggplot"
+## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 \end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p1}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: object 'p1' not found
-\end{verbatim}
+
+
+\centering{}\includegraphics{Fig1a} 
+
 \end{kframe}}
 \end{knitrout}
 
@@ -607,28 +697,18 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{betas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dist}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\mbox{}
+\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: object 'bm_v_lambda' not found
+## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 \end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "ggplot"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: object 'p2' not found
-\end{verbatim}
+
+
+\centering{}\includegraphics{Fig1a} 
+
 \end{kframe}}
 \end{knitrout}
 
@@ -648,7 +728,7 @@ We can also query the confidence intervals directly from the estimates returned 
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: could not find function "cast"
+## Error: object 'lambdas' not found
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -665,7 +745,16 @@ Or get the intervals for all parameters at once. Note that the ``comparison'' in
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: could not find function "cast"
+##   comparison beta_X5. beta_X95. k_X5. k_X95. lambda_X5. lambda_X95.
+## 1         AA 0.057537   0.64272     2      2         NA          NA
+## 2         AB 0.033484   0.38441     2      2         NA          NA
+## 3         BA 0.013515   0.10240     3      3      1e-07      0.9943
+## 4         BB 0.009134   0.04265     3      3      1e-07      0.9270
+##   lnl_X5. lnl_X95. lr_X5. lr_X95. root_X5. root_X95.
+## 1  -6.115    9.575 -6.115   9.575    4.101     4.374
+## 2  -2.772   13.087 -2.772  13.087    4.161     4.364
+## 3   1.600   13.517  1.600  13.517    4.097     4.423
+## 4   6.728   16.263  6.728  16.263    4.146     4.359
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -678,20 +767,14 @@ This way we can see the interval for lambda estimated when simulating under the 
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{p3}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot\usebox{\hlnormalsizeboxunderscore}pars}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dists}\hlkeyword{)}\mbox{}
+\hlsymbol{p3}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot\usebox{\hlnormalsizeboxunderscore}pars}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dists}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p3}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: could not find function "plot_pars"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p3}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: object 'p3' not found
-\end{verbatim}
+
+
+\centering{}\includegraphics{allpars} 
+
 \end{kframe}}
 \end{knitrout}
 
@@ -708,10 +791,11 @@ This way we can see the interval for lambda estimated when simulating under the 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## Error: $ operator is invalid for atomic vectors
+## Loading required package: TreeSim
 \end{verbatim}
 \begin{verbatim}
-## Error: could not find function "pmc"
+## Fitting  BM model:
+## Fitting  lambda model:
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -763,47 +847,23 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \hlstd{}\hlsymbol{ou3v4}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{pmc}\hlkeyword{(}\hlsymbol{tree}\hlkeyword{,}{\ }\hlfunctioncall{log}\hlkeyword{(}\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}size"{}}\hlkeyword{]}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{modelA}{\ }\hlargument{=}{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{modelB}{\ }\hlargument{=}{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}{\ }\hlargument{optionsA}{\ }\hlargument{=}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}OU.LP"{}}\hlkeyword{]}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{optionsB}{\ }\hlargument{=}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}OU.4"{}}\hlkeyword{]}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "pmc"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{ou3v15}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{pmc}\hlkeyword{(}\hlsymbol{tree}\hlkeyword{,}{\ }\hlfunctioncall{log}\hlkeyword{(}\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}size"{}}\hlkeyword{]}\hlkeyword{)}\hlkeyword{,}{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}OU.LP"{}}\hlkeyword{]}\hlkeyword{,}{\ }\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}OU.15"{}}\hlkeyword{]}\hlkeyword{,}{\ }\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "pmc"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{ou1v3}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{pmc}\hlkeyword{(}\hlsymbol{tree}\hlkeyword{,}{\ }\hlfunctioncall{log}\hlkeyword{(}\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}size"{}}\hlkeyword{]}\hlkeyword{)}\hlkeyword{,}{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}OU.1"{}}\hlkeyword{]}\hlkeyword{,}{\ }\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}OU.LP"{}}\hlkeyword{]}\hlkeyword{,}{\ }\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "pmc"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{ou0v1}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{pmc}\hlkeyword{(}\hlsymbol{tree}\hlkeyword{,}{\ }\hlfunctioncall{log}\hlkeyword{(}\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}size"{}}\hlkeyword{]}\hlkeyword{)}\hlkeyword{,}{\ }\hlstring{"{}brown"{}}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlkeyword{)}\hlkeyword{,}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{anoles}\hlkeyword{[}\hlstring{"{}OU.1"{}}\hlkeyword{]}\hlkeyword{,}{\ }\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: could not find function "pmc"
-\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -820,8 +880,7 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'ou3v4' not found
-## 
+## Using  as id variables
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
@@ -829,8 +888,7 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'ou3v15' not found
-## 
+## Using  as id variables
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
@@ -838,8 +896,7 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'ou1v3' not found
-## 
+## Using  as id variables
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
@@ -847,64 +904,26 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'ou0v1' not found
-## 
+## Using  as id variables
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
 \hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{grid.newpage}\hlkeyword{(}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "grid.newpage"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{pushViewport}\hlkeyword{(}\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout}{\ }\hlargument{=}{\ }\hlfunctioncall{grid.layout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "pushViewport"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{vplayout}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{x}\hlkeyword{,}{\ }\hlformalargs{y}\hlkeyword{)}{\ }\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout.pos.row}{\ }\hlargument{=}{\ }\hlsymbol{x}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{grid.newpage}\hlkeyword{(}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{pushViewport}\hlkeyword{(}\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout}{\ }\hlargument{=}{\ }\hlfunctioncall{grid.layout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{vplayout}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{x}\hlkeyword{,}{\ }\hlformalargs{y}\hlkeyword{)}{\ }\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout.pos.row}{\ }\hlargument{=}{\ }\hlsymbol{x}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{layout.pos.col}{\ }\hlargument{=}{\ }\hlsymbol{y}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{a}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{a}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{b}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{c}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{d}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'print': Error: object 'a' not found
-## 
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{b}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'print': Error: object 'b' not found
-## 
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{c}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "viewport"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{d}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'print': Error: object 'd' not found
-## 
-\end{verbatim}
+
+
+\centering{}\includegraphics{plot_anoles} 
+
 \end{kframe}}
 \end{knitrout}
 
@@ -933,13 +952,13 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## Error: object "phy" is not of class "phylo"
+## traits ouch-formatted as data.frame
 \end{verbatim}
 \begin{verbatim}
-## Error: Problem with tree format
+## Fitting  EB model:
 \end{verbatim}
 \begin{verbatim}
-## Error: object 'dat' not found
+## traits ouch-formatted as data.frame
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -974,8 +993,12 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: object 'eb_v_ou' not found
+## Using  as id variables
 \end{verbatim}
+
+
+\centering{}\includegraphics{earlyburst_fig} 
+
 \end{kframe}}
 \end{knitrout}
 
@@ -992,16 +1015,13 @@ To implement the pmc package over a variety of methods, I have written an abstra
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: could not find function "format_data"
+## traits ouch-formatted as data.frame
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{ape}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{format\usebox{\hlnormalsizeboxunderscore}data}\hlkeyword{(}\hlsymbol{ouch}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{tree}\hlkeyword{,}{\ }\hlsymbol{ouch}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{dat}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: could not find function "format_data"
-\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -1015,7 +1035,7 @@ This format swapping is handled automatically in pmc's generic function for fitt
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: could not find function "pmc_fit"
+## Fitting  BM model:
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
@@ -1024,7 +1044,7 @@ This format swapping is handled automatically in pmc's generic function for fitt
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: could not find function "pmc_fit"
+## traits ouch-formatted as data.frame
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -1034,19 +1054,12 @@ This function also returns an object of a class that matches the fitting method 
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{sim}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\mbox{}
+\hlsymbol{sim}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{newA}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{update}\hlkeyword{(}\hlsymbol{A}\hlkeyword{,}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: object 'A' not found
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{newA}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{update}\hlkeyword{(}\hlsymbol{A}\hlkeyword{,}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: object 'A' not found
+## Fitting  BM model:
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -1079,7 +1092,114 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: 'tree' must be of class 'phylo'
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
+\end{verbatim}
+\begin{verbatim}
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
+\end{verbatim}
+\begin{verbatim}
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
+\end{verbatim}
+\begin{verbatim}
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
+\end{verbatim}
+\begin{verbatim}
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
@@ -1095,7 +1215,92 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: $ operator is invalid for atomic vectors
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
+\end{verbatim}
+\begin{verbatim}
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
+\end{verbatim}
+\begin{verbatim}
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
+\end{verbatim}
+\begin{verbatim}
+## Explicit sfStop() is missing: stop now.
+\end{verbatim}
+\begin{verbatim}
+## 
+## Stopping cluster
+## 
+\end{verbatim}
+\begin{verbatim}
+## snowfall 1.84 initialized (using snow 0.3-8): parallel execution on 4 CPUs.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded.
+\end{verbatim}
+\begin{verbatim}
+## Library pmc loaded in cluster.
+## 
+\end{verbatim}
+\begin{verbatim}
+## Warning message: 'keep.source' is deprecated and will be ignored
 \end{verbatim}
 \end{kframe}}
 \end{knitrout}
@@ -1129,9 +1334,6 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 
 \centering{}\includegraphics{Fig6a} 
 
-\begin{verbatim}
-## Error: object 'size' not found
-\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -1169,9 +1371,6 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 
 \centering{}\includegraphics{Fig6b} 
 
-\begin{verbatim}
-## Error: object 'shape' not found
-\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 

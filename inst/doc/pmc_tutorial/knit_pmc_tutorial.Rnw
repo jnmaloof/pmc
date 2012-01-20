@@ -25,7 +25,7 @@
 \newcommand{\ud}{\mathrm{d}}
 
 %% Looks like a comment but it isn't! This is setting the default behavior for the Sweave chunk options, <<options >>= 
-% \SweaveOpts{fig.width=5, fig.height=5, fig.align=center}
+% \SweaveOpts{fig.width=5, fig.height=5, fig.align=center, cache=TRUE, message=FALSE, warning=FALSE}
 
 
 
@@ -81,7 +81,7 @@ sfLibrary(geiger) # export any libraries we've loaded
 @
 
 Now actually running pmc takes just one line:
-<<label=pmc, echo=FALSE>>=
+<<label=pmc, echo=FALSE, include=FALSE>>=
 bm_v_lambda <- pmc(geospiza.tree, geospiza.data["wingL"],
   "BM", "lambda", nboot=100) 
 @
@@ -116,7 +116,7 @@ Subsetting is a good way to get the parameter of interest, lambda, for the compa
 (Note that for comparisons AA and AB, which fit model Brownian motion, there is of course no parameter lambda).
 
 <<subset>>=
-lambdas <- subset(bm_v_lambda["par_dists"], comparison=="BB" & parameter=="lambda")
+lambdas <- subset(bm_v_lambda[["par_dists"]], comparison=="BB" & parameter=="lambda")
 @
 
 The returned list from pmc also stores the two models it fit to the original data, inder the names A and B.  
@@ -144,7 +144,7 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \begin{figure}
 \begin{center}
 <<Fig1a>>=
-betas <- subset(bm_v_lambda$par_dist, comparison=="BB" & parameter=="beta")
+betas <- subset(bm_v_lambda[["par_dists"]], comparison=="BB" & parameter=="beta")
 p2 <- ggplot(betas) + geom_histogram(aes(sqrt(value))) # beta == sigma^2
 print(p2)
 @
@@ -153,7 +153,7 @@ print(p2)
 \end{figure}
 
 
-We can also query the confidence intervals directly from the estimates returned by the pmc function.  We can subset the data to just get the confidence interval of the parameter of interest, 
+We can also query the confidence intervals directly from the estimates returned by the pmc function.  Using the lambda value we already extracted, we can get confidence intervals, 
 
 <<ci1>>=
 cast(lambdas, comparison ~ parameter, function(x)
@@ -169,7 +169,7 @@ This way we can see the interval for lambda estimated when simulating under the 
 \setkeys{Gin}{width=0.85\textwidth}
 \begin{figure}
 \begin{center}
-<<allpars>>=
+<<allpars, fig.height=7, fig.width=7>>=
 p3 <- plot_pars(bm_v_lambda$par_dists) 
 print(p3)
 @
@@ -179,14 +179,14 @@ print(p3)
 
 
 % needed on linux machines to avoid stupid errors from treesim/droptip
-<<TreeSimError, echo=FALSE>>=
+<<TreeSimError, echo=FALSE, include=FALSE>>=
 locale <- Sys.setlocale(locale="C") 
 # clean up
 rm(list="locale")
 @
 \setkeys{Gin}{width=0.45\textwidth}
 
-<<simtree, echo=FALSE>>=
+<<simtree, echo=FALSE, include=FALSE>>=
 require(TreeSim)
 simtree <- sim.bd.taxa(n=281, numbsim=1, lambda=1, mu=0, frac=1, complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 simdat <- rTraitCont(lambdaTree(simtree, .6), sigma=2)
@@ -203,10 +203,10 @@ bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
 \begin{figure}
 \begin{center}
 <<simtree_plot, eval=FALSE>>=
-lambdas <- subset(bm_v_lambda$par_dist, 
+lambdas <- subset(bm_v_lambda[["par_dists"]], 
            comparison=="BB" & parameter=="lambda")
 p4 <- ggplot(lambdas) + geom_histogram(aes(value)) +
-      geom_vline(xintercept=bm_v_lambda$B[[1]]$lambda)
+      geom_vline(xintercept=bm_v_lambda[["B"]][["wingL"]][["lambda"]])
 print(p4)
 @
 \end{center}
@@ -242,7 +242,7 @@ ou0v1 <- pmc(tree, log(anoles["size"]), "brown", "hansen",
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}
 \begin{center}
-<<plot_anoles>>=
+<<plot_anoles, fig.width=10, fig.height=10>>=
 a <- plot(ou3v4, A="OU.3", B="OU.4") 
 b <- plot(ou3v15, A="OU.3", B="OU.15") 
 c <- plot(ou1v3, A="OU.1", B="OU.3") 
@@ -263,7 +263,7 @@ print(d, vp = vplayout(2, 2))
 Fits from the ouch methods include a phylogeny in the ouch format.  As many researchers would rather manipulate and plot the resulting phylogeny in the "phylo" format from the ape package, pmc provides a simple utility to convert the tree while keeping track of the regimes in ouch.  \footnote{Some caution should always be applied in using "phylo" format trees.  Unlike the ouch format, a given tree does not have a unique specification, and consequently some functions that use "phylo" trees make assumptions about the ordering of edges that may not be true, even for a technically valid, plottable "phylo" specification of the phylogeny.}
 %\begin{figure}
 %\begin{center}
-%<<treeplotting, echo=TRUE, fig=TRUE>>=
+%<<treeplotting>>=
 %require(ape)
 %## Convert is a custom pmc function that toggles between tree formats
 %ou4_tree <- convert(tree, regimes=anoles[["OU.4"]])
@@ -278,7 +278,7 @@ Fits from the ouch methods include a phylogeny in the ouch format.  As many rese
 We can also mix and match methods, comparing a fit from geiger with a fit from ouch.  We do so in this example, which shows that it may be very difficult to identify if a given dataset comes from an early burst or a OU model, Fig~\ref{fig:eb}.
 
 
-<<earlyburst, tidy=FALSE, echo=FALSE>>=
+<<earlyburst, tidy=FALSE, echo=FALSE, include=FALSE>>=
 ## Load Libraries ##
 require(pmc)
 require(TreeSim) # to simulate a sample phyologeny
