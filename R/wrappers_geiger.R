@@ -48,12 +48,18 @@ fitContinuous_object <- function(tree, data, model="BM", bounds=NULL,
     fit[[i]]$bounds <- bounds
     fit[[i]]$meserr <- meserr
   	trans_tree <- transformTree(fit[[i]])
-    if(is(data, "data.frame")){
-	    fit[[i]]$root <- phylogMean((fit[[i]]$beta) * 
-                                   vcv.phylo(trans_tree), data[[i]])
-    } else {
- 	    fit[[i]]$root <- phylogMean((fit[[i]]$beta) * 
-                                   vcv.phylo(trans_tree), data)
+
+    if(model != "white"){
+      if(is(data, "data.frame")){
+        fit[[i]]$root <- phylogMean((fit[[i]]$beta) * 
+                                     vcv.phylo(trans_tree), data[[i]])
+      } else {
+        fit[[i]]$root <- phylogMean((fit[[i]]$beta) * 
+                                     vcv.phylo(trans_tree), data)
+      }
+    } else { ## "white" model
+      fit[[i]]$root <- fit[[i]]$mean
+      fit[[i]]$beta <- fit[[i]]$nv
     }
   }
 	class(fit) <- "fitContinuous"
@@ -99,7 +105,9 @@ simulate.fitContinuous <- function(object, nsim=1, seed=NULL, ...){
     # transform the tree and apply the BM simulation method
       data[,i] <- rTraitCont(tree, model="BM", sigma=sqrt(object[[i]]$beta),
                               root=object[[i]]$root)
-    } else if(object[[i]]$model == "OU"){ 
+    } else if(object[[i]]$model == "white"){ 
+      data[,i] <- rnorm(length(data[,i]), mean=mean(object[[i]]$data), sd = sqrt(object[[i]]$beta))
+    } else { 
       # use untransfromed tree & with the OU simulation method
       data[,i] <- rTraitCont(object[[i]]$tree, model="OU", 
                              sigma=sqrt(object[[i]]$beta),
@@ -144,7 +152,7 @@ getParameters.fitContinuous <- function(fit){
 # a vector/multivariate analysis so is stupid notation!) but is memory-inefficient 
 # @keywords internal
 transformTree <- function(fit){
-	if(fit$model == "BM") out <- fit$tree
+	if(fit$model == "BM" | fit$model == "white") out <- fit$tree
 	else if(fit$model == "OU") out <- ouTree(fit$tree, fit$alpha)
 	else if(fit$model == "lambda") out <- lambdaTree(fit$tree, fit$lambda)
 	else if(fit$model == "kappa") out <- kappaTree(fit$tree, fit$kappa)

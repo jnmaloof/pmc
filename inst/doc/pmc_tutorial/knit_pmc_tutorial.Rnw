@@ -129,7 +129,7 @@ est <- bm_v_lambda[["B"]][["wingL"]][["lambda"]]
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
 \begin{center}
-<<Fig1a>>=
+<<Fig1a, cache=FALSE>>=
 p1 <- ggplot(lambdas) + geom_histogram(aes(value)) +
       geom_vline(xintercept=est)
 print(p1)
@@ -143,7 +143,7 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
 \begin{center}
-<<Fig1b>>=
+<<Fig1b, cache=FALSE>>=
 betas <- subset(bm_v_lambda[["par_dists"]], comparison=="BB" & parameter=="beta")
 p2 <- ggplot(betas) + geom_histogram(aes(sqrt(value))) # beta == sigma^2
 print(p2)
@@ -169,7 +169,7 @@ This way we can see the interval for lambda estimated when simulating under the 
 \setkeys{Gin}{width=0.85\textwidth}
 \begin{figure}
 \begin{center}
-<<allpars, fig.height=7, fig.width=7>>=
+<<allpars, fig.height=7, fig.width=7, cache=FALSE>>=
 p3 <- plot_pars(bm_v_lambda$par_dists) 
 print(p3)
 @
@@ -202,7 +202,7 @@ bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
 
 \begin{figure}
 \begin{center}
-<<simtree_plot, eval=FALSE>>=
+<<simtree_plot, cache=FALSE>>=
 lambdas <- subset(bm_v_lambda[["par_dists"]], 
            comparison=="BB" & parameter=="lambda")
 p4 <- ggplot(lambdas) + geom_histogram(aes(value)) +
@@ -242,7 +242,7 @@ ou0v1 <- pmc(tree, log(anoles["size"]), "brown", "hansen",
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}
 \begin{center}
-<<plot_anoles, fig.width=10, fig.height=10>>=
+<<plot_anoles, fig.width=10, fig.height=10, cache=FALSE>>=
 a <- plot(ou3v4, A="OU.3", B="OU.4") 
 b <- plot(ou3v15, A="OU.3", B="OU.15") 
 c <- plot(ou1v3, A="OU.1", B="OU.3") 
@@ -308,7 +308,7 @@ regimes <- format_data(simtree,dat)$noregimes
 
 \setkeys{Gin}{width=.5\textwidth}
 \begin{figure}
-<<earlyburst_fig>>=
+<<earlyburst_fig, cache=FALSE>>=
 plot(eb_v_ou) 
 @
 \caption{Early burst models can be very almost impossible to distinguish from OU models when each has been parameterized from the same data.}\label{fig:eb}
@@ -364,7 +364,7 @@ shape <- lapply(1:length(lambda), function(i){
 
 \begin{figure}
 \begin{center}
-<<Fig6a>>=
+<<Fig6a, cache=FALSE>>=
 plot_size <- function(){
     k <- length(n)
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
@@ -387,9 +387,7 @@ plot_size()
 
 \begin{figure}
 \begin{center}
-<<Fig6b>>=
-
-
+<<Fig6b, cache=FALSE>>=
 plot_shape <- function(){
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
   main="Power by tree topology", log="x", xlab="alpha", ylab="power")

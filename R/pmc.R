@@ -60,7 +60,6 @@
 #' plot(eb_v_ou) 
 #' 
 #' @import snowfall 
-#' @import reshape
 #' @import TreeSim
 #' @import ouch
 #' @export
@@ -126,6 +125,7 @@ pmc <- function(tree, data,
 #'  A= a name for the first model in the pmc pairwise comparison
 #'  B= a name for the second model in the pairwise comparison
 #' @import ggplot2
+#' @import reshape2
 #' @method plot pmc
 #' @S3method plot pmc
 plot.pmc <- function(x, ...){

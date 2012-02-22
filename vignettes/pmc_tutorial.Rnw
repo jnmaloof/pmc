@@ -566,14 +566,20 @@ We can use this to extract the value of lambda estimated on model B from the raw
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{p1}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}{\ }\hlkeyword{+}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{est}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p1}\hlkeyword{)}\mbox{}
+\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{est}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-
-
-\centering{}\includegraphics{Fig1a} 
-
+\begin{verbatim}
+## Error: could not find function "ggplot"
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p1}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: object 'p1' not found
+\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -591,15 +597,28 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{betas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
+\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-
-
-\centering{}\includegraphics{Fig1b} 
-
+\begin{verbatim}
+## Error: object 'bm_v_lambda' not found
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: could not find function "ggplot"
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: object 'p2' not found
+\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -659,14 +678,20 @@ This way we can see the interval for lambda estimated when simulating under the 
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{p3}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot\usebox{\hlnormalsizeboxunderscore}pars}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dists}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p3}\hlkeyword{)}\mbox{}
+\hlsymbol{p3}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot\usebox{\hlnormalsizeboxunderscore}pars}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dists}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-
-
-\centering{}\includegraphics{allpars} 
-
+\begin{verbatim}
+## Error: could not find function "plot_pars"
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p3}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: object 'p3' not found
+\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -706,12 +731,29 @@ This way we can see the interval for lambda estimated when simulating under the 
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{lambdas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlsymbol{comparison}{\ }=={\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlsymbol{p4}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}{\ }\hlkeyword{+}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}B"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}wingL"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}lambda"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p4}\hlkeyword{)}\mbox{}
+\hlstd{}{\ }{\ }{\ }{\ }\hlsymbol{comparison}{\ }=={\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
+\begin{verbatim}
+## Error: object 'bm_v_lambda' not found
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlsymbol{p4}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}{\ }\hlkeyword{+}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}B"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}wingL"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}lambda"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: could not find function "ggplot"
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p4}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: object 'p4' not found
+\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -758,26 +800,88 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{a}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v4}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.4"{}}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlsymbol{b}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v15}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.15"{}}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlsymbol{c}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou1v3}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlsymbol{d}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou0v1}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}BM"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{grid.newpage}\hlkeyword{(}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{pushViewport}\hlkeyword{(}\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout}{\ }\hlargument{=}{\ }\hlfunctioncall{grid.layout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlsymbol{vplayout}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{x}\hlkeyword{,}{\ }\hlformalargs{y}\hlkeyword{)}{\ }\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout.pos.row}{\ }\hlargument{=}{\ }\hlsymbol{x}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlargument{layout.pos.col}{\ }\hlargument{=}{\ }\hlsymbol{y}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{a}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{b}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{c}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{d}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\hlsymbol{a}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v4}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.4"{}}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-
-
-\centering{}\includegraphics{plot_anoles} 
-
+\begin{verbatim}
+## Error: 'x' is a list, but does not have components 'x' and 'y'
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlsymbol{b}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v15}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.15"{}}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: 'x' is a list, but does not have components 'x' and 'y'
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlsymbol{c}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou1v3}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: 'x' is a list, but does not have components 'x' and 'y'
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlsymbol{d}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou0v1}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}BM"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: 'x' is a list, but does not have components 'x' and 'y'
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{grid.newpage}\hlkeyword{(}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: could not find function "grid.newpage"
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{pushViewport}\hlkeyword{(}\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout}{\ }\hlargument{=}{\ }\hlfunctioncall{grid.layout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: could not find function "pushViewport"
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlsymbol{vplayout}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{x}\hlkeyword{,}{\ }\hlformalargs{y}\hlkeyword{)}{\ }\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout.pos.row}{\ }\hlargument{=}{\ }\hlsymbol{x}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlargument{layout.pos.col}{\ }\hlargument{=}{\ }\hlsymbol{y}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{a}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: object 'a' not found
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{b}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: object 'b' not found
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{c}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: could not find function "viewport"
+\end{verbatim}
+\begin{flushleft}
+\ttfamily\noindent
+\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{d}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\normalfont
+\end{flushleft}
+\begin{verbatim}
+## Error: object 'd' not found
+\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -834,10 +938,9 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 \hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{eb\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}ou}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-
-
-\centering{}\includegraphics{earlyburst_fig} 
-
+\begin{verbatim}
+## Error: object 'eb_v_ou' not found
+\end{verbatim}
 \end{kframe}}
 \end{knitrout}
 
@@ -1015,9 +1118,7 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hspace*{\fill}\\
-\hlstd{}\hspace*{\fill}\\
-\hlstd{}\hlsymbol{plot\usebox{\hlnormalsizeboxunderscore}shape}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlkeyword{)}{\ }\hlkeyword{\usebox{\hlnormalsizeboxopenbrace}}\hspace*{\fill}\\
+\hlsymbol{plot\usebox{\hlnormalsizeboxunderscore}shape}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlkeyword{)}{\ }\hlkeyword{\usebox{\hlnormalsizeboxopenbrace}}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{,}{\ }\hlargument{type}{\ }\hlargument{=}{\ }\hlstring{"{}n"{}}\hlkeyword{,}{\ }\hlargument{xlim}{\ }\hlargument{=}{\ }\hlfunctioncall{c}\hlkeyword{(}\hlfunctioncall{min}\hlkeyword{(}\hlsymbol{alpha}\hlkeyword{)}\hlkeyword{,}{\ }\hlfunctioncall{max}\hlkeyword{(}\hlsymbol{alpha}\hlkeyword{)}\hlkeyword{)}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{ylim}{\ }\hlargument{=}{\ }\hlfunctioncall{c}\hlkeyword{(}\hlnumber{0}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{main}{\ }\hlargument{=}{\ }\hlstring{"{}Power{\ }by{\ }tree{\ }topology"{}}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{log}{\ }\hlargument{=}{\ }\hlstring{"{}x"{}}\hlkeyword{,}{\ }\hlargument{xlab}{\ }\hlargument{=}{\ }\hlstring{"{}alpha"{}}\hlkeyword{,}{\ }\hlargument{ylab}{\ }\hlargument{=}{\ }\hlstring{"{}power"{}}\hlkeyword{)}\hspace*{\fill}\\
