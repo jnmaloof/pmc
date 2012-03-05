@@ -444,7 +444,7 @@ The development version of the package is available on Github: \href{https://git
 
 The first set of examples uses the finches data and geiger functions~\citep{Harmon2008} to look at uncertainty in parameter estimates using the pmc method.  We start off by loading the required libraries 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{library}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\hspace*{\fill}\\
@@ -454,14 +454,14 @@ The first set of examples uses the finches data and geiger functions~\citep{Harm
 \hlstd{}\hlfunctioncall{attach}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
 
 These next commands are optional, allowing the package to use the specified number of processors, if available.  
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{require}\hlkeyword{(}\hlsymbol{snowfall}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }load{\ }the{\ }parallelization{\ }package}\hspace*{\fill}\\
@@ -469,7 +469,7 @@ These next commands are optional, allowing the package to use the specified numb
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## R Version:  R version 2.14.1 (2011-12-22) 
+## R Version:  R version 2.14.2 (2012-02-29) 
 ## 
 \end{verbatim}
 \begin{flushleft}
@@ -488,7 +488,7 @@ These next commands are optional, allowing the package to use the specified numb
 \begin{verbatim}
 ## Library geiger loaded.
 \end{verbatim}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
@@ -500,14 +500,14 @@ Now actually running pmc takes just one line:
 % unneccessary output messages to the pdf. If geiger used "message" instead of "print",
 % this would not be an issue, since sweave is designed to surpress "messages" if desired.  
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{pmc}\hlkeyword{(}\hlsymbol{geospiza.tree}\hlkeyword{,}{\ }\hlsymbol{geospiza.data}\hlkeyword{[}\hlstring{"{}wingL"{}}\hlkeyword{]}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BM"{}}\hlkeyword{,}{\ }\hlstring{"{}lambda"{}}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
@@ -533,14 +533,14 @@ Subsetting is a good way to get the parameter of interest, lambda, for the compa
 (Note that for comparisons AA and AB, which fit model Brownian motion, there is of course no parameter lambda).
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{lambdas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlsymbol{comparison}{\ }=={\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
@@ -548,13 +548,13 @@ The returned list from pmc also stores the two models it fit to the original dat
 We can use this to extract the value of lambda estimated on model B from the raw data:
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{est}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}B"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}wingL"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}lambda"{}}\hlkeyword{]}\hlkeyword{]}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
@@ -562,25 +562,21 @@ We can use this to extract the value of lambda estimated on model B from the raw
 \begin{figure}
 \begin{center}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{p1}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}{\ }\hlkeyword{+}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{est}\hlkeyword{)}\mbox{}
+\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{est}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p1}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: could not find function "ggplot"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p1}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: object 'p1' not found
-\end{verbatim}
-\end{kframe}}
+
+
+{\centering \includegraphics{Fig1a} 
+
+}
+
+\end{kframe}
 \end{knitrout}
 
 \end{center}
@@ -593,33 +589,22 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \begin{figure}
 \begin{center}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{betas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }==\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\mbox{}
+\hlstd{}{\ }{\ }{\ }{\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}beta"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: object 'bm_v_lambda' not found
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{p2}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{betas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlfunctioncall{sqrt}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }beta{\ }=={\ }sigma\usebox{\hlnormalsizeboxhat}2}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "ggplot"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p2}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: object 'p2' not found
-\end{verbatim}
-\end{kframe}}
+
+
+{\centering \includegraphics{Fig1b} 
+
+}
+
+\end{kframe}
 \end{knitrout}
 
 \end{center}
@@ -630,7 +615,7 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 We can also query the confidence intervals directly from the estimates returned by the pmc function.  Using the lambda value we already extracted, we can get confidence intervals, 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{cast}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }\hlkeyword{\urltilda{}}{\ }\hlsymbol{parameter}\hlkeyword{,}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{x}\hlkeyword{)}{\ }\hlfunctioncall{quantile}\hlkeyword{(}\hlsymbol{x}\hlkeyword{,}\hspace*{\fill}\\
@@ -638,16 +623,15 @@ We can also query the confidence intervals directly from the estimates returned 
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-##   comparison lambda_X5. lambda_X95.
-## 1         BB      1e-07      0.8914
+## Error: could not find function "cast"
 \end{verbatim}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
 Or get the intervals for all parameters at once. Note that the ``comparison'' indicates the model being fit with the first letter, and the model used for the simulations under the second letter. 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{cast}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dist}\hlkeyword{,}{\ }\hlsymbol{comparison}{\ }\hlkeyword{\urltilda{}}{\ }\hlsymbol{parameter}\hlkeyword{,}\hspace*{\fill}\\
@@ -656,18 +640,9 @@ Or get the intervals for all parameters at once. Note that the ``comparison'' in
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-##   comparison beta_X5. beta_X95. k_X5. k_X95. lambda_X5. lambda_X95.
-## 1         AA 0.050629   0.81811     2      2         NA          NA
-## 2         AB 0.030543   0.29036     2      2         NA          NA
-## 3         BA 0.013356   0.09850     3      3      1e-07      0.9733
-## 4         BB 0.009438   0.04731     3      3      1e-07      0.8914
-##   lnl_X5. lnl_X95.  lr_X5. lr_X95. root_X5. root_X95.
-## 1 -7.6841    10.40 -7.6841   10.40    4.107     4.395
-## 2 -0.9532    13.68 -0.9532   13.68    4.166     4.355
-## 3  1.7368    13.74  1.7368   13.74    4.073     4.423
-## 4  6.6146    15.85  6.6146   15.85    4.160     4.367
+## Error: could not find function "cast"
 \end{verbatim}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 This way we can see the interval for lambda estimated when simulating under the brownian motion model (equiv to lambda=1) under the row BA, as well as the confidence interval on the lambda estimate when simulating with the correct model, lambda=0.6. These cross-comparisons can also be useful. We could always use variations of the subset command above to include only certain parameters or comparisons. We can also summarize all this information at once in a traditional box-and-whiskers plot, Fig~\ref{fig:pars}.  We can repeat the analysis with a larger tree, showing the uncertainty in the estimate of lambda decreases, if only slowly, Fig~\ref{fig:onec}.
@@ -675,24 +650,20 @@ This way we can see the interval for lambda estimated when simulating under the 
 \begin{figure}
 \begin{center}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{p3}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot\usebox{\hlnormalsizeboxunderscore}pars}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dists}\hlkeyword{)}\mbox{}
+\hlsymbol{p3}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot\usebox{\hlnormalsizeboxunderscore}pars}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{par\usebox{\hlnormalsizeboxunderscore}dists}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p3}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: could not find function "plot_pars"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p3}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: object 'p3' not found
-\end{verbatim}
-\end{kframe}}
+
+
+{\centering \includegraphics{allpars} 
+
+}
+
+\end{kframe}
 \end{knitrout}
 
 \end{center}
@@ -706,9 +677,8 @@ This way we can see the interval for lambda estimated when simulating under the 
 \setkeys{Gin}{width=0.45\textwidth}
 
 
-
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{require}\hlkeyword{(}\hlsymbol{TreeSim}\hlkeyword{)}\hspace*{\fill}\\
@@ -720,41 +690,30 @@ This way we can see the interval for lambda estimated when simulating under the 
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{20}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
 \begin{figure}
 \begin{center}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{lambdas}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{subset}\hlkeyword{(}\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}par\usebox{\hlnormalsizeboxunderscore}dists"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlsymbol{comparison}{\ }=={\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\mbox{}
+\hlstd{}{\ }{\ }{\ }{\ }\hlsymbol{comparison}{\ }=={\ }\hlstring{"{}BB"{}}{\ }\hlkeyword{\usebox{\hlnormalsizeboxand}}{\ }\hlsymbol{parameter}{\ }=={\ }\hlstring{"{}lambda"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{p4}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}{\ }\hlkeyword{+}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}B"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}wingL"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}lambda"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p4}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: object 'bm_v_lambda' not found
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{p4}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{ggplot}\hlkeyword{(}\hlsymbol{lambdas}\hlkeyword{)}{\ }\hlkeyword{+}{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}histogram}\hlkeyword{(}\hlfunctioncall{aes}\hlkeyword{(}\hlsymbol{value}\hlkeyword{)}\hlkeyword{)}{\ }\hlkeyword{+}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlfunctioncall{geom\usebox{\hlnormalsizeboxunderscore}vline}\hlkeyword{(}\hlargument{xintercept}{\ }\hlargument{=}{\ }\hlsymbol{bm\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}lambda}\hlkeyword{[[}\hlstring{"{}B"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}wingL"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlstring{"{}lambda"{}}\hlkeyword{]}\hlkeyword{]}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "ggplot"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{p4}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: object 'p4' not found
-\end{verbatim}
-\end{kframe}}
+
+
+{\centering \includegraphics{simtree_plot} 
+
+}
+
+\end{kframe}
 \end{knitrout}
 
 \end{center}
@@ -764,7 +723,7 @@ This way we can see the interval for lambda estimated when simulating under the 
 \section{Anoles example}
 Next we consider the examples re-analyzing the Anoles data from~\citep{Butler2004}, using methods from the ouch package.  
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{data}\hlkeyword{(}\hlsymbol{anoles}\hlkeyword{)}\hspace*{\fill}\\
@@ -788,7 +747,7 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{100}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
@@ -797,42 +756,14 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \begin{figure}
 \begin{center}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{a}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v4}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.4"{}}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: 'x' is a list, but does not have components 'x' and 'y'
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{b}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v15}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.15"{}}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: 'x' is a list, but does not have components 'x' and 'y'
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{c}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou1v3}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: 'x' is a list, but does not have components 'x' and 'y'
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{d}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou0v1}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}BM"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: 'x' is a list, but does not have components 'x' and 'y'
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hspace*{\fill}\\
+\hlsymbol{a}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v4}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.4"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{b}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou3v15}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.15"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{c}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou1v3}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{d}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou0v1}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}BM"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{grid.newpage}\hlkeyword{(}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
@@ -856,7 +787,7 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: object 'a' not found
+## Error: could not find function "viewport"
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
@@ -864,7 +795,7 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: object 'b' not found
+## Error: could not find function "viewport"
 \end{verbatim}
 \begin{flushleft}
 \ttfamily\noindent
@@ -880,9 +811,9 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: object 'd' not found
+## Error: could not find function "viewport"
 \end{verbatim}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 \end{center}
@@ -896,7 +827,7 @@ Fits from the ouch methods include a phylogeny in the ouch format.  As many rese
 %require(ape)
 %## Convert is a custom pmc function that toggles between tree formats
 %ou4_tree <- convert(tree, regimes=anoles[["OU.4"]])
-%plot(ou4_tree, edge.color = treepalette(ou4_tree), edge.width=5, cex=1.2, show.tip.label=TRUE)
+%plot(ou4_tree, edge.color = treepalette(ou4_tree), edge.width=5, cex=1.2, show.tip.TRUE)
 %mtext("OU.4 regimes", cex=2)
 %@
 %\end{center}
@@ -908,9 +839,8 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 
 
 
-
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{require}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\hspace*{\fill}\\
@@ -924,7 +854,7 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{50}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
@@ -932,16 +862,19 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 \setkeys{Gin}{width=.5\textwidth}
 \begin{figure}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{eb\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}ou}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: object 'eb_v_ou' not found
-\end{verbatim}
-\end{kframe}}
+
+
+{\centering \includegraphics{earlyburst_fig} 
+
+}
+
+\end{kframe}
 \end{knitrout}
 
 \caption{Early burst models can be very almost impossible to distinguish from OU models when each has been parameterized from the same data.}\label{fig:eb}
@@ -950,20 +883,20 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 \section{Utilities}
 To implement the pmc package over a variety of methods, I have written an abstraction layer for phylogenetic comparative methods. A few of those methods may be useful to others, so I have made them accessible from the package and introduce them here.  Using the simulated tree and data from the early burst example above, we can swap between formats of both the tree and the data at whim, something that might be useful for anyone using both ouch and the other methods.  
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{ouch}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{format\usebox{\hlnormalsizeboxunderscore}data}\hlkeyword{(}\hlsymbol{simtree}\hlkeyword{,}{\ }\hlsymbol{dat}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{ape}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{format\usebox{\hlnormalsizeboxunderscore}data}\hlkeyword{(}\hlsymbol{ouch}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{tree}\hlkeyword{,}{\ }\hlsymbol{ouch}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{dat}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
 This format swapping is handled automatically in pmc's generic function for fitting phylogenetic models.  This function acts as a wrapper around existing methods, allowing the user to call the ouch methods while passing in data in either ouch or geiger format.   
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{A}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{pmc\usebox{\hlnormalsizeboxunderscore}fit}\hlkeyword{(}\hlsymbol{ape}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{tree}\hlkeyword{,}{\ }\hlsymbol{ape}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{data}\hlkeyword{,}{\ }\hlargument{model}{\ }\hlargument{=}{\ }\hlstring{"{}BM"{}}\hlkeyword{)}\mbox{}
@@ -978,12 +911,12 @@ This format swapping is handled automatically in pmc's generic function for fitt
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}{\ }\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{regimes}\hlkeyword{)}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 This function also returns an object of a class that matches the fitting method used.  This means that we can use commands such as:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{sim}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\mbox{}
@@ -1000,7 +933,7 @@ This function also returns an object of a class that matches the fitting method 
 \begin{verbatim}
 ## Error: no applicable method for 'simulate' applied to an object of class "fitContinuous"
 \end{verbatim}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 which automatically recognize the kind of model fit and use that method to perform the simulations and updates. This object-oriented design already exists in ouch, so this simply extends the practice to other methods.  The fitted object stores the traits and phylogeny used to make the fit, as well as the model and fitting options, which can also help the user avoid reproducibility errors of mismatching data, fit options and results.
@@ -1010,7 +943,7 @@ which automatically recognize the kind of model fit and use that method to perfo
 
 A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of Boettiger et al, Evolution. This code illustrates how such an analysis is run with the pmc package.   
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{require}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\hspace*{\fill}\\
@@ -1070,7 +1003,7 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \begin{verbatim}
 ## Library pmc loaded.
 \end{verbatim}
-\end{kframe}}
+\end{kframe}
 \end{knitrout}
 
 
@@ -1079,7 +1012,7 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \begin{figure}
 \begin{center}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{plot\usebox{\hlnormalsizeboxunderscore}size}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlkeyword{)}{\ }\hlkeyword{\usebox{\hlnormalsizeboxopenbrace}}\hspace*{\fill}\\
@@ -1100,9 +1033,11 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \end{flushleft}
 
 
-\centering{}\includegraphics{Fig6a} 
+{\centering \includegraphics{Fig6a} 
 
-\end{kframe}}
+}
+
+\end{kframe}
 \end{knitrout}
 
 \end{center}
@@ -1115,7 +1050,7 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \begin{figure}
 \begin{center}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{.97, .97, .97}{\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
 \hlsymbol{plot\usebox{\hlnormalsizeboxunderscore}shape}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlkeyword{)}{\ }\hlkeyword{\usebox{\hlnormalsizeboxopenbrace}}\hspace*{\fill}\\
@@ -1135,9 +1070,11 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \end{flushleft}
 
 
-\centering{}\includegraphics{Fig6b} 
+{\centering \includegraphics{Fig6b} 
 
-\end{kframe}}
+}
+
+\end{kframe}
 \end{knitrout}
 
 \end{center}

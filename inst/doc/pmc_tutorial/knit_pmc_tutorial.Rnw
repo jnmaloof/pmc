@@ -67,6 +67,8 @@ The first set of examples uses the finches data and geiger functions~\citep{Harm
 library(pmc)
 library(geiger) # for the data
 library(ggplot2) #graphics
+library(reshape2)
+library(grid)
 data(geospiza)
 attach(geospiza)
 @
