@@ -450,6 +450,8 @@ The first set of examples uses the finches data and geiger functions~\citep{Harm
 \hlfunctioncall{library}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{geiger}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }for{\ }the{\ }data}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{ggplot2}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}graphics}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{reshape2}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{grid}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{data}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{attach}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\mbox{}
 \normalfont
@@ -764,55 +766,23 @@ Next we consider the examples re-analyzing the Anoles data from~\citep{Butler200
 \hlstd{}\hlsymbol{c}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou1v3}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.3"{}}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{d}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{plot}\hlkeyword{(}\hlsymbol{ou0v1}\hlkeyword{,}{\ }\hlargument{A}{\ }\hlargument{=}{\ }\hlstring{"{}BM"{}}\hlkeyword{,}{\ }\hlargument{B}{\ }\hlargument{=}{\ }\hlstring{"{}OU.1"{}}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{grid.newpage}\hlkeyword{(}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "grid.newpage"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{pushViewport}\hlkeyword{(}\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout}{\ }\hlargument{=}{\ }\hlfunctioncall{grid.layout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "pushViewport"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{vplayout}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{x}\hlkeyword{,}{\ }\hlformalargs{y}\hlkeyword{)}{\ }\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout.pos.row}{\ }\hlargument{=}{\ }\hlsymbol{x}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{grid.newpage}\hlkeyword{(}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{pushViewport}\hlkeyword{(}\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout}{\ }\hlargument{=}{\ }\hlfunctioncall{grid.layout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{vplayout}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{x}\hlkeyword{,}{\ }\hlformalargs{y}\hlkeyword{)}{\ }\hlfunctioncall{viewport}\hlkeyword{(}\hlargument{layout.pos.row}{\ }\hlargument{=}{\ }\hlsymbol{x}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{layout.pos.col}{\ }\hlargument{=}{\ }\hlsymbol{y}\hlkeyword{)}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{a}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\mbox{}
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{a}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{b}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{c}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{d}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
-\begin{verbatim}
-## Error: could not find function "viewport"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{b}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{1}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "viewport"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{c}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{1}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "viewport"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{print}\hlkeyword{(}\hlsymbol{d}\hlkeyword{,}{\ }\hlargument{vp}{\ }\hlargument{=}{\ }\hlfunctioncall{vplayout}\hlkeyword{(}\hlnumber{2}\hlkeyword{,}{\ }\hlnumber{2}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: could not find function "viewport"
-\end{verbatim}
+
+
+{\centering \includegraphics{plot_anoles} 
+
+}
+
 \end{kframe}
 \end{knitrout}
 
@@ -919,19 +889,12 @@ This function also returns an object of a class that matches the fitting method 
 \definecolor{shadecolor}{rgb}{0.968627450980392, 0.968627450980392, 0.968627450980392}\color{fgcolor}\begin{kframe}
 \begin{flushleft}
 \ttfamily\noindent
-\hlsymbol{sim}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\mbox{}
+\hlsymbol{sim}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{newA}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{update}\hlkeyword{(}\hlsymbol{A}\hlkeyword{,}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: no applicable method for 'simulate' applied to an object of class "fitContinuous"
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlsymbol{newA}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{update}\hlkeyword{(}\hlsymbol{A}\hlkeyword{,}{\ }\hlfunctioncall{simulate}\hlkeyword{(}\hlsymbol{A}\hlkeyword{)}\hlkeyword{)}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## Error: no applicable method for 'simulate' applied to an object of class "fitContinuous"
+## Fitting  BM model:
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
