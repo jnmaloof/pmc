@@ -104,7 +104,7 @@ simulate.fitContinuous <- function(object, nsim=1, seed=NULL, ...){
       tree <- transformTree(object[[i]]) 
     # transform the tree and apply the BM simulation method
       data[,i] <- rTraitCont(tree, model="BM", sigma=sqrt(object[[i]]$beta),
-                              root=object[[i]]$root)
+                              root.value=object[[i]]$root)
     } else if(object[[i]]$model == "white"){ 
       data[,i] <- rnorm(length(data[,i]), mean=mean(object[[i]]$data), sd = sqrt(object[[i]]$beta))
     } else { 
@@ -112,7 +112,7 @@ simulate.fitContinuous <- function(object, nsim=1, seed=NULL, ...){
       data[,i] <- rTraitCont(object[[i]]$tree, model="OU", 
                              sigma=sqrt(object[[i]]$beta),
                              alpha=object[[i]]$alpha, theta=object[[i]]$root, 
-                             root=object[[i]]$root)
+                             root.value=object[[i]]$root)
     }
   }
   # Keep labels for traits and species on data 

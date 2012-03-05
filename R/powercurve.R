@@ -23,7 +23,7 @@ treepower <- function(tree, nboot = 100, cpu = 2, threshold = .95, alpha = seq(0
 
 	## are we in parallel?
 	if(cpu>1){ 	
-		sfInit(parallel=TRUE, cpu=cpu) 
+		sfInit(parallel=TRUE, cpus=cpu) 
 		sfLibrary(pmc)
 		sfExportAll()
 	} else sfInit()

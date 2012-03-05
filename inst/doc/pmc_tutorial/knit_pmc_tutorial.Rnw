@@ -25,7 +25,7 @@
 \newcommand{\ud}{\mathrm{d}}
 
 %% Looks like a comment but it isn't! This is setting the default behavior for the Sweave chunk options, <<options >>= 
-% \SweaveOpts{fig.width=5, fig.height=5, fig.align=center, cache=TRUE, message=FALSE, warning=FALSE}
+% \SweaveOpts{fig.width=5, fig.height=5, fig.align='center', cache=FALSE, message=FALSE, warning=FALSE}
 
 
 
@@ -63,7 +63,7 @@ The development version of the package is available on Github: \href{https://git
 \section{Finches Examples}
 
 The first set of examples uses the finches data and geiger functions~\citep{Harmon2008} to look at uncertainty in parameter estimates using the pmc method.  We start off by loading the required libraries 
-<<label=libraries>>=
+<<libraries>>=
 library(pmc)
 library(geiger) # for the data
 library(ggplot2) #graphics
@@ -73,7 +73,7 @@ attach(geospiza)
 
 
 These next commands are optional, allowing the package to use the specified number of processors, if available.  
-<<label=parallel>>=
+<<parallel>>=
 require(snowfall) # load the parallelization package
 sfInit(parallel=T, cpu=4) # specify how many cpus we have
 sfLibrary(pmc)
@@ -81,7 +81,7 @@ sfLibrary(geiger) # export any libraries we've loaded
 @
 
 Now actually running pmc takes just one line:
-<<label=pmc, echo=FALSE, include=FALSE>>=
+<<pmc, echo=FALSE, include=FALSE>>=
 bm_v_lambda <- pmc(geospiza.tree, geospiza.data["wingL"],
   "BM", "lambda", nboot=100) 
 @
@@ -89,7 +89,7 @@ bm_v_lambda <- pmc(geospiza.tree, geospiza.data["wingL"],
 % the block below displays but doesn't evaluate. This prevents printing all the 
 % unneccessary output messages to the pdf. If geiger used "message" instead of "print",
 % this would not be an issue, since sweave is designed to surpress "messages" if desired.  
-<<label=pmc, eval=FALSE>>=
+<<pmc2, eval=FALSE>>=
   bm_v_lambda <- pmc(geospiza.tree, geospiza.data["wingL"],
   "BM", "lambda", nboot=100) 
 @
@@ -267,7 +267,7 @@ Fits from the ouch methods include a phylogeny in the ouch format.  As many rese
 %require(ape)
 %## Convert is a custom pmc function that toggles between tree formats
 %ou4_tree <- convert(tree, regimes=anoles[["OU.4"]])
-%plot(ou4_tree, edge.color = treepalette(ou4_tree), edge.width=5, cex=1.2, show.tip.label=TRUE)
+%plot(ou4_tree, edge.color = treepalette(ou4_tree), edge.width=5, cex=1.2, show.tip.TRUE)
 %mtext("OU.4 regimes", cex=2)
 %@
 %\end{center}
@@ -337,7 +337,7 @@ which automatically recognize the kind of model fit and use that method to perfo
 \subsection{Power Curves}
 
 A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of Boettiger et al, Evolution. This code illustrates how such an analysis is run with the pmc package.   
-<<label=powercurves>>=
+<<powercurves>>=
 require(pmc)
 require(TreeSim)
 require(ouch)

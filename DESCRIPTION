@@ -1,13 +1,16 @@
 Package: pmc
-Type: Package
-Title: Phylogenetic Monte Carlo
 Version: 0.0-5
+Date: 2012-02-22
+Title: Phylogenetic Monte Carlo
 Author: Carl Boettiger <cboettig@gmail.com>
 Maintainer: Carl Boettiger <cboettig@gmail.com>
 Description: Monte Carlo based model choice for applied phylogenetics of
     continuous traits
 URL: http://www.carlboettiger.info
-License: file LICENSE
+License: CC0
+Authors@R: person("Carl", "Boettiger", role=c("aut", "cre"),
+    email="cboettig@gmail.com")
+Type: Package
 Imports:
     ape,
     geiger,
@@ -19,6 +22,9 @@ Imports:
 Depends:
     ggplot2,
     ouch
+Enhances: ouch,
+    geiger,
+    ape
 Collate:
     'format_data.R'
     'pmc.R'

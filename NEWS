@@ -1,5 +1,10 @@
 ## News
 
+#### v0.0-6
+ * Added error handling for cases when update routine fails
+
+
 #### v0.0-5
 
  * Fixed the "white" method, which was lacking the simulation routine necessary to run
+ * License is now Creative Commons Zero (CC0).  
