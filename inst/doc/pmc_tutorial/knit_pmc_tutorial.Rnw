@@ -25,7 +25,7 @@
 \newcommand{\ud}{\mathrm{d}}
 
 %% Looks like a comment but it isn't! This is setting the default behavior for the Sweave chunk options, <<options >>= 
-% \SweaveOpts{fig.width=5, fig.height=5, fig.align='center', cache=FALSE, message=FALSE, warning=FALSE}
+% \SweaveOpts{fig.width=5, fig.height=5, fig.align='center', message=FALSE, warning=FALSE}
 
 
 
@@ -131,7 +131,7 @@ est <- bm_v_lambda[["B"]][["wingL"]][["lambda"]]
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
 \begin{center}
-<<Fig1a, cache=FALSE>>=
+<<Fig1a>>=
 p1 <- ggplot(lambdas) + geom_histogram(aes(value)) +
       geom_vline(xintercept=est)
 print(p1)
@@ -145,7 +145,7 @@ Note that the ability to estimate lambda is very poor, with most simulations ret
 \setkeys{Gin}{width=0.45\textwidth}
 \begin{figure}
 \begin{center}
-<<Fig1b, cache=FALSE>>=
+<<Fig1b>>=
 betas <- subset(bm_v_lambda[["par_dists"]], comparison=="BB" & parameter=="beta")
 p2 <- ggplot(betas) + geom_histogram(aes(sqrt(value))) # beta == sigma^2
 print(p2)
@@ -171,7 +171,7 @@ This way we can see the interval for lambda estimated when simulating under the 
 \setkeys{Gin}{width=0.85\textwidth}
 \begin{figure}
 \begin{center}
-<<allpars, fig.height=7, fig.width=7, cache=FALSE>>=
+<<allpars, fig.height=7, fig.width=7>>=
 p3 <- plot_pars(bm_v_lambda$par_dists) 
 print(p3)
 @
@@ -204,7 +204,7 @@ bm_v_lambda <- pmc(simtree, simdat, "BM", "lambda", nboot=20)
 
 \begin{figure}
 \begin{center}
-<<simtree_plot, cache=FALSE>>=
+<<simtree_plot>>=
 lambdas <- subset(bm_v_lambda[["par_dists"]], 
            comparison=="BB" & parameter=="lambda")
 p4 <- ggplot(lambdas) + geom_histogram(aes(value)) +
@@ -217,7 +217,7 @@ print(p4)
 
 \section{Anoles example}
 Next we consider the examples re-analyzing the Anoles data from~\citep{Butler2004}, using methods from the ouch package.  
-<<pmc_anoles>>=
+<<pmc_anoles, cache=FALSE>>=
 data(anoles)
 ou3v4 <- pmc(tree, log(anoles["size"]), modelA="hansen", modelB="hansen", 
              optionsA=list(regimes=anoles["OU.LP"], sqrt.alpha=1, sigma=1), 
@@ -280,7 +280,7 @@ Fits from the ouch methods include a phylogeny in the ouch format.  As many rese
 We can also mix and match methods, comparing a fit from geiger with a fit from ouch.  We do so in this example, which shows that it may be very difficult to identify if a given dataset comes from an early burst or a OU model, Fig~\ref{fig:eb}.
 
 
-<<earlyburst, tidy=FALSE, echo=FALSE, include=FALSE>>=
+<<earlyburst, tidy=FALSE, echo=FALSE, include=FALSE, cache=FALSE>>=
 ## Load Libraries ##
 require(pmc)
 require(TreeSim) # to simulate a sample phyologeny
@@ -291,7 +291,7 @@ simtree <- sim.bd.taxa(n=60, numbsim=1, lambda=1, mu=0, frac=1,
 dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.5), sigma=5)
 # Specify the models and the options needed.  
 regimes <- format_data(simtree,dat)$noregimes
-  eb_v_ou <- pmc(simtree, dat, modelA = "EB", modelB = "hansen", 
+eb_v_ou <- pmc(simtree, dat, modelA = "EB", modelB = "hansen", 
     optionsB = list(sqrt.alpha = 1, sigma = 1, regimes = regimes), 
     nboot = 50)
 @
@@ -302,7 +302,7 @@ simtree <- sim.bd.taxa(n=60, numbsim=1, lambda=1, mu=0, frac=1,
                        complete=FALSE, stochsampling=FALSE)[[1]][[1]] 
 dat <- rTraitCont(exponentialchangeTree(simtree, a=-0.5), sigma=5)
 regimes <- format_data(simtree,dat)$noregimes
-  eb_v_ou <- pmc(simtree, dat, modelA = "EB", modelB = "hansen", 
+eb_v_ou <- pmc(simtree, dat, modelA = "EB", modelB = "hansen", 
     optionsB = list(sqrt.alpha = 1, sigma = 1, regimes = regimes), 
     nboot = 50)
 @
@@ -339,7 +339,7 @@ which automatically recognize the kind of model fit and use that method to perfo
 \subsection{Power Curves}
 
 A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of Boettiger et al, Evolution. This code illustrates how such an analysis is run with the pmc package.   
-<<powercurves>>=
+<<powercurves, cache=TRUE>>=
 require(pmc)
 require(TreeSim)
 require(ouch)
@@ -366,7 +366,7 @@ shape <- lapply(1:length(lambda), function(i){
 
 \begin{figure}
 \begin{center}
-<<Fig6a, cache=FALSE>>=
+<<Fig6a>>=
 plot_size <- function(){
     k <- length(n)
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
@@ -389,7 +389,7 @@ plot_size()
 
 \begin{figure}
 \begin{center}
-<<Fig6b, cache=FALSE>>=
+<<Fig6b>>=
 plot_shape <- function(){
   plot(1,1, type='n', xlim=c(min(alpha), max(alpha)), ylim = c(0,1),
   main="Power by tree topology", log="x", xlab="alpha", ylab="power")

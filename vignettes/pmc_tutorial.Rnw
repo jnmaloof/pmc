@@ -450,12 +450,17 @@ The first set of examples uses the finches data and geiger functions~\citep{Harm
 \hlfunctioncall{library}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{geiger}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }for{\ }the{\ }data}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{ggplot2}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}graphics}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{reshape2}\hlkeyword{)}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{reshape}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{grid}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{data}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlfunctioncall{attach}\hlkeyword{(}\hlsymbol{geospiza}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
+\begin{verbatim}
+## The following object(s) are masked from 'geospiza (position 6)':
+## 
+##     geospiza.data, geospiza.tree
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -467,16 +472,8 @@ These next commands are optional, allowing the package to use the specified numb
 \begin{flushleft}
 \ttfamily\noindent
 \hlfunctioncall{require}\hlkeyword{(}\hlsymbol{snowfall}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }load{\ }the{\ }parallelization{\ }package}\hspace*{\fill}\\
-\hlstd{}\hlfunctioncall{sfInit}\hlkeyword{(}\hlargument{parallel}{\ }\hlargument{=}{\ }\hlsymbol{T}\hlkeyword{,}{\ }\hlargument{cpu}{\ }\hlargument{=}{\ }\hlnumber{4}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }specify{\ }how{\ }many{\ }cpus{\ }we{\ }have}\mbox{}
-\normalfont
-\end{flushleft}
-\begin{verbatim}
-## R Version:  R version 2.14.2 (2012-02-29) 
-## 
-\end{verbatim}
-\begin{flushleft}
-\ttfamily\noindent
-\hlfunctioncall{sfLibrary}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\mbox{}
+\hlstd{}\hlfunctioncall{sfInit}\hlkeyword{(}\hlargument{parallel}{\ }\hlargument{=}{\ }\hlsymbol{T}\hlkeyword{,}{\ }\hlargument{cpu}{\ }\hlargument{=}{\ }\hlnumber{4}\hlkeyword{)}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }specify{\ }how{\ }many{\ }cpus{\ }we{\ }have}\hspace*{\fill}\\
+\hlstd{}\hlfunctioncall{sfLibrary}\hlkeyword{(}\hlsymbol{pmc}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
 \begin{verbatim}
@@ -625,7 +622,8 @@ We can also query the confidence intervals directly from the estimates returned 
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: could not find function "cast"
+##   comparison lambda_X5. lambda_X95.
+## 1         BB      1e-07      0.8293
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -642,7 +640,16 @@ Or get the intervals for all parameters at once. Note that the ``comparison'' in
 \normalfont
 \end{flushleft}
 \begin{verbatim}
-## Error: could not find function "cast"
+##   comparison beta_X5. beta_X95. k_X5. k_X95. lambda_X5. lambda_X95.
+## 1         AA 0.060348   0.77469     2      2         NA          NA
+## 2         AB 0.032083   0.36839     2      2         NA          NA
+## 3         BA 0.016860   0.09860     3      3      1e-07      0.9648
+## 4         BB 0.008885   0.04233     3      3      1e-07      0.8293
+##   lnl_X5. lnl_X95. lr_X5. lr_X95. root_X5. root_X95.
+## 1  -7.332    9.258 -7.332   9.258    4.090     4.424
+## 2  -2.500   13.366 -2.500  13.366    4.144     4.339
+## 3   1.819   11.949  1.819  11.949    4.078     4.444
+## 4   5.931   15.760  5.931  15.760    4.137     4.369
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -819,7 +826,7 @@ We can also mix and match methods, comparing a fit from geiger with a fit from o
 \hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\hlargument{complete}\hlargument{=}\hlnumber{FALSE}\hlkeyword{,}{\ }\hlargument{stochsampling}\hlargument{=}\hlnumber{FALSE}\hlkeyword{)}\hlkeyword{[[}\hlnumber{1}\hlkeyword{]}\hlkeyword{]}\hlkeyword{[[}\hlnumber{1}\hlkeyword{]}\hlkeyword{]}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{dat}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{rTraitCont}\hlkeyword{(}\hlfunctioncall{exponentialchangeTree}\hlkeyword{(}\hlsymbol{simtree}\hlkeyword{,}{\ }\hlargument{a}\hlargument{=}\hlkeyword{-}\hlnumber{0.5}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{sigma}\hlargument{=}\hlnumber{5}\hlkeyword{)}\hspace*{\fill}\\
 \hlstd{}\hlsymbol{regimes}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{format\usebox{\hlnormalsizeboxunderscore}data}\hlkeyword{(}\hlsymbol{simtree}\hlkeyword{,}\hlsymbol{dat}\hlkeyword{)}\hlkeyword{\usebox{\hlnormalsizeboxdollar}}\hlsymbol{noregimes}\hspace*{\fill}\\
-\hlstd{}{\ }{\ }\hlsymbol{eb\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}ou}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{pmc}\hlkeyword{(}\hlsymbol{simtree}\hlkeyword{,}{\ }\hlsymbol{dat}\hlkeyword{,}{\ }\hlargument{modelA}{\ }\hlargument{=}{\ }\hlstring{"{}EB"{}}\hlkeyword{,}{\ }\hlargument{modelB}{\ }\hlargument{=}{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}\hlsymbol{eb\usebox{\hlnormalsizeboxunderscore}v\usebox{\hlnormalsizeboxunderscore}ou}{\ }\hlassignement{\usebox{\hlnormalsizeboxlessthan}-}{\ }\hlfunctioncall{pmc}\hlkeyword{(}\hlsymbol{simtree}\hlkeyword{,}{\ }\hlsymbol{dat}\hlkeyword{,}{\ }\hlargument{modelA}{\ }\hlargument{=}{\ }\hlstring{"{}EB"{}}\hlkeyword{,}{\ }\hlargument{modelB}{\ }\hlargument{=}{\ }\hlstring{"{}hansen"{}}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{optionsB}{\ }\hlargument{=}{\ }\hlfunctioncall{list}\hlkeyword{(}\hlargument{sqrt.alpha}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}{\ }\hlargument{sigma}{\ }\hlargument{=}{\ }\hlnumber{1}\hlkeyword{,}{\ }\hlargument{regimes}{\ }\hlargument{=}{\ }\hlsymbol{regimes}\hlkeyword{)}\hlkeyword{,}\hspace*{\fill}\\
 \hlstd{}{\ }{\ }{\ }{\ }\hlargument{nboot}{\ }\hlargument{=}{\ }\hlnumber{50}\hlkeyword{)}\mbox{}
 \normalfont
@@ -926,6 +933,10 @@ A seperate function, \texttt{treepower}, creates the power curves in Figure 6 of
 \hlstd{}\hlkeyword{\usebox{\hlnormalsizeboxclosebrace}}\hlkeyword{)}\mbox{}
 \normalfont
 \end{flushleft}
+\begin{verbatim}
+## R Version:  R version 2.14.2 (2012-02-29) 
+## 
+\end{verbatim}
 \begin{verbatim}
 ## Library pmc loaded.
 \end{verbatim}

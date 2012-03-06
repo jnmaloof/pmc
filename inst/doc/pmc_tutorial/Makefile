@@ -11,10 +11,10 @@ RPROG=	$(R_HOME)/bin/R
 RSCRIPT=$(R_HOME)/bin/Rscript
 
 knit:
-	$(RSCRIPT) --vanilla -e ".libPaths(c('~/R', .libPaths())); require(knitr); knit( 'knit_pmc_tutorial.Rnw', 'pmc_tutorial.Rnw');"
+	$(RSCRIPT) -e ".libPaths(c('~/R', .libPaths())); require(knitr); knit( 'knit_pmc_tutorial.Rnw', 'pmc_tutorial.Rnw');"
 	$(RPROG) CMD Sweave pmc_tutorial.Rnw 
 	pdflatex pmc_tutorial.tex
-#	bibtool -s -d -x pmc_tutorial.aux ~/Documents/Mendeley/bib/library.bib > pmc_tutorial.bib
+	bibtool -s -d -x pmc_tutorial.aux ~/Documents/Mendeley/bib/library.bib > pmc_tutorial.bib
 	bibtex pmc_tutorial 
 	pdflatex pmc_tutorial.tex
 	pdflatex pmc_tutorial.tex
