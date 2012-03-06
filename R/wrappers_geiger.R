@@ -89,8 +89,8 @@ update.fitContinuous <- function(object, ...){
 # These next lines would generate the the S3 method line for the NAMESPACE,
 # but this causes a conflict with the S4 method so it has been removed.  
 # instead we export this function
-# @method simulate fitContinuous
-# @S3method simulate fitContinuous
+#' @method simulate fitContinuous
+#' @S3method simulate fitContinuous
 #' @details intended as an internal function, though an available S3 method
 #' @import ape
 # properly speaking we don't want to export this, but it solves the s4 conflict

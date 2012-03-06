@@ -2,8 +2,8 @@
 \alias{simulate.fitContinuous}
 \title{simulate method}
 \usage{
-  simulate.fitContinuous(object, nsim = 1, seed = NULL,
-    ...)
+  \method{simulate}{fitContinuous} (object, nsim = 1,
+    seed = NULL, ...)
 }
 \arguments{
   \item{object}{a fitContinuous object}
