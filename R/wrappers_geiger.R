@@ -103,8 +103,12 @@ simulate.fitContinuous <- function(object, nsim=1, seed=NULL, ...){
     if(object[[i]]$model != "OU"){
       tree <- transformTree(object[[i]]) 
     # transform the tree and apply the BM simulation method
-      data[,i] <- rTraitCont(tree, model="BM", sigma=sqrt(object[[i]]$beta),
+      sim <- rTraitCont(tree, model="BM", sigma=sqrt(object[[i]]$beta),
                               root.value=object[[i]]$root)
+      # Make sure the simulation species names are in the order given by the data
+      # (rTraitCont gives them in the order given in the tree, which need not match!)
+      # Thanks to Jason Weir for catching this.  
+      data[, i] <- sim[match(rownames(data), names(sim))]
     } else if(object[[i]]$model == "white"){ 
       data[,i] <- rnorm(length(data[,i]), mean=mean(object[[i]]$data), sd = sqrt(object[[i]]$beta))
     } else { 
