@@ -147,8 +147,22 @@ matchformats <- function(A, B, sim){
     sim_for_updating_B <- sim$rep.1
   }
   # The cross-comparison needs to check the data-formats match
-  if(is(A, "ouchtree") & !is(B, "ouchtree") |
-      (!is(A, "ouchtree") & is(B, "ouchtree"))){
+  if(is(A, "ouchtree") & !is(B, "ouchtree")){
+    data <- format_data(get_phy(A), sim_for_updating_A)$data
+
+    ## We just don't want data frame outputs to pass to geiger
+    if(is(data, "data.frame"))
+      data <- data[[1]] # we want numeric data
+    names(data) <- tree@nodelabels
+    tmp <- na.exclude(data)
+    tmp2 <- as.numeric(tmp)
+    names(tmp2) <- names(tmp)
+    data <- tmp2
+
+    sim_for_updating_B <- data
+  }
+  # The cross-comparison needs to check the data-formats match
+  if(!is(A, "ouchtree") & is(B, "ouchtree")){
     sim_for_updating_B <- format_data(get_phy(A),
                                       sim_for_updating_A)$data
   }
@@ -231,8 +245,13 @@ pmc_fit <- function(tree, data, model, options=list()){
     # first, check data formats
     if(is(tree, "ouchtree")){
       # assumes data is same order as nodelabels
+      if(is(data, "data.frame"))
+        data <- data[[1]] # we want numeric data
       names(data) <- tree@nodelabels
-      data <- data[data!=NA]
+      tmp <- na.exclude(data)
+      tmp2 <- as.numeric(tmp)
+      names(tmp2) <- names(tmp)
+      data <- tmp2
       tree <- convert(tree)
     }
     args <- c(list(tree=tree, data=data, model=model), options) 
