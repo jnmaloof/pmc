@@ -1,3 +1,18 @@
+## Phylogenetic Monte Carlo
+
+* Author: Carl Boettiger
+* License: [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+This package accompanies my publication, with Graham Coop & Peter Ralph (2012) **Is your phylogeny 
+Informative? Measuring the power of comparative methods**. In *Evolution*.
+([doi](http://dx.doi.org/10.1111/j.1558-5646.2012.01574.x)) 
+([pdf](http://www.mendeley.com/download/public/98752/4485545653/9a209c7dd29980fd2e47c06eb8b2d1d7dd6f70d4/dl.pdf))
+([arXiv](http://arxiv.org/abs/1110.4944))
+([code](https://github.com/cboettig/pmc))
+([data](http://datadryad.org/handle/10255/dryad.37645))
+
+
+
 ## Install
 
 The easiest way to install the current release is through the CRAN repository, 
