@@ -148,17 +148,20 @@ matchformats <- function(A, B, sim){
   }
   # The cross-comparison needs to check the data-formats match
   if(is(A, "ouchtree") & !is(B, "ouchtree")){
-    data <- format_data(get_phy(A), sim_for_updating_A)$data
+    ## this gets data into geiger format
+    apeformatted <- format_data(get_phy(A), sim_for_updating_A)
+    data <-apeformatted$data
 
     ## We just don't want data frame outputs to pass to geiger
-    if(is(data, "data.frame"))
-      data <- data[[1]] # we want numeric data
-    names(data) <- tree@nodelabels
-    tmp <- na.exclude(data)
-    tmp2 <- as.numeric(tmp)
-    names(tmp2) <- names(tmp)
-    data <- tmp2
-
+    if(is(data, "data.frame")){
+      tmp <- data[[1]] # we want numeric data
+      names(tmp) <- rownames(data)
+      data <- tmp
+#    tmp <- na.exclude(data)
+#    tmp2 <- as.numeric(tmp)
+#    names(tmp2) <- names(tmp)
+#    data <- tmp2
+    }
     sim_for_updating_B <- data
   }
   # The cross-comparison needs to check the data-formats match
